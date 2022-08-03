@@ -1,5 +1,5 @@
 ---
-title: "EDS 123: Optional MEDS Template"
+title: "EDS 223: Geospatial Analysis and Remote Sensing"
 description: "A minimal website skeleton and theme for MEDS course with distill (by RStudio)"
 site: distill::distill_website
 ---
