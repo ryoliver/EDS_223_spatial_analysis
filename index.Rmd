@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-```{r, out.width = "100%", fig.cap = "Update this image by dropping your new image into the img folder of the project, then open the index.Rmd & change the path to point to the new image. Image: Mississippi River south of Memphis, TN, from USGS shared on Unsplash (https://unsplash.com/photos/35Z2ylLRCO8)."}
+```{r, out.width = "100%", fig.cap = "Image: Mississippi River south of Memphis, TN, from USGS shared on Unsplash (https://unsplash.com/photos/35Z2ylLRCO8)."}
 
 # UPDATE IMAGE HERE 
 # or copy/paste this code elsewhere, updating the file path, to add other images to your site!
@@ -43,7 +43,7 @@ Welcome!
 
 -   Link to full course syllabus (here is the [MEDS optional syllabus template](https://docs.google.com/document/d/1b2CElvwKk-haEA1axY5KvTEBbiSPUf7dIRUNX7gCI6w/edit?usp=sharing))
 
--   Link to Code of Conduct (Bren / UCSB)
+-   [Code of Conduct](https://www.sa.ucsb.edu/regulations/student-conduct-code/student-conduct-code)
 
 -   Link to course GitHub Classroom, other essential resources
 
@@ -52,14 +52,6 @@ Welcome!
 -   **Lectures:** Monday 9:30am - 10:45am (NCEAS)
 -   **Labs:** Wednesday 9:30am - 10:45am (NCEAS)
 
-## Learning objectives
-
-Condimentum id venenatis a condimentum. Ultricies mi quis hendrerit dolor magna eget est. Turpis egestas maecenas pharetra convallis. Sem nulla pharetra diam sit amet. Diam volutpat commodo sed egestas egestas fringilla. Mauris in aliquam sem fringilla ut morbi tincidunt augue interdum. Ornare massa eget egestas purus viverra accumsan in.
-
--   Vulputate eu scelerisque felis imperdiet proin.
--   Euismod nisi porta lorem mollis aliquam.
--   Urna molestie at elementum eu facilisis sed odio morbi quis.
--   Convallis a cras semper auctor neque. Semper quis lectus nulla at volutpat diam ut venenatis tellus.
 
 ## Course requirements
 
@@ -67,20 +59,12 @@ Condimentum id venenatis a condimentum. Ultricies mi quis hendrerit dolor magna 
 
 -   [Minimum MEDS device requirements](https://ucsb-meds.github.io/computer_reqs.html)
 
--   R version 4.0.2 (or higher)
+-   R version 4.2.0 (or higher)
 
--   RStudio version 1.4.1103 (or higher)
+-   RStudio version 2022.07.01 (or higher)
 
 -   GitHub account
 
-### Textbook
-
--   Required textbook / information
-
-### Other requirements
-
--   Anything else
--   Important for students to know
 
 ## Tentative topics
 
