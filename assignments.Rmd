@@ -2,20 +2,18 @@
 title: "Assignments"
 ---
 
-<p style="color: #ba5e00"><b>TO UPDATE THIS PAGE:</b> Open and edit the <b>assignments.Rmd</b> file, in the project root, to delete this placeholder text and customize with your own!</p>
 
-### Assignment materials and dates
+### Assignment schedule
 
-| Assignment materials | Assigned   | Due date   |
+| Assignment # | Assigned   | Due date   |
 |----------------------|------------|------------|
-| A link to the repo   | 2021-01-01 | 2021-01-08 |
-| A link to the repo   | 2021-01-15 | 2021-01-23 |
-| A link to the repo   | 2021-02-01 | 2021-02-09 |
-| A link to the repo   | 2021-02-14 | 2021-02-23 |
+| 1   | 2022-09-28 | 2022-10-05 |
+| 2   | 2022-10-12 | 2022-10-19 |
+| 3   | 2022-11-09 | 2022-11-16 |
+| 4   | 2022-11-23 | 2022-11-23 |
 
 ### Assignment expectations and grading
 
-- This might also go on the home page & in syllabus
-- Or could reinforce here
+The rubric for each assignment will be provided when it is assigned so you know what to prioritize. You make work with up to 3 classmates, but must list your collaborators’ names on your assignment. All assignment dates will be posted in advance. No late assignments will be accepted. If extenuating circumstances arise and are communicated, late assignments will receive 10% deduction per day, up to a maximum of 3 days.  
 
 ### 

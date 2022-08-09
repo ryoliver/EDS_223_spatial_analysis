@@ -55,8 +55,6 @@ Welcome!
 
 ## Course requirements
 
-### Computing
-
 -   [Minimum MEDS device requirements](https://ucsb-meds.github.io/computer_reqs.html)
 
 -   R version 4.2.0 (or higher)
