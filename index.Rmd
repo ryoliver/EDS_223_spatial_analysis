@@ -1,5 +1,5 @@
 ---
-title: "EDS 223: Geospatial Analysis and Remote Sensing"
+title: "Geospatial Analysis & Remote Sensing"
 description: "Master's of Environmental Data Science, UC Santa Barbara"
 site: distill::distill_website
 ---
@@ -33,7 +33,7 @@ Welcome!
 **Instructor:** Ruth Oliver (rutholiver\@bren.ucsb.edu)
 
 -   **Office:** Bren Hall 4512
--   **Office hours:** TBD
+-   **Office hours:** Monday 11-12pm PT (NCEAS)
 
 **Teaching assistant:** Alberto Garcia (agarcia\@bren.ucsb.edu)
 
@@ -41,16 +41,14 @@ Welcome!
 
 ## Important links
 
--   Link to full course syllabus (here is the [MEDS optional syllabus template](https://docs.google.com/document/d/1b2CElvwKk-haEA1axY5KvTEBbiSPUf7dIRUNX7gCI6w/edit?usp=sharing))
+-   [Course syllabus](https://docs.google.com/document/d/1ROLyloNe9dJonNkBEGaAbJ5l1NPUFu_7YRiQHBXwBNs/edit?usp=sharing)
 
 -   [Code of Conduct](https://www.sa.ucsb.edu/regulations/student-conduct-code/student-conduct-code)
 
--   Link to course GitHub Classroom, other essential resources
 
 ## Weekly course schedule
 
--   **Lectures:** Monday 9:30am - 10:45am (NCEAS)
--   **Labs:** Wednesday 9:30am - 10:45am (NCEAS)
+-   Monday/Wednesday 9:30am - 10:45am (NCEAS)
 
 
 ## Course requirements
@@ -68,13 +66,13 @@ Welcome!
 
 | Week | Lecture topics | Lab topics |
 |------|----------------|------------|
-| 1    | Topics         | Topics     |
-| 2    | Topics         | Topics     |
-| 3    | Topics         | Topics     |
-| 4    | Topics         | Topics     |
-| 5    | Topics         | Topics     |
-| 6    | Topics         | Topics     |
-| 7    | Topics         | Topics     |
-| 8    | Topics         | Topics     |
-| 9    | Topics         | Topics     |
-| 10   | Topics         | Topics     |
+| 1    | Course overview & intro to spatial analysis| CRS, map making     |
+| 2    | Spatial data models & intro to vector data| 'sf', attribute data operations|
+| 3    | Vector operations | vector spatial & geometry operations|
+| 4    | Spatial data science expert panel| review|
+| 5    | Intro to raster data| 'terra', raster spatial operations|
+| 6    | Intro to RS & EM radiation| no class |
+| 7    | RS data collection | explatory analysis     |
+| 8    | Hyper-spectral expert panel         | raster geometry operations     |
+| 9    | Passive RS analysis          | band math, PCA     |
+| 10   | Active RS & advanced analysis        | spatial stats basic     |
