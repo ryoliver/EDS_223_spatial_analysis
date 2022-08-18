@@ -7,10 +7,10 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-#    - text: "Topics"
-#      menu:
-#        - text: "Topic 1: Add a new site page"
-#          href: topic_1.html
+    - text: "Topics"
+      menu:
+         - text: "week 1: intro to spatial data"
+           href: topic_1.html
 #        - text: "Topic 2: Update site title & subtitle"
 #          href: topic_2.html
 #        - text: "Topic 3: Add images"
