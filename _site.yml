@@ -1,7 +1,7 @@
-name: "meds-distill-template"
+name: "eds223-spatial-analysis"
 title: "EDS 223"
 description: |
-  MEDS Courses distill template
+  EDS 223 Course website
 output_dir: "docs"
 navbar:
   right:

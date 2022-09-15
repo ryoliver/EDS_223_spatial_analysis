@@ -77,4 +77,4 @@ Welcome!
 | **7** (11/7)  | RS data collection | displaying multi-band data |
 | **8** (11/14) | RS expert panel| raster geometry operations, raster-vector interactions|
 | **9** (11/21) | Multispectral RS analysis| band math, PCA     |
-| 1**0** (11/28) | Active RS & advanced analysis| spatial stats basic     |
+| **10** (11/28) | Active RS & advanced analysis| spatial stats basic     |
