@@ -33,11 +33,13 @@ Welcome!
 **Instructor:** Ruth Oliver (rutholiver\@bren.ucsb.edu)
 
 -   **Office:** Bren Hall 4512
--   **Office hours:** Monday 11-12pm PT (NCEAS)
+-   **Student hours:** Wednesday 11-12pm PT (NCEAS Sequoia Room 105)
+-   **The best way to contact me is:** email
 
-**Teaching assistant:** Alberto Garcia (agarcia\@bren.ucsb.edu)
+**Teaching assistant:** Albert Garcia (agarcia\@bren.ucsb.edu)
 
--   **Office hours:** TBD
+-   **Student hours:** Wednesday 3:30-4:30pm PT (NCEAS Sequoia Room 105)
+-   **The best way to contact me is:** email
 
 ## Important links
 
@@ -66,13 +68,13 @@ Welcome!
 
 | Week | Lecture topics | Lab topics |
 |------|----------------|------------|
-| 1    | Course overview & intro to spatial analysis| CRS, map making     |
-| 2    | Spatial data models & intro to vector data| 'sf', attribute data operations|
-| 3    | Vector operations | vector spatial & geometry operations|
-| 4    | Spatial data science expert panel| review|
-| 5    | Intro to raster data| 'terra', raster spatial operations|
-| 6    | Intro to RS & EM radiation| no class |
-| 7    | RS data collection | explatory analysis     |
-| 8    | Hyper-spectral expert panel         | raster geometry operations     |
-| 9    | Passive RS analysis          | band math, PCA     |
-| 10   | Active RS & advanced analysis        | spatial stats basic     |
+| **1** (9/26) | Course overview & intro to spatial data models| coordinate reference systems, map making basics|
+| **2** (10/23) | Spatial data models & intro to vector data| 'sf', attribute data operations|
+| **3** (10/10) | Vector operations | vector spatial & geometry operations|
+| **4** (10/17) | Spatial data science expert panel| review|
+| **5** (10/24) | Intro to raster data| 'terra', raster spatial operations|
+| **6** (10/31) | Intro to RS & EM radiation| no class|
+| **7** (11/7)  | RS data collection | displaying multi-band data |
+| **8** (11/14) | RS expert panel| raster geometry operations, raster-vector interactions|
+| **9** (11/21) | Multispectral RS analysis| band math, PCA     |
+| 1**0** (11/28) | Active RS & advanced analysis| spatial stats basic     |

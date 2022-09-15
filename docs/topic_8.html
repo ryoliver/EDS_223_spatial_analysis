@@ -785,6 +785,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -1857,15 +1858,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        if ($(this).children()[0].nodeName == "D-FOOTNOTE") {
-          var fn = $(this).children()[0]
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
           $(this).html(fn.shadowRoot.querySelector("sup"))
           $(this).id = fn.id
           fn.remove()
         }
         var refs = $(this).attr('data-cites').split(" ");
         var refHtml = refs.map(function(ref) {
-          return "<p>" + $('#ref-' + ref).html() + "</p>";
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
         }).join("\n");
         window.tippy(this, {
           allowHTML: true,
@@ -2473,7 +2480,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2538,20 +2545,13 @@ Topics
 
 <div class="d-article">
 <p style="color: #ba5e00">
-<b>TO UPDATE THIS PAGE:</b> Open and edit the <b>topic_8.Rmd</b> file,
-in the project root, to delete this placeholder text and customize with
-your own!
+<b>TO UPDATE THIS PAGE:</b> Open and edit the <b>topic_8.Rmd</b> file, in the project root, to delete this placeholder text and customize with your own!
 </p>
-<p>If you look at this template, you’ll notice that some navigation bar
-items go directly to a single page, while the Modules item takes you to
-a dropdown menu.</p>
+<p>If you look at this template, you’ll notice that some navigation bar items go directly to a single page, while the Modules item takes you to a dropdown menu.</p>
 <p>To create a dropdown menu of pages:</p>
 <ol type="1">
-<li><p>Create and save the pages as individual R Markdown documents as
-described <a href="module_1.html">here</a>.</p></li>
-<li><p>Open the <code>_site.yml</code> file. In the <code>navbar</code>
-section, create a menu with the pages as linked items using a structure
-like this:</p></li>
+<li><p>Create and save the pages as individual R Markdown documents as described <a href="module_1.html">here</a>.</p></li>
+<li><p>Open the <code>_site.yml</code> file. In the <code>navbar</code> section, create a menu with the pages as linked items using a structure like this:</p></li>
 </ol>
 <pre><code>   - text: &quot;Dropdown menu&quot;
       menu:
@@ -2559,13 +2559,8 @@ like this:</p></li>
           href: item_1.html
         - text: &quot;Second dropdown item&quot;
           href: item_2.html</code></pre>
-<p>The example above would only work if the new pages were created as
-<code>item_1.Rmd</code> and <code>item_2.Rmd</code>, so that when the
-site is built the rendered <code>item_1.html</code> and
-<code>item_2.html</code> files exist in the <code>docs</code> output
-directory.</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<p>The example above would only work if the new pages were created as <code>item_1.Rmd</code> and <code>item_2.Rmd</code>, so that when the site is built the rendered <code>item_1.html</code> and <code>item_2.html</code> files exist in the <code>docs</code> output directory.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
