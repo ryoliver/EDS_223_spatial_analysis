@@ -43,7 +43,7 @@ Welcome!
 
 ## Important links
 
--   [Course syllabus](https://docs.google.com/document/d/1ROLyloNe9dJonNkBEGaAbJ5l1NPUFu_7YRiQHBXwBNs/edit?usp=sharing)
+-   [Course syllabus](syllabus.pdf)
 
 -   [Code of Conduct](https://www.sa.ucsb.edu/regulations/student-conduct-code/student-conduct-code)
 
