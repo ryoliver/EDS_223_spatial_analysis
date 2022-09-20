@@ -9,7 +9,7 @@ navbar:
       href: index.html
     - text: "Topics"
       menu:
-         - text: "week 1: intro to spatial data"
+         - text: "week 1"
            href: topic_1.html
 #        - text: "Topic 2: Update site title & subtitle"
 #          href: topic_2.html
