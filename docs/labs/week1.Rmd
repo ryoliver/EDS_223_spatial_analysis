@@ -1,0 +1,81 @@
+---
+title: "EDS 223: week 1 lab template"
+output: html_document
+date: "2022-09-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Prerequisites
+
+```{r install, include=TRUE, echo=FALSE, eval=FALSE}
+install.packages('sf')
+install.packages('raster')
+install.packages('dplyr')
+install.packages('spData')
+install.packages('tmap')
+install.packages('leaflet')
+install.packages('ggplot2')
+```
+
+
+```{r load, include=TRUE, message=FALSE, warning=FALSE}
+library(sf)
+library(raster)
+library(dplyr)
+library(spData)
+library(spDataLarge)
+library(tmap)
+```
+
+## tmap basics
+
+Add fill layer to New Zealand shape
+```{r include=TRUE}
+tm_shape(nz) +
+  tm_fill()
+```
+Add just borders
+```{r include=TRUE}
+tm_shape(nz) +
+  tm_borders()
+```
+
+Add fill and border layers
+```{r include=TRUE}
+tm_shape(nz) +
+  tm_fill() +
+  tm_borders()
+```
+
+## map objects
+
+-   **tmap** can store maps as *objects*  
+-   this means that we store a base map and add additional layers later
+```{r include = TRUE}
+map_nz <- tm_shape(nz) +
+  tm_polygons()
+class(map_nz)
+```
+
+-   we can add new shapes on top of the base map
+-   when we add a new shape, all subsequent aesthetic functions refer to it, until we add a new shape
+-   in this case, we're adding a layer with information on elevation
+-   we modify this layer to have 70% transparency
+```{r include = TRUE}
+map_nz1 <- map_nz +
+  tm_shape(nz_elev) +
+  tm_raster(alpha = 0.7)
+
+map_nz1 
+```
+```{r include = TRUE}
+map_nz2 <- map_nz1 +
+  tm_shape(nz_height) +
+  tm_dots()
+
+map_nz2
+```
+
