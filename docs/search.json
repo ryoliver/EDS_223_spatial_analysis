@@ -5,7 +5,7 @@
       "title": "Assignments",
       "author": [],
       "contents": "\n\nContents\nAssignment schedule\nAssignment expectations and grading\nGrading rubric\n\nAll assignments will be posted, submitted, and graded through GitHub Classrooms.\nAssignment schedule\nAssignment #\nAssigned\nDue date\n1\n2022-09-28\n2022-10-08\n2\n2022-10-12\n2022-10-22\n3\n2022-10-26\n2022-11-12\n4\n2022-11-16\n2022-12-03\nAssignment expectations and grading\nThe rubric for each assignment will be provided when it is assigned so you know what to prioritize. You make work with up to 2 classmates, but must list your collaborators’ names on your assignment. You are encouraged to collaborate on code, but must respond to conceptual questions individually. All assignment dates will be posted in advance. Late assignments will receive 10% deduction per day, up to a maximum of 3 days. You may request a 48-hour extension if extenuating circumstances arise.\nGrading rubric\nEach assignment will provide specific details of the point breakdowns per question. However, we will follow the general rubric below for all assignments.\nCode must run\nA 50% deduction will be taken if code does not run\nFull credit will be given to sub-questions that were completed correctly\nFollow the spirit (not the letter) of the question\nFor questions that ask for aesthetic updates (i.e. changing legend titles), simply providing ANY modification is not sufficient\nA 50% deduction will be taken for answers that do not improve legibility\nAnswer for yourself\nAlthough you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions\nAll members of your group will lose full credit for non-code based questions that are copy/pasted among group members.\n\n\n\n",
-      "last_modified": "2022-09-22T12:31:46-07:00"
+      "last_modified": "2022-09-22T12:34:25-07:00"
     },
     {
       "path": "index.html",
@@ -13,21 +13,21 @@
       "description": "Master's of Environmental Data Science, UC Santa Barbara",
       "author": [],
       "contents": "\n\nContents\nWelcome to EDS 223\nTeaching team\nImportant links\nWeekly course schedule\nCourse requirements\nTentative topics\n\n\n\n\nFigure 1: Image: Mississippi River south of Memphis, TN, from USGS shared on Unsplash (https://unsplash.com/photos/35Z2ylLRCO8).\n\n\n\nWelcome to EDS 223\nThis course introduces the spatial modeling and analytic techniques of geographic information science to data science students. The emphasis is on deep understanding of spatial data models and the analytic operations they enable. Recognizing remotely sensed data as a key data type within environmental data science, this course will also introduce fundamental concepts and applications of remote sensing. In addition to this theoretical background, students will become familiar with libraries, packages, and APIs that support spatial analysis in R.\nWelcome!\nTeaching team\nInstructor: Ruth Oliver (rutholiver@bren.ucsb.edu)\nOffice: Bren Hall 4512\nStudent hours: Wednesday 11-12pm PT (NCEAS Sequoia Room 105)\nThe best way to contact me is: email\nTeaching assistant: Albert Garcia (agarcia@bren.ucsb.edu)\nStudent hours: Wednesday 3:30-4:30pm PT (NCEAS Sequoia Room 105)\nThe best way to contact me is: email\nImportant links\nCourse syllabus\nCode of Conduct\nWeekly course schedule\nMonday/Wednesday 9:30am - 10:45am (NCEAS)\nCourse requirements\nMinimum MEDS device requirements\nR version 4.2.0 (or higher)\nRStudio version 2022.07.01 (or higher)\nGitHub account\nTentative topics\nWeek\nLecture topics\nLab topics\n1 (9/26)\nCourse overview & intro to spatial data models\ncoordinate reference systems, map making basics\n2 (10/23)\nSpatial data models & intro to vector data\n‘sf’, attribute data operations\n3 (10/10)\nVector operations\nvector spatial & geometry operations\n4 (10/17)\nSpatial data science expert panel\nreview\n5 (10/24)\nIntro to raster data\n‘terra’, raster spatial operations\n6 (10/31)\nIntro to RS & EM radiation\nno class\n7 (11/7)\nRS data collection\ndisplaying multi-band data\n8 (11/14)\nRS expert panel\nraster geometry operations, raster-vector interactions\n9 (11/21)\nMultispectral RS analysis\nband math, PCA\n10 (11/28)\nActive RS & advanced analysis\nspatial stats basic\n\n\n\n",
-      "last_modified": "2022-09-22T12:31:47-07:00"
+      "last_modified": "2022-09-22T12:34:26-07:00"
     },
     {
       "path": "resources.html",
       "title": "Course resources",
       "author": [],
-      "contents": "\n\nContents\nReadings\nMisc.\n\nReadings\nGeocompuation with R\nSpatial Data Science with applications in R\nA Gentle Introduction to GIS\nMisc.\nTidyverse style guide\n\n\n\n",
-      "last_modified": "2022-09-22T12:31:47-07:00"
+      "contents": "\n\nContents\nReadings\nMisc.\n\nReadings\nGeocompuation with R\nSpatial Data Science with applications in R\nA Gentle Introduction to GIS\nMisc.\nTidyverse style guide\nColor generator\n\n\n\n",
+      "last_modified": "2022-09-22T12:34:26-07:00"
     },
     {
       "path": "topics.html",
       "title": "Topics",
       "author": [],
       "contents": "\n\nContents\nWeek 1: Intro to spatial data\nLecture\nClass materials\nBackground reading\nAdditional resources\n\nLab\nClass materials\nBackground reading\nAdditional resources\n\nAssignments\n\n\nWeek 1: Intro to spatial data\nLecture\nClass materials\nLecture slides to be posted prior to class\n\nBackground reading\nSpatial Data Science, chapter 2\nA Gentle Introduction to GIS, chapter 8\nEsri, Geographic vs. projected coordinate systems\nAdditional resources\nJohn Snow: A Legacy of Disease Detectives (CDC)\nHow the north ended up on top of the map (Al Jazeera)\nWhy maps point North on top? (Geospatial World)\nWhy all world maps are wrong (Vox)\nThe true size of…\nCompare map projections (Metrocosm)\nGuide to map projections (Axis Maps)\nLab\nClass materials\nCompleted lab document to posted after class\n\n\nBackground reading\nGeocomputation with R, chapter 9\nAdditional resources\ntmap overview\nGuide to common errors in map production (Journal of maps)\nAssignments\nAssignment 1 posted on 9-28, due by midnight 10-08\n\n\n\n",
-      "last_modified": "2022-09-22T12:31:48-07:00"
+      "last_modified": "2022-09-22T12:34:27-07:00"
     }
   ],
   "collections": []
