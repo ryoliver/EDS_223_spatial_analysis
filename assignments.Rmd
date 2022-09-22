@@ -16,3 +16,19 @@ All assignments will be posted, submitted, and graded through GitHub Classrooms.
 ### Assignment expectations and grading
 
 The rubric for each assignment will be provided when it is assigned so you know what to prioritize. You make work with up to 2 classmates, but must list your collaborators’ names on your assignment. You are encouraged to collaborate on code, but must respond to conceptual questions individually. All assignment dates will be posted in advance. Late assignments will receive 10% deduction per day, up to a maximum of 3 days. You may request a 48-hour extension if extenuating circumstances arise. 
+
+### Grading rubric
+
+Each assignment will provide specific details of the point breakdowns per question. However, we will follow the general rubric below for all assignments.
+
+#### Code must run
+* A 50% deduction will be taken if code does not run
+* Full credit will be given to sub-questions that were completed correctly
+
+#### Follow the spirit (not the letter) of the question
+* For questions that ask for aesthetic updates (i.e. changing legend titles), simply providing ANY modification is not sufficient
+* A 50% deduction will be taken for answers that do not improve legibility
+
+#### Answer for yourself
+* Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions
+* All members of your group will lose full credit for non-code based questions that are copy/pasted among group members.
