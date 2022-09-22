@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Week 1: Intro to spatial data
 ## Lecture
 ### Class materials
--   [Access lecture slides](lectures/week1.pdf)
+<!-- -   [Access lecture slides](lectures/week1.pdf) -->
 
 ### Background reading
 -   [Spatial Data Science, chapter 2](https://keen-swartz-3146c4.netlify.app/cs.html)
@@ -26,8 +26,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Lab
 ### Class materials
--   [Access lab Rmd](labs/week1.Rmd)
--   [Access lab html](labs/week1.html)
+<!-- -   [Access lab Rmd](labs/week1.Rmd) -->
+<!-- -   [Access lab html](labs/week1.html) -->
 
 ### Background reading
 -   [Geocomputation with R, chapter 9](https://geocompr.robinlovelace.net/adv-map.html)
