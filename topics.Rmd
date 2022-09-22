@@ -12,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 <!-- -   [Access lecture slides](lectures/week1.pdf) -->
 
 ### Background reading
+-   [GIS Fundamentals, chapter 2](reading/Bolstad-chapter2.pdf)
+-   [GIS Fundamentals, chapter 3](reading/Bolstad-chapter3.pdf)
 -   [Spatial Data Science, chapter 2](https://keen-swartz-3146c4.netlify.app/cs.html)
 -   [A Gentle Introduction to GIS, chapter 8](https://docs.qgis.org/3.16/en/docs/gentle_gis_introduction/coordinate_reference_systems.html)
 -   [Esri, Geographic vs. projected coordinate systems](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/#:~:text=What%20is%20the%20difference%20between,map%20or%20a%20computer%20screen.)
