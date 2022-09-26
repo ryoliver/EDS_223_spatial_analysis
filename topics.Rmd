@@ -8,8 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Week 1: Intro to spatial data
 ## Lecture
 ### Class materials
--   Lecture slides to be posted prior to class
-<!-- -   [Access lecture slides](lectures/week1.pdf) -->
+-   [Access lecture slides](lectures/week1.pdf)
 
 ### Background reading
 -   [GIS Fundamentals, chapter 2](reading/Bolstad-chapter2.pdf)
