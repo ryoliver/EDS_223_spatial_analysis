@@ -29,7 +29,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Class materials
 -   [CHECK IN](https://forms.gle/tjXaiwoq51hiDY5t9)
     -   [background on formative assessments](https://www.cmu.edu/teaching/assessment/basics/formative-summative.html)
--   Completed lab document to be posted after class
 -   [Access lab Rmd](labs/week1.Rmd)
 -   [Access lab html](labs/week1.html)
 
