@@ -30,8 +30,8 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [CHECK IN](https://forms.gle/tjXaiwoq51hiDY5t9)
     -   [background on formative assessments](https://www.cmu.edu/teaching/assessment/basics/formative-summative.html)
 -   Completed lab document to be posted after class
-<!-- -   [Access lab Rmd](labs/week1.Rmd) -->
-<!-- -   [Access lab html](labs/week1.html) -->
+-   [Access lab Rmd](labs/week1.Rmd)
+-   [Access lab html](labs/week1.html)
 
 ### Background reading
 -   [Geocomputation with R, chapter 9](https://geocompr.robinlovelace.net/adv-map.html)
