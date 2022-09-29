@@ -1,0 +1,100 @@
+---
+title: 'EDS 223: week 2 lab'
+author: "Ruth Oliver"
+date: "2022-10-05"
+output: html_document
+---
+
+## introduction
+In this lab, we'll explore the basics of manipulating vector data in R using the **sf** package.
+The following materials are modified from [Chapter 3 of Geocomputation with R by Rovin Lovelace](https://geocompr.robinlovelace.net/attr.html)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## prerequisites
+
+```{r install, include=TRUE}
+rm(list = ls())
+library(sf)
+library(spData)
+library(tmap)
+library(tidyverse)
+```
+
+Let's start by looking at how we can construct a **sf** object  
+-   first we create a geometry for London by supplying a point and CRS  
+-   then we supply some non-geographic attributes
+
+```{r include=TRUE}
+lnd_point = st_point(c(0.1, 51.5))
+lnd_geom = st_sfc(lnd_point, crs = 4326)
+
+lnd_attrib = data.frame(
+  name = "London",
+  temperature = 25,
+  date = as.Date("2017-06-21")
+)
+lnd_sf = st_sf(lnd_attrib, geometry = lnd_geom)
+
+lnd_sf
+class(lnd_sf)
+```
+
+Now let's look at an existing **sf** object representing countries of the world
+
+```{r include=TRUE}
+class(world)
+dim(world)
+names(world)
+```
+
+We can see that this object contains both spatial data ("geom" column) and attributes about those geometries. We can perform operations on the attribute data, just like we would with a normal data frame.
+
+```{r include=TRUE}
+summary(world$lifeExp)
+```
+
+The geometry column is "sticky", meaning it will stick around unless we explicitly get rid of it. To convert this object into a data frame, we need to drop the geometry column.
+
+```{r include=TRUE}
+world_df <- st_drop_geometry(world)
+class(world_df)
+names(world_df)
+ncol(world)
+ncol(world_df)
+```
+
+The especially great things about **sf** objects is that we can use **tidyverse** functions on them!
+
+We can select columns...
+```{r include=TRUE}
+world %>%
+  select(name_long, pop)
+```
+
+Or remove columns...
+```{r include=TRUE}
+world %>%
+  select(-subregion, -area_km2)
+```
+
+Or select AND rename columns
+```{r include=TRUE}
+world %>%
+  select(name = name_long, population = pop)
+```
+
+Or filter observations based on variables
+```{r include=TRUE}
+world1 <- world %>%
+  filter(area_km2 < 10000)
+summary(world1$area_km2)
+
+world2 <- world %>%
+  filter(lifeExp >= 80)
+nrow(world2)
+```
+
+
+
