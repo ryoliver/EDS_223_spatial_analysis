@@ -8,13 +8,11 @@ knitr::opts_chunk$set(echo = TRUE)
 # Week 2: Intro to vector data
 ## Lecture
 ### Class materials
-<!-- -   [Access lecture slides](lectures/week1.pdf) -->
+-   [Access lecture slides](lectures/week2.pdf)
 
 ### Background reading
 -   [GIS Fundamentals, chapter 2 part 2](readings/Bolstad-chapter2-part2.pdf)
 -   [Geocomputation with R, chapter 2](https://geocompr.robinlovelace.net/spatial-class.html)
-
-### Additional resources
 
 
 ## Lab
