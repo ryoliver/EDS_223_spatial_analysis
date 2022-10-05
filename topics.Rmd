@@ -18,8 +18,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Lab
 ### Class materials
 -   [CHECK IN](https://forms.gle/qj3MaCb97DZddhnk8)
-<!-- -   [Access lab Rmd](labs/week2.Rmd) -->
-<!-- -   [Access lab html](labs/week2.html) -->
+-   [Access lab Rmd](labs/week2.Rmd)
+-   [Access lab html](labs/week2.html)
 
 ### Background reading
 -   [Geocomputation with R, chapter 3](https://geocompr.robinlovelace.net/attr.html)
