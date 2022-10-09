@@ -72,7 +72,7 @@ Welcome!
 | Week | Lecture topics | Lab topics |
 |------|----------------|------------|
 | **1** (9/26) | Course overview & intro to spatial data models| coordinate reference systems, map making basics|
-| **2** (10/23) | Spatial data models & intro to vector data| 'sf', attribute data operations|
+| **2** (10/3) | Spatial data models & intro to vector data| 'sf', attribute data operations|
 | **3** (10/10) | Vector operations | vector spatial & geometry operations|
 | **4** (10/17) | Spatial data science expert panel| review|
 | **5** (10/24) | Intro to raster data| 'terra', raster spatial operations|
