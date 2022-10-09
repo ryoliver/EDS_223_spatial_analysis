@@ -48,6 +48,8 @@ Welcome!
 -   [Code of Conduct](https://www.sa.ucsb.edu/regulations/student-conduct-code/student-conduct-code)
 -   [Alert us to any absences here](https://forms.gle/TtFZZWT9sSsPS5Ep6)
 
+-   [Geocomputation with R](https://geocompr.robinlovelace.net/index.html)
+
 
 ## Weekly course schedule
 
