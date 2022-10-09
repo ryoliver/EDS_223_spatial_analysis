@@ -7,8 +7,9 @@ output: html_document
 
 
 ## introduction
-In this lab, we'll explore the basics of spatial operations on vector data in R using the **sf** package.
-The following materials are modified from [Chapter 4 of Geocomputation with R by Rovin Lovelace](https://geocompr.robinlovelace.net/spatial-operations.html)
+In this lab, we'll explore the basics of spatial and geometry operations on vector data in R using the **sf** package.
+The following materials are modified from [Chapter 4](https://geocompr.robinlovelace.net/spatial-operations.html) and [Chapter 5](https://geocompr.robinlovelace.net/geometry-operations.html)of Geocomputation with R by Rovin Lovelace.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -21,6 +22,8 @@ library(sf)
 library(spData)
 library(tmap)
 library(tidyverse)
+library(rmapshaper)
+library(smoothr)
 ```
 
 ## spatial subsetting
@@ -259,3 +262,121 @@ st_distance(nz_highest, canterbury_centroid)
 
 ```
 Note: this function returns distances with units (yay!) and as a matrix, meaning we could find the distance between many locations at once.
+
+## simplification
+Simplification generalizes vector data (polygons and lines) to assist with plotting and reducing the amount of memory, disk space, and network bandwidth to handle a dataset.
+
+Let's try simplifying the US states using the Douglas-Peucker algorithm. GEOS assumes a projected CRS, so we first need to project the data, in this case into the US National Atlas Equal Area (epsg = 2163)
+
+```{r include=TRUE}
+us_states2163 = st_transform(us_states, "EPSG:2163")
+us_states2163 = us_states2163
+
+us_states_simp1 = st_simplify(us_states2163, dTolerance = 100000)  # 100 km
+
+tm_shape(us_states_simp1) +
+  tm_polygons()
+```
+
+To preserve the states' topology let's use a simplify function from **rmapshaper** which uses Visalingam's algorithm.
+
+```{r include=TRUE}
+#install.packages('rmapshaper')
+library(rmapshaper)
+
+# proportion of points to retain (0-1; default 0.05)
+us_states_simp2 = rmapshaper::ms_simplify(us_states2163, keep = 0.01,
+                                          keep_shapes = TRUE)
+
+tm_shape(us_states_simp2) +
+  tm_polygons()
+```
+
+Instead of simplifying, we could try smoothing using Gaussian kernel regression.
+
+```{r include=TRUE}
+us_states_simp3 = smoothr::smooth(us_states2163, method = 'ksmooth', smoothness = 6)
+
+tm_shape(us_states_simp3) +
+  tm_polygons()
+```
+
+## centroids
+Centroids identify the center of a spatial feature. Similar to taking an average, there are many ways to compute a centroid. The most common is the *geographic* centroid.
+```{r include=TRUE}
+nz_centroid <- st_centroid(nz)
+
+tm_shape(nz) +
+  tm_fill() +
+  tm_shape(nz_centroid) +
+  tm_dots()
+```
+
+Sometimes centroids fall outside of the boundaries of the objects they were created from. In the case where we need them to fall inside of the feature, we can use *point on surface* methods.
+
+
+```{r include=TRUE}
+nz_pos <- st_point_on_surface(nz)
+
+tm_shape(nz) +
+  tm_fill() +
+  tm_shape(nz_centroid) +
+  tm_dots() +
+  tm_shape(nz_pos) +
+  tm_dots(col = "red")
+```
+
+## buffers
+
+Buffers create polygons representing a set distance from a feature.
+
+```{r include=TRUE}
+seine_buffer <- st_buffer(seine, dist = 5000)
+
+tm_shape(seine_buffer) +
+  tm_polygons()
+```
+
+## unions
+As we saw in the last lab, we can spatially aggregate without explicitly asking R to do so.
+
+```{r include=TRUE}
+w <- tm_shape(world) +
+  tm_polygons()
+
+continents <- world %>%
+  group_by(continent) %>%
+  summarize(population = sum(pop, na.rm = TRUE))
+
+c <- tm_shape(continents) +
+  tm_polygons()
+
+tmap_arrange(w, c)
+```
+
+What is going on here? Behind the scenes, **summarize()** is using **st_union()** to dissolve the boundaries.
+
+```{r include=TRUE}
+us_west <- us_states %>%
+  filter(REGION == "West")
+
+us_west_union <- st_union(us_west)
+
+tm_shape(us_west_union) +
+  tm_polygons()
+
+```
+
+**st_union()** can also take 2 geometries and unite them.
+
+```{r include=TRUE}
+texas <-  us_states %>%
+  filter(NAME == "Texas")
+
+texas_union = st_union(us_west_union, texas)
+
+tm_shape(texas_union) +
+  tm_polygons()
+```
+
+

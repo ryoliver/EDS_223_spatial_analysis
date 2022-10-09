@@ -10,8 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Class materials
 <!-- -   [Access lecture slides](lectures/week3.pdf) -->
 
-<!-- ### Background reading -->
-<!-- -   [GIS Fundamentals, chapter 2 part 2](readings/Bolstad-chapter2-part2.pdf) -->
+### Background reading
+-   [GIS Fundamentals, chapter 9 part 1](readings/Bolstad-chapter9-part1.pdf)
 
 ### Additional resources
 -   [Douglas-Peucker Algorithm (Cartography Playground)](https://cartography-playground.gitlab.io/playgrounds/douglas-peucker-algorithm/)  
@@ -26,6 +26,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Background reading
 -   [Geocomputation with R, chapter 4](https://geocompr.robinlovelace.net/spatial-operations.html)
+-   [Geocomputation with R, chapter 5](https://geocompr.robinlovelace.net/geometry-operations.html)
 
 ### Additional resources
 -   [**sf** overview](https://r-spatial.github.io/sf/index.html)
