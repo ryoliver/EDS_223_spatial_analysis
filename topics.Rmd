@@ -5,6 +5,34 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 2: Vector operations
+## Lecture
+### Class materials
+<!-- -   [Access lecture slides](lectures/week3.pdf) -->
+
+<!-- ### Background reading -->
+<!-- -   [GIS Fundamentals, chapter 2 part 2](readings/Bolstad-chapter2-part2.pdf) -->
+
+### Additional resources
+-   [Douglas-Peucker Algorithm (Cartography Playground)](https://cartography-playground.gitlab.io/playgrounds/douglas-peucker-algorithm/)  
+-   [Visvalingam's Algorithm (Mike Bostok)](https://bost.ocks.org/mike/simplify/
+)
+
+## Lab
+### Class materials
+<!-- -   [CHECK IN] -->
+<!-- -   [Access lab Rmd](labs/week3.Rmd) -->
+<!-- -   [Access lab html](labs/week3.html) -->
+
+### Background reading
+-   [Geocomputation with R, chapter 4](https://geocompr.robinlovelace.net/spatial-operations.html)
+
+### Additional resources
+-   [**sf** overview](https://r-spatial.github.io/sf/index.html)
+
+## Assignments
+-   Assignment 2 posted on 10-12, due by midnight 10-22
+
 # Week 2: Intro to vector data
 ## Lecture
 ### Class materials

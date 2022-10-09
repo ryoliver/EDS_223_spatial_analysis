@@ -8,7 +8,7 @@ output: html_document
 
 ## introduction
 In this lab, we'll explore the basics of spatial operations on vector data in R using the **sf** package.
-The following materials are modified from [Chapter e of Geocomputation with R by Rovin Lovelace](https://geocompr.robinlovelace.net/spatial-operations.html)
+The following materials are modified from [Chapter 4 of Geocomputation with R by Rovin Lovelace](https://geocompr.robinlovelace.net/spatial-operations.html)
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
