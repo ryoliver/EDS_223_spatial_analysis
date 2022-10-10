@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Week 2: Vector operations
 ## Lecture
 ### Class materials
-<!-- -   [Access lecture slides](lectures/week3.pdf) -->
+-   [Access lecture slides](lectures/week3.pdf)
 
 ### Background reading
 -   [GIS Fundamentals, chapter 9 part 1](readings/Bolstad-chapter9-part1.pdf)
