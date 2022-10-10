@@ -5,7 +5,7 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Week 2: Vector operations
+# Week 3: Vector operations
 ## Lecture
 ### Class materials
 -   [Access lecture slides](lectures/week3.pdf)
