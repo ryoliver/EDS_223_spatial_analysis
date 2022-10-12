@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Lab
 ### Class materials
-<!-- -   [CHECK IN] -->
+-   [CHECK IN](https://forms.gle/zrj8V6HyL9ro4Xmn7)
 <!-- -   [Access lab Rmd](labs/week3.Rmd) -->
 <!-- -   [Access lab html](labs/week3.html) -->
 
