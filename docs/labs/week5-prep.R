@@ -95,3 +95,82 @@ global(elev, sd)
 freq(grain)
 
 hist(elev)
+
+## spatial subsetting
+# we can move from subsetting based on specific cell IDs to extract info based on spatial objects
+
+# to use coordinates for subsetting, we can "translate" coordinates into a cell ID
+# with the **terra** function "cellFromXY()" or "terra::extract()"
+
+id = cellFromXY(elev, xy = matrix(c(0.1, 0.1), ncol = 2))
+elev[id]
+# the same as
+terra::extract(elev, matrix(c(0.1, 0.1), ncol = 2))
+
+# raster objects can also subset with another raster object
+# here we extract the values of our elevation raster that fall within the extent
+# of a masking raster
+clip = rast(xmin = 0.9, xmax = 1.8, ymin = -0.45, ymax = 0.45,
+            resolution = 0.3, vals = rep(1, 9))
+
+elev[clip]
+
+# we can also use extract
+terra::extract(elev, ext(clip))
+
+# in the previous example, we just got the values back
+# in some cases, we might want the output to be the raster cells themselves
+# we can do this use the "[" operator and setting "drop = FALSE"
+
+# this example returns the first 2 cells of the first row of the "elev" raster
+elev[1:2, drop = FALSE]
+
+# another common use of spatial subsetting is when we use one raster with the same
+# extent and resolution to mask the another
+# in this case, the masking raster needs to be composed of logicals or NAs
+
+# create raster mask of the same resolution and extent
+# randomly replace values with NA and TRUE to use as a mask
+rmask <- elev
+values(rmask) <- sample(c(NA, TRUE), 36, replace = TRUE)
+
+# spatial subsetting
+elev[rmask, drop = FALSE]           # with [ operator
+mask(elev, rmask)                   # with mask()
+
+# we can also use a similar approach to replace values that we suspect are incorrect
+
+elev[elev < 20] = NA
+
+## map algebra
+# here we define map algebra as the set of operations that modify or summarize raster cell values
+# with reference to surrounding cells, zones, or statistical functions that apply to every cell
+
+# local operations
+# local operations are computed on each cell individually
+# we can use oridinary arithemetic or logical statements
+
+elev + elev
+elev^2
+log(elev)
+elev > 5
+
+
+# we can also classify intervals of values into groups
+# for example, we could classify a DEM into low, middle, and high elevation cells
+
+# first we need to construct a reclassification matrix
+# the first column corresponds to the lower end of the class
+# the second column corresponds to the upper end of the class
+# the third column corresponds to the new value for the specified ranges in columns 1 and 2
+
+rcl = matrix(c(0, 12, 1, 12, 24, 2, 24, 36, 3), ncol = 3, byrow = TRUE)
+rcl
+
+# we then use this matrix to reclassify our elevation matrix
+recl <- classify(elev, rcl = rcl)
+recl
+
+# for more efficient processing, we can use a set of map algebra functions
+# "app()" applies a function to each cell of a raster to summarize the values of multiple layers into one layer
+# "tapp()" is an

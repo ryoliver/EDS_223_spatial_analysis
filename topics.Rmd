@@ -5,6 +5,26 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 4: Expert panel + vector operations (cont'd)
+## Lecture
+### Class materials
+-   [Access spatial data science expert panel slides](lectures/week4.pdf)
+
+## Lab
+### Class materials (continued from week 3)
+-   [Access lab Rmd](labs/week3.Rmd)
+-   [Access lab html](labs/week3.html)
+
+### Background reading (continued from week 3)
+-   [Geocomputation with R, chapter 4](https://geocompr.robinlovelace.net/spatial-operations.html)
+-   [Geocomputation with R, chapter 5](https://geocompr.robinlovelace.net/geometry-operations.html)
+
+### Additional resources
+-   [**sf** overview](https://r-spatial.github.io/sf/index.html)
+
+## Assignments
+-   Assignment 2 posted on 10-12, due by midnight 10-22
+
 # Week 3: Vector operations
 ## Lecture
 ### Class materials
