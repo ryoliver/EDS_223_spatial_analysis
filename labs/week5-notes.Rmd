@@ -273,6 +273,17 @@ For example, we could find the average elevation for different soil grain sizes.
 zonal(elev, grain, fun = "mean")
 ```
 
+## merging rasters
+In some cases, data for a region will be stored in multiple, contiguous files. To use them as a single raster, we need to merge them.\
+
+In this example, we download elevation data for Austria and Switzerland and merge the two rasters into one.
+
+```{r include=TRUE, eval=FALSE}
+aut = geodata::elevation_30s(country = "AUT", path = tempdir())
+ch = geodata::elevation_30s(country = "CHE", path = tempdir())
+aut_ch = merge(aut, ch)
+```
+
 ## geometric operations
 When merging or performing map algebra, rasters need to match in their resolution, projection, origin, and/or extent
 
