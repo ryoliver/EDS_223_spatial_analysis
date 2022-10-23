@@ -5,6 +5,26 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 5: Raster operations
+## Lecture
+### Class materials
+-   [Access lecture slides](lectures/week5.pdf)
+
+## Lab
+### Class materials 
+-   Lab materials to be posted after class on Wednesday
+<!-- -   [Access lab Rmd](labs/week5.Rmd) -->
+<!-- -   [Access lab html](labs/week5.html) -->
+
+### Background reading
+-   [Geocomputation with R, chapter 3](https://geocompr.robinlovelace.net/attr.html)  
+-   [Geocomputation with R, chapter 4](https://geocompr.robinlovelace.net/spatial-operations.html)
+-   [Geocomputation with R, chapter 5](https://geocompr.robinlovelace.net/geometry-operations.html)
+
+## Assignments
+-   Assignment 3 posted on 10-26, due by midnight 10-12
+
+
 # Week 4: Expert panel + vector operations (cont'd)
 ## Lecture
 ### Class materials

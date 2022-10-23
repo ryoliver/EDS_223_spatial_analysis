@@ -173,4 +173,113 @@ recl
 
 # for more efficient processing, we can use a set of map algebra functions
 # "app()" applies a function to each cell of a raster to summarize the values of multiple layers into one layer
-# "tapp()" is an
+# "tapp()" is an extension of "app()" that allows us to apply on operation on a subset of layers
+# "lapp()" allows us to apply a function to each cell using layers as arguments
+
+# we can use the "lapp()" function to compute the Normalized Difference Vegetation Index (NDVI)
+
+# let's calculate NDVI for Zion National Park using multispectral satellite data
+multi_raster_file <- system.file("raster/landsat.tif", package = "spDataLarge")
+multi_rast <- rast(multi_raster_file)
+
+# we need to define a function to calculate NDVI
+ndvi_fun = function(nir, red){
+  (nir - red) / (nir + red)
+}
+
+# so now we can use "lapp()" to calculate NDVI in each raster cell
+# to do so, we just need the NIR and red bands
+ndvi_rast <- lapp(multi_rast[[c(4, 3)]], fun = ndvi_fun)
+
+tm_shape(ndvi_rast) +
+  tm_raster()
+
+# focal operations
+# local operations operate on one cell, though from multiple layers
+# focal operations take into account a central (focal) cell and its neighbors
+# the neighborhood (or kernel, moving window, filter) can take any size or shape
+# a focal operation applies an aggregation function to all cells in the neighborhood
+# and updates the value of the central cell before moving on to the next central cell
+
+# we can use the focal() function to perform spatial filtering
+# we define the size, shape, and weights of the moving window using a matrix
+# here we find the minimum
+
+r_focal <- focal(elev, w = matrix(1, nrow = 3, ncol = 3), fun = min)
+
+plot(elev)
+plot(r_focal)
+
+# zonal operations
+# similar to focal operations, zonal operations apply an aggregation function to mutliple cells
+# however, instead of applying operations to neighbors, zonal operations aggregate based on "zones"
+# zones can are defined using a categorical raster and do not necessarily have to be neighbros
+
+# for example, we could find the average elevation for different soil grain sizes
+zonal(elev, grain, fun = "mean")
+
+## geometric operations
+
+# extent and origin
+
+# when merging or performing map algebra, rasters need to match in their resolution,
+# projection, origin, and/or extent
+
+# in the simplest case, two images differ only in their extent
+# let's start by increasing the extent of a elevation raster
+
+elev = rast(system.file("raster/elev.tif", package = "spData"))
+elev_2 = extend(elev, c(1, 2)) # add one row and two columns
+
+plot(elev)
+plot(elev_2)
+
+# performing algebraic operations on objects with different extents doesn't work
+elev + elev_2
+
+# we can align the extent of the 2 rasters using the extend() function.
+# here we extend the elev object to the extent of elev_2 by adding NAs
+
+elev_4 <- extend(elev, elev_2)
+
+# the origin function returns the coordinates of the cell corner closes to the coordinates (0,0)
+# we can also manually change the origin
+origin(elev_4)
+origin(elev_4) <- c(0.25, 0.25)
+origin(elev_4)
+
+# aggregation and disaggregation
+
+# raster datasets can also differ in their resolution
+# to match resolutions we can decrease the resolution by aggregating
+# or increase the resolution by disaggregating
+
+# let's start by changing the resolution of a DEM by a factor of 5, by taking the mean
+
+dem <- rast(system.file("raster/dem.tif", package = "spDataLarge"))
+dem_agg <-  aggregate(dem, fact = 5, fun = mean)
+
+plot(dem)
+plot(dem_agg)
+
+# we have some choices when increasing the resolution
+# here we try the bilinear method
+
+dem_disagg <- disagg(dem_agg, fact = 5, method = "bilinear")
+identical(dem, dem_disagg)
+plot(dem_disagg)
+
+# resampling
+
+# aggregation/disaggregation work when both rasters have the same origins
+# what do we do in the case where we have two or more rasters with different origins and resolutions?
+# resampling computes values for new pixel locations based on custom resolutions and origins
+
+# in most cases, the target raster would be an object you are already working with
+# but here we define a target raster
+target_rast = rast(xmin = 794600, xmax = 798200,
+                   ymin = 8931800, ymax = 8935400,
+                   resolution = 150, crs = "EPSG:32717")
+
+dem_resampl = resample(dem, y = target_rast, method = "bilinear")
+
