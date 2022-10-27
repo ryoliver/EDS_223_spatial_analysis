@@ -12,9 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Lab
 ### Class materials 
--   Lab materials to be posted after class on Wednesday
-<!-- -   [Access lab Rmd](labs/week5.Rmd) -->
-<!-- -   [Access lab html](labs/week5.html) -->
+-   [Access lab Rmd](labs/week5.Rmd)
+-   [Access lab html](labs/week5.html)
 
 ### Background reading
 -   [Geocomputation with R, chapter 3](https://geocompr.robinlovelace.net/attr.html)  
