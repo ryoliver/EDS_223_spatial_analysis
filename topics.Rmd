@@ -5,6 +5,17 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 6: Intro to remote sensing
+## Lecture
+### Class materials
+-   [Access lecture slides](lectures/week6.pdf)
+
+## Lab
+-   No class on Wednesday 11/2
+
+## Assignments
+-   Assignment 3 posted on 10-26, due by midnight 10-12
+
 # Week 5: Raster operations
 ## Lecture
 ### Class materials
