@@ -5,6 +5,18 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 7: RS data collection
+## Lecture
+### Monday
+-   [Access lecture slides](lectures/week7.pdf)
+-   [Access lab Rmd](labs/week5.Rmd)
+-   [Access lab html](labs/week5.html)\
+-   [CHECK IN](https://forms.gle/ugih7kuJrhSTaQgQ7)
+
+## Assignments
+-   Assignment 3 posted on 10-26, due by midnight 11-12
+
+
 # Week 6: Intro to remote sensing
 ## Lecture
 ### Class materials
@@ -14,7 +26,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   No class on Wednesday 11/2
 
 ## Assignments
--   Assignment 3 posted on 10-26, due by midnight 10-12
+-   Assignment 3 posted on 10-26, due by midnight 11-12
 
 # Week 5: Raster operations
 ## Lecture
@@ -32,7 +44,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Geocomputation with R, chapter 5](https://geocompr.robinlovelace.net/geometry-operations.html)
 
 ## Assignments
--   Assignment 3 posted on 10-26, due by midnight 10-12
+-   Assignment 3 posted on 10-26, due by midnight 11-12
 
 
 # Week 4: Expert panel + vector operations (cont'd)
