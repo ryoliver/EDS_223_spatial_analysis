@@ -23,6 +23,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 **Note:** expert panel on hyperspectral remote sensing on Monday
 
+## Assignments
+-   Assignment 4 posted on 11-16, due by midnight 12-03
+
 # Week 7: RS data collection
 ## Lecture
 ### Monday
