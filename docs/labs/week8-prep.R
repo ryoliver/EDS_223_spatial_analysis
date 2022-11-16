@@ -32,6 +32,8 @@ ndvi_fun = function(nir, red){
   (nir - red) / (nir + red)
 }
 
+
+
 ndvi_20180612 <- lapp(landsat_20180612[[c(4, 3)]], fun = ndvi_fun)
 ndvi_20180815 <- lapp(landsat_20180815[[c(4, 3)]], fun = ndvi_fun)
 ndvi_20181018 <- lapp(landsat_20181018[[c(4, 3)]], fun = ndvi_fun)
