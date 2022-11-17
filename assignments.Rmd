@@ -32,3 +32,8 @@ Each assignment will provide specific details of the point breakdowns per questi
 #### Answer for yourself
 * Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions
 * All members of your group will lose full credit for non-code based questions that are copy/pasted among group members.
+
+### Rubrics
+
+-   [Access assignment 3 rubric Rmd](assignments/assigment3-rubric.Rmd)\
+-   [Access assignment 3 rubric html](assignments/assigment3-rubric.html)
