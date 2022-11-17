@@ -35,5 +35,5 @@ Each assignment will provide specific details of the point breakdowns per questi
 
 ### Rubrics
 
--   [Access assignment 3 rubric Rmd](assignments/assigment3-rubric.Rmd)\
--   [Access assignment 3 rubric html](assignments/assigment3-rubric.html)
+-   [Access assignment 3 rubric Rmd](assignments/assignment3-rubric.Rmd)\
+-   [Access assignment 3 rubric html](assignments/assignment3-rubric.html)
