@@ -5,6 +5,11 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 9: Image classification
+## Lecture
+### Class materials
+-   [Access lecture slides](lectures/week9.pdf)
+
 # Week 8: Remote sensing of vegetation
 ## Lecture
 ### Class materials
