@@ -10,6 +10,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ### Class materials
 -   [Access lecture slides](lectures/week9.pdf)
 
+## Lab
+### Class materials
+-   [Download data](https://drive.google.com/drive/folders/1ON8FbDqcTjg2PKHmNGgyN7odTqpOnXla?usp=sharing)
+-   [Access lab outline Rmd](labs/week9-outline.Rmd)
+
+## Assignments
+-   Assignment 4 posted on 11-16, due by midnight 12-03
+
 # Week 8: Remote sensing of vegetation
 ## Lecture
 ### Class materials
