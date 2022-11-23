@@ -13,7 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Lab
 ### Class materials
 -   [Download data](https://drive.google.com/drive/folders/1ON8FbDqcTjg2PKHmNGgyN7odTqpOnXla?usp=sharing)
--   [Access lab outline Rmd](labs/week9-outline.Rmd)
+-   [Access lab Rmd](labs/week9.Rmd)\
+-   [Access lab html](labs/week9.html)
 
 ## Assignments
 -   Assignment 4 posted on 11-16, due by midnight 12-03
