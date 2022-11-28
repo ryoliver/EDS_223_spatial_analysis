@@ -5,6 +5,25 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 10: Active remote sensing
+## Lecture
+### Class materials
+-   [Access lecture slides](lectures/week10.pdf)
+
+### Lab
+-   [Optional LiDAR lab from EarthLab](https://www.earthdatascience.org/courses/use-data-open-source-python/data-stories/what-is-lidar-data/explore-lidar-point-clouds-plasio/)
+
+### Background reading
+-   [Remote Sensing of the Environment, chapter 9](readings/Jensen-chapter9.pdf)\
+-   [Introduction to Lidar Remote Sensing Data (EarthLab)](https://www.earthdatascience.org/courses/use-data-open-source-python/data-stories/what-is-lidar-data/)\
+-  [Introduction to Interpreting Digital RADAR Images (MicroImages Inc.)](readings/MicroImages-RADAR-tutorial.pdf) 
+
+
+## Assignments
+-   Assignment 4 posted on 11-16, due by midnight 12-03
+
+
+
 # Week 9: Image classification
 ## Lecture
 ### Class materials
