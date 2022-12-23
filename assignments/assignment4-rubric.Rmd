@@ -1,0 +1,212 @@
+---
+title: 'EDS 223: assignment 4 rubric'
+author: "Ruth Oliver"
+date: "2022-11-16"
+output:
+    html_document:
+      print_df: paged
+      toc: yes
+      toc_depth: 4
+      toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+getwd()
+```
+
+## Overview
+Marine aquaculture has the potential to play an important role in the global food supply as a more sustainable protein option than land-based meat production.[^hall] [Gentry et al.](https://www.nature.com/articles/s41559-017-0257-9) mapped the potential for marine aquaculture globally based on multiple constraints, including ship traffic, dissolved oxygen, bottom depth .[^gentry]
+
+For this assignment, you are tasked with determining which Exclusive Economic Zones (EEZ) on the West Coast of the US are best suited to developing marine aquaculture for several species of oysters.\
+
+Based on previous research, we know that oysters needs the following conditions for optimal growth:\
+
+-   sea surface temperature: 11-30&deg;C\
+-   depth: 0-70 meters below sea level
+
+##### Learning objectives:
+-   combining vector/raster data\
+-   resampling raster data\
+-   masking raster data\
+-   map algebra\
+
+### Data
+#### Sea Surface Temperature
+We will use average annual sea surface temperature (SST) from the years 2008 to 2012 to characterize the average sea surface temperature within the region. The data we are working with was originally generated from [NOAA's 5km Daily Global Satellite Sea Surface Temperature Anomaly v3.1](https://coralreefwatch.noaa.gov/product/5km/index_5km_ssta.php).
+
+#### Bathymetry
+To characterize the depth of the ocean we will use the [General Bathymetric Chart of the Oceans (GEBCO)](https://www.gebco.net/data_and_products/gridded_bathymetry_data/#area).[^gebco]
+
+#### Exclusive Economic Zones
+We will be designating maritime boundaries using Exclusive Economic Zones off of the west coast of US from [Marineregions.org](https://www.marineregions.org/eez.php).
+
+## Assignment
+
+Below is an outline of the steps you should consider taking to achieve the assignment tasks. 
+
+#### Prepare data (5 points)
+To start, we need to load all necessary data and make sure it has the coordinate reference system. 
+
+-   load necessary packages and set path\ 
+    -   I recommend using the [`here` package](https://here.r-lib.org/)
+-   read in the shapefile for the West Coast EEZ (`wc_regions_clean.shp`)\
+-   read in SST rasters
+    -   `average_annual_sst_2008.tif`\
+    -   `average_annual_sst_2009.tif`\
+    -   `average_annual_sst_2010.tif`\
+    -   `average_annual_sst_2011.tif`\
+    -   `average_annual_sst_2012.tif`\
+-   combine SST rasters into a raster stack\
+-   read in bathymetry raster (`depth.tif`)\
+-   check that data are in the same coordinate reference system\
+    -   reproject any data not in the same projection\
+
+```{r include=TRUE, warning=FALSE, messages=FALSE}
+library(sf)
+library(terra)
+library(dplyr)
+library(here)
+library(ggplot2)
+library(tmap)
+
+rm(list = ls())
+setwd(here())
+
+wc_rgns <- st_read(dsn = 'data', layer = 'wc_regions_clean')
+
+r1 <- rast("data/average_annual_sst_2008.tif")
+r2 <- rast("data/average_annual_sst_2009.tif")
+r3 <- rast("data/average_annual_sst_2010.tif")
+r4 <- rast("data/average_annual_sst_2011.tif")
+r5 <- rast("data/average_annual_sst_2012.tif")
+
+sst <- c(r1, r2, r3, r4, r5)
+
+depth <- rast("data/depth.tif")
+depth <- project(depth, crs(sst))
+
+```
+
+#### Process data (10 points)
+Next, we need process the SST and depth data so that they can be combined. In this case the SST and depth data have slightly different resolutions, extents, and positions. We don't want to change the underlying depth data, so we will need to resample to match the SST data using the nearest neighbor approach. 
+
+-   find the mean SST from 2008-2012\
+-   convert SST data from Kelvin to Celsius\
+    -   hint: subtract by 273.15\
+-   crop depth raster to match the extent of the SST raster\
+-   note: the resolutions of the SST and depth data do not match\
+    -   resample the NPP data to match the resolution of the SST data using the nearest neighbor approach\
+-   check that the depth and SST match in resolution, extent, and coordinate reference system\
+    -   hint: can the rasters be stacked?
+    
+```{r include=TRUE}
+sstAvg <- mean(sst, na.rm = TRUE)
+sstAvg <- sstAvg - 273.15
+
+depth <- crop(depth, sstAvg)
+depth_resample <- terra::resample(depth, y = sstAvg, method = "near")
+
+c(depth_resample, sstAvg)
+```
+
+#### Find suitable locations (20)
+In order to find suitable locations for marine aquaculture, we'll need to find locations that are suitable in terms of both SST and depth.
+
+-   reclassify SST and depth data into locations that are suitable for Lump sucker fish\
+    -   hint: set suitable values to `1` and unsuitable values to `NA`\
+-   find locations that satisfy both SST and depth conditions\
+    -   hint: create an overlay using the `lapp()` function multiplying cell values\
+    
+```{r include=TRUE}
+rcl1 <- matrix(c(-Inf, 11, NA, 
+                 11, 30, 1, 
+                 30, Inf, NA), ncol = 3, byrow = TRUE)
+
+sstPref <- classify(sstAvg, rcl = rcl1)
+plot(sstPref, col = "red", main = "areas with suitable SST")
+
+rcl2 <- matrix(c(-Inf, -70, NA, 
+                 -70, 0, 1, 
+                 0, Inf, NA), ncol = 3, byrow = TRUE)
+depthBin <- classify(depth_resample, rcl = rcl2)
+plot(depthBin, col = "red", main = "areas with suitable depth")
+
+cells = lapp(c(sstPref, depthBin), fun=function(x, y){return(x*y)})
+plot(cells, col = "red", main = "suitable aquaculture areas")
+```
+
+#### Determine the most suitable EEZ (20 points)
+We want to determine the total suitable area within each EEZ in order to rank zones by priority. To do so, we need to find the total area of suitable locations within each EEZ.
+
+-   select suitable cells within West Coast EEZs\
+-   find area of grid cells\
+-   find the total suitable area within each EEZ\
+    -   hint: it might be helpful to rasterize the EEZ data\
+-   find the percentage of each zone that is suitable\
+    -   hint it might be helpful to join the suitable area by region onto the EEZ vector data\
+    
+```{r include=TRUE}
+cellsEEZ <- mask(cells, wc_rgns)
+plot(cellsEEZ, col = "red")
+
+wcZones <- rasterize(wc_rgns, cellsEEZ, field = "rgn_id")
+plot(wcZones)
+
+cellsArea <- cellSize(cellsEEZ, unit = "m")
+plot(cellsArea)
+
+area <- zonal(cellsArea, wcZones, fun = "sum", na.rm = TRUE)
+area
+
+area <- as.data.frame(area) %>%
+  rename(suit_aq_area = area)
+
+west_coast_aq <- wc_rgns %>%
+  left_join(area)
+
+west_coast_aq$region_area <- as.numeric(st_area(west_coast_aq))
+
+west_coast_aq <- west_coast_aq %>%
+  mutate(percent_suitable = (suit_aq_area/region_area)*100)
+
+west_coast_aq
+```
+    
+#### Visualize results (5 points)
+Now that we have results, we need to present them!
+
+Create the following maps:
+
+-   total suitable area by region\
+-   percent suitable area by region\
+
+Include:
+
+-   legible legends\
+-   updated color aesthetics\
+-   basemap\
+
+```{r include=TRUE}
+tm_shape(west_coast_aq) +
+  tm_polygons(col = "suit_aq_area")
+
+tm_shape(west_coast_aq) +
+  tm_polygons(col = "percent_suitable")
+```
+
+#### Broaden your workflow! (40 points)
+Now that you've worked through the solution for one group of species, let's update your workflow to work for other species. Please create a function that would allow you to reproduce your results for other species. Your function should be able to do the following:\
+
+-   accept temperature and depth ranges and species name as inputs\
+-   create maps of total suitable area and percent suitable area per EEZ with the species name in the title\
+
+Run your function for a species of your choice! You can find information on species depth and temperature requirements on [SeaLifeBase](https://www.sealifebase.ca/search.php). Remember, we are thinking about the potential for marine aquaculture, so these species should have some reasonable potential for commercial consumption. 
+
+[^hall]:Hall, S. J., Delaporte, A., Phillips, M. J., Beveridge, M. & O’Keefe, M. Blue Frontiers: Managing the Environmental Costs of Aquaculture (The WorldFish Center, Penang, Malaysia, 2011). 
+
+[^gentry]:Gentry, R. R., Froehlich, H. E., Grimm, D., Kareiva, P., Parke, M., Rust, M., Gaines, S. D., & Halpern, B. S. Mapping the global potential for marine aquaculture. *Nature Ecology & Evolution*, 1, 1317-1324 (2017).
+
+[^gebco]:GEBCO Compilation Group (2022) GEBCO_2022 Grid (doi:10.5285/e0f0bb80-ab44-2739-e053-6c86abc0289c).
+
+
