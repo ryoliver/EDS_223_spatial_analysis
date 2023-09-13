@@ -8,10 +8,10 @@ All assignments will be posted, submitted, and graded through GitHub Classrooms.
 
 | Assignment #| Assigned   | Due date   |
 |---|------------|------------|
-| 1 | 2022-09-28 | 2022-10-08 |
-| 2 | 2022-10-12 | 2022-10-22 |
-| 3 | 2022-10-26 | 2022-11-12 |
-| 4 | 2022-11-16 | 2022-12-03 |
+| 1 | 2023-10-03 | 2022-10-14 |
+| 2 | 2023-10-17 | 2022-10-28 |
+| 3 | 2023-10-31 | 2022-11-18 |
+| 4 | 2023-11-21 | 2022-12-09 |
 
 ### Assignment expectations and grading
 
@@ -33,9 +33,9 @@ Each assignment will provide specific details of the point breakdowns per questi
 * Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions
 * All members of your group will lose full credit for non-code based questions that are copy/pasted among group members.
 
-### Rubrics
+<!-- ### Rubrics -->
 
--   [Access assignment 3 rubric Rmd](assignments/assignment3-rubric.Rmd)\
--   [Access assignment 3 rubric html](assignments/assignment3-rubric.html)\
--   [Access assignment 4 rubric Rmd](assignments/assignment4-rubric.Rmd)\
--   [Access assignment 4 rubric html](assignments/assignment4-rubric.html)
+<!-- -   [Access assignment 3 rubric Rmd](assignments/assignment3-rubric.Rmd)\ -->
+<!-- -   [Access assignment 3 rubric html](assignments/assignment3-rubric.html)\ -->
+<!-- -   [Access assignment 4 rubric Rmd](assignments/assignment4-rubric.Rmd)\ -->
+<!-- -   [Access assignment 4 rubric html](assignments/assignment4-rubric.html) -->
