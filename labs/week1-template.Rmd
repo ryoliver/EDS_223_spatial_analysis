@@ -1,7 +1,7 @@
 ---
 title: "EDS 223: week 1 lab"
 author: "Ruth Oliver"
-output: pdf_document
+output: html_document
 date: "2022-10-03"
 ---
 ## introduction
@@ -33,7 +33,7 @@ library(ggplot2) # tidyverse data visualization package
 ```
 
 Let's also read in some data from the **spDataLarge** package to work with later.
-```{r include=TRUE, eval=FALSE}
+```{r include=TRUE}
 nz_elev = rast(system.file("raster/nz_elev.tif", package = "spDataLarge"))
 ```
 
@@ -41,7 +41,7 @@ nz_elev = rast(system.file("raster/nz_elev.tif", package = "spDataLarge"))
 
 Let's start with a pre-loaded spatial object representing the states of New Zealand
 
-```{r include=TRUE, eval=FALSE}
+```{r include=TRUE}
 nz
 ```
 
@@ -51,24 +51,20 @@ nz
 
 the first element is always "tm_shape"
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) +
-  tm_fill()
+```{r include=TRUE}
+
 ```
 
 now let's plot just the boundaries
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) +
-  tm_borders()
+```{r include=TRUE}
+
 ```
 
 and the shapes and boundaries together
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) +
-  tm_fill() +
-  tm_borders()
+```{r include=TRUE}
+
 ```
 
 ## map objects
@@ -77,9 +73,7 @@ tm_shape(nz) +
 -   this means that we store a base map and add additional layers later
 
 ```{r include = TRUE}
-map_nz <- tm_shape(nz) +
-  tm_polygons()
-class(map_nz)
+
 ```
 
 -   we can add new shapes on top of the base map
@@ -88,21 +82,13 @@ class(map_nz)
 In this case, we're adding a layer with information on elevation and this layer to have 70% transparency.
 
 ```{r include = TRUE}
-map_nz1 <- map_nz +
-  tm_shape(nz_elev) +
-  tm_raster(col_alpha = 0.7)
 
-map_nz1 
 ```
 
 we can add points designating high points in the country
 
 ```{r include = TRUE}
-map_nz2 <- map_nz1 +
-  tm_shape(nz_height) +
-  tm_dots()
 
-map_nz2
 ```
 
 ## aesthetic basics
@@ -113,76 +99,62 @@ map_nz2
 
 Let's start by changing some fixed aesthetics...First, let's change the color used to fill the NZ shapes.
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) +
-  tm_polygons(fill = "red")
+```{r include=TRUE}
+
 ```
 
 now change the color of the boundaries
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) + 
-  tm_polygons(col = "blue")
+```{r include=TRUE}
+
 ```
 
 and the width of the boundary lines
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) + 
-  tm_polygons(lwd = 3)
+```{r include=TRUE}
+
 ```
 
 and the line type of the boundary lines
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) + 
-  tm_polygons(lty = 2)
+```{r include=TRUE}
+
 ```
 
 all together now!
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) + 
-  tm_polygons(fill = "red", 
-              fill_alpha = 0.3,
-              col = "blue", 
-              lwd = 3, 
-              lty = 2)
+```{r include=TRUE}
+
 ```
 
 Now let's change the colors based on a value. We noticed that the New Zealand dataset has a column with each state's land area
 
-```{r include=TRUE, eval=FALSE}
+```{r include=TRUE}
 nz
 ```
 
 Let's try to plot the Land_area column. We might think that the following works, but it doesn't!
 
-```{r include=TRUE, eval=FALSE}
-#tm_shape(nz) +
-#  tm_fill(col = nz$Land_area)
+```{r include=TRUE}
+
 ```
 
 Instead, **tmap** is expecting a character string naming the attribute associated with the geometry
 
 ```{r include = TRUE}
-tm_shape(nz) +
-  tm_fill(fill = "Land_area")
+
 ```
 
 We can also add an argument that updates the title of the legend
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) +
-  tm_fill(fill = "Land_area", title = "Area")
+```{r include=TRUE}
+
 ```
 
 We can even make it more precise using the "expression" function
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) +
-  tm_fill(fill = "Land_area", title = expression("Area (km"^2*")")) +
-  tm_borders()
+```{r include=TRUE}
+
 ```
 
 ## color settings
@@ -195,47 +167,36 @@ tm_shape(nz) +
     -   **style = "jenks"** identifies groups of similar values and maximizes differences between bins
 
 Notice how the following maps display the same data, but look quite different    
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) + 
-  tm_polygons(fill = "Median_income", style = "pretty")
+```{r include=TRUE}
+
 ```
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) + 
-  tm_polygons(fill = "Median_income", style = "equal")
+```{r include=TRUE}
+
 ```
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) + 
-  tm_polygons(fill = "Median_income", style = "quantile")
+```{r include=TRUE}
+
 ```
 
-```{r include=TRUE, eval=FALSE}
-tm_shape(nz) + 
-  tm_polygons(fill = "Median_income", style = "jenks")
+```{r include=TRUE}
+
 ```
 
 We can also define custom bins
-```{r include=TRUE, eval=FALSE}
-breaks = c(0, 3, 4, 5) * 10000
-tm_shape(nz) + 
-  tm_polygons(fill = "Median_income", breaks = breaks)
+```{r include=TRUE}
+
 ```
 
 -   in some cases we might not want to use bins
     -   **style = "cont"** displays colors as a continuous spectrum
     -   **style = "cat"** uses a unique vale for each categorical value
-```{r include=TRUE, eval=FALSE}
-map_nz +
-  tm_shape(nz_elev) +
-  tm_raster(col_alpha = 0.7) +
-  tm_scale_continuous()
+```{r include=TRUE}
+
 ```
 
-```{r include=TRUE, eval=FALSE}
-map_nz +
-  tm_shape(nz) +
-  tm_polygons(fill = "Island")
+```{r include=TRUE}
+
 ```   
   
 ## map layout
@@ -243,38 +204,26 @@ map_nz +
 -   **tmap** has lots of options, but we will explore just a few
 
 To clearly give readers the context of our map, we can include a compass and scale bar
-```{r include=TRUE, eval=FALSE}
-map_nz +
-  tm_compass(type = "4star", position = c("left", "top")) +
-  tm_scale_bar(breaks = c(0, 100, 200), text.size = 1)
+```{r include=TRUE}
+
 ```
 
 Instead of using a compass and scale bar, we could add latitude/longitudes graticules
-```{r include=TRUE, eval=FALSE}
-map_nz +
-  tm_graticules()
+```{r include=TRUE}
+
 ```
 
 We can also update the background color
-```{r include=TRUE, eval=FALSE}
-map_nz +
-  tm_graticules() +
-  tm_layout(bg.color = "lightblue")
+```{r include=TRUE}
+
 ```
 
 ## faceted and animated maps
 -   we might have data that varies over time and we want to look at the how it changes
 -   one approach is by using faceted plots, a series of plots
 
-```{r include=TRUE, eval=FALSE}
-urb_1970_2030 <- urban_agglomerations %>% 
-  filter(year %in% c(1970, 1990, 2010, 2030))
+```{r include=TRUE}
 
-tm_shape(world) +
-  tm_polygons() +
-  tm_shape(urb_1970_2030) +
-  tm_symbols(col = "black", border.col = "white", size = "population_millions") +
-  tm_facets(by = "year", nrow = 2, free.coords = FALSE)
 ```
 
 
@@ -282,13 +231,12 @@ tm_shape(world) +
 -   **tmap** is especially powerful because it allows us to make interactive maps using the same syntax
 -   all we need to do is enter the interactive mode
 
-```{r include=TRUE, eval=FALSE}
-tmap_mode("view")
-map_nz
+```{r include=TRUE}
+
 ```
 
 To go back to regular plotting, we just need enter plotting mode
-```{r include=TRUE, eval=FALSE}
-tmap_mode("plot")
+```{r include=TRUE}
+
 ```
 

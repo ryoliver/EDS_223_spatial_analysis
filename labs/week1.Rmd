@@ -2,7 +2,7 @@
 title: "EDS 223: week 1 lab"
 author: "Ruth Oliver"
 output: html_document
-date: "2022-10-02"
+date: "2022-10-03"
 ---
 ## introduction
 In this lab, we'll explore the basics of map-making in R using the **tmap** package.
