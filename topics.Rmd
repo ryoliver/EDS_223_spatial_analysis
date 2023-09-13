@@ -7,9 +7,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 # Week 1: Intro to spatial data
 ## Materials
--   [Access lecture slides](lectures/week1.pdf)
--   [Access lab template Rmd](labs/week1-template.Rmd)
--   [Access lab html](labs/week1.html)
+<!-- -   [Access lecture slides](lectures/week1.pdf) -->
+<!-- -   [Access lab template Rmd](labs/week1-template.Rmd) -->
+<!-- -   [Access lab html](labs/week1.html) -->
 
 ### Background reading
 -   [Geocomputation with R, chapter 9](https://geocompr.robinlovelace.net/adv-map.html)
