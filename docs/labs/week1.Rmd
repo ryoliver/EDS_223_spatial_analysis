@@ -2,7 +2,7 @@
 title: "EDS 223: week 1 lab"
 author: "Ruth Oliver"
 output: html_document
-date: "2022-09-28"
+date: "2022-10-02"
 ---
 ## introduction
 In this lab, we'll explore the basics of map-making in R using the **tmap** package.
@@ -12,25 +12,29 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## prerequisites
-
-```{r install, include=TRUE, eval=FALSE}
-install.packages('sf')
-install.packages('raster')
-install.packages('dplyr')
-install.packages('spData')
-install.packages('tmap')
-install.packages('leaflet')
-install.packages('ggplot2')
-install.packages('gifski')
+Let's install all the necessary packages to reproduce code from Geocomp with R.
+```{r}
+#install.packages("spDataLarge", repos = "https://geocompr.r-universe.dev")
+#install.packages("remotes")
+#remotes::install_github("geocompx/geocompkg")
 ```
-
+Let's load all necessary packages.
 ```{r load, include=TRUE, message=FALSE, warning=FALSE}
 library(sf)
-library(raster)
+library(terra)
 library(dplyr)
 library(spData)
 library(spDataLarge)
-library(tmap)
+remotes::install_github("r-tmap/tmap@v4")
+library(tmap)    # for static and interactive maps
+library(leaflet) # for interactive maps
+library(ggplot2) # tidyverse data visualization package
+
+```
+
+Let's also read in some data from the **spDataLarge** package to work with later.
+```{r include=TRUE}
+nz_elev = rast(system.file("raster/nz_elev.tif", package = "spDataLarge"))
 ```
 
 ## map-making basics
@@ -86,7 +90,7 @@ In this case, we're adding a layer with information on elevation and this layer 
 ```{r include = TRUE}
 map_nz1 <- map_nz +
   tm_shape(nz_elev) +
-  tm_raster(alpha = 0.7)
+  tm_raster(col_alpha = 0.7)
 
 map_nz1 
 ```
@@ -111,36 +115,39 @@ Let's start by changing some fixed aesthetics...First, let's change the color us
 
 ```{r include=TRUE}
 tm_shape(nz) +
-  tm_fill(col = "red")
+  tm_polygons(fill = "red")
 ```
 
 now change the color of the boundaries
 
 ```{r include=TRUE}
 tm_shape(nz) + 
-  tm_borders(col = "blue")
+  tm_polygons(col = "blue")
 ```
 
 and the width of the boundary lines
 
 ```{r include=TRUE}
 tm_shape(nz) + 
-  tm_borders(lwd = 3)
+  tm_polygons(lwd = 3)
 ```
 
 and the line type of the boundary lines
 
 ```{r include=TRUE}
 tm_shape(nz) + 
-  tm_borders(lty = 2)
+  tm_polygons(lty = 2)
 ```
 
 all together now!
 
 ```{r include=TRUE}
 tm_shape(nz) + 
-  tm_fill(col = "red", alpha = 0.3) +
-  tm_borders(col = "blue", lwd = 3, lty = 2)
+  tm_polygons(fill = "red", 
+              fill_alpha = 0.3,
+              col = "blue", 
+              lwd = 3, 
+              lty = 2)
 ```
 
 Now let's change the colors based on a value. We noticed that the New Zealand dataset has a column with each state's land area
@@ -160,21 +167,21 @@ Instead, **tmap** is expecting a character string naming the attribute associate
 
 ```{r include = TRUE}
 tm_shape(nz) +
-  tm_fill(col = "Land_area")
+  tm_fill(fill = "Land_area")
 ```
 
 We can also add an argument that updates the title of the legend
 
 ```{r include=TRUE}
 tm_shape(nz) +
-  tm_fill(col = "Land_area", title = "Area")
+  tm_fill(fill = "Land_area", title = "Area")
 ```
 
 We can even make it more precise using the "expression" function
 
 ```{r include=TRUE}
 tm_shape(nz) +
-  tm_fill(col = "Land_area", title = expression("Area (km"^2*")")) +
+  tm_fill(fill = "Land_area", title = expression("Area (km"^2*")")) +
   tm_borders()
 ```
 
@@ -190,29 +197,29 @@ tm_shape(nz) +
 Notice how the following maps display the same data, but look quite different    
 ```{r include=TRUE}
 tm_shape(nz) + 
-  tm_polygons(col = "Median_income", style = "pretty")
+  tm_polygons(fill = "Median_income", style = "pretty")
 ```
 
 ```{r include=TRUE}
 tm_shape(nz) + 
-  tm_polygons(col = "Median_income", style = "equal")
+  tm_polygons(fill = "Median_income", style = "equal")
 ```
 
 ```{r include=TRUE}
 tm_shape(nz) + 
-  tm_polygons(col = "Median_income", style = "quantile")
+  tm_polygons(fill = "Median_income", style = "quantile")
 ```
 
 ```{r include=TRUE}
 tm_shape(nz) + 
-  tm_polygons(col = "Median_income", style = "jenks")
+  tm_polygons(fill = "Median_income", style = "jenks")
 ```
 
 We can also define custom bins
 ```{r include=TRUE}
 breaks = c(0, 3, 4, 5) * 10000
 tm_shape(nz) + 
-  tm_polygons(col = "Median_income", breaks = breaks)
+  tm_polygons(fill = "Median_income", breaks = breaks)
 ```
 
 -   in some cases we might not want to use bins
@@ -221,15 +228,14 @@ tm_shape(nz) +
 ```{r include=TRUE}
 map_nz +
   tm_shape(nz_elev) +
-  tm_raster(alpha = 0.7, 
-            style = "cont")
+  tm_raster(col_alpha = 0.7) +
+  tm_scale_continuous()
 ```
 
 ```{r include=TRUE}
 map_nz +
   tm_shape(nz) +
-  tm_polygons(col = "Island",
-              style = "cat")
+  tm_polygons(fill = "Island")
 ```   
   
 ## map layout
@@ -271,17 +277,6 @@ tm_shape(world) +
   tm_facets(by = "year", nrow = 2, free.coords = FALSE)
 ```
 
--   another approach would be to create a gif that we can embed
--   in this case we use "along" instead of "by"
-```{r include=TRUE, eval=FALSE}
-urb_anim = tm_shape(world) + 
-  tm_polygons() + 
-  tm_shape(urban_agglomerations) + 
-  tm_dots(size = "population_millions") +
-  tm_facets(along = "year", free.coords = FALSE)
-
-tmap_animation(urb_anim, filename = "urb_anim.gif", delay = 25)
-```
 
 ## interactive maps
 -   **tmap** is especially powerful because it allows us to make interactive maps using the same syntax

@@ -1,6 +1,8 @@
-# MEDS course websites - optional template
+# EDS 223 - Geospatial Analysis & Remote Sensing
 
-This website template is made with [`distill` by RStudio](https://rstudio.github.io/distill/) as an optional starting point for teachers in the Master of Environmental Data Science Program at the Bren School (UC Santa Barbara). 
+Course website and materials.
+
+This website is based on a template made with [`distill` by RStudio](https://rstudio.github.io/distill/) developed by Allison Horst for teachers in the Master of Environmental Data Science Program at the Bren School (UC Santa Barbara). 
 
 [Click here](https://allisonhorst.github.io/meds-distill-template/) for a template preview.
 
