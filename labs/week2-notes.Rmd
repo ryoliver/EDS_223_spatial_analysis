@@ -1,9 +1,10 @@
 ---
-title: 'EDS 223: week 2 lab notes'
+title: 'EDS 223: week 2 lab'
 author: "Ruth Oliver"
-date: "2022-10-05"
+date: "2022-10-10"
 output: pdf_document
 ---
+
 ## introduction
 In this lab, we'll explore the basics of manipulating vector data in R using the **sf** package.
 The following materials are modified from [Chapter 3 of Geocomputation with R by Rovin Lovelace](https://geocompr.robinlovelace.net/attr.html)
@@ -114,13 +115,10 @@ Aggregation is the process of summarizing data with one or more 'grouping' varia
 
 Let's try to find the total population within each continent.
 ```{r include=TRUE, eval=FALSE}
-continents <- world %>%
+world %>%
   group_by(continent) %>%
   summarize(population = sum(pop, na.rm = TRUE))
 
-tm_shape(continents) +
-  tm_polygons(col = "population",
-              style = "cont")
 ```
 
 Let's also find the total area and number of countries in each continent
@@ -167,7 +165,7 @@ names(world_coffee)
 And plot what this looks like...
 ```{r include=TRUE, eval=FALSE}
 tm_shape(world_coffee) +
-  tm_polygons(col = "coffee_production_2017")
+  tm_polygons(fill = "coffee_production_2017")
 ```
 
 If we just wanted to keep countries that do have coffee data, we could use an inner join
@@ -200,7 +198,7 @@ nrow(world_coffee_inner)
 Let's visualize what a the inner join did to our spatial object
 ```{r include=TRUE, eval=FALSE}
 tm_shape(world_coffee_inner) +
-  tm_polygons(col = "coffee_production_2017",
+  tm_polygons(fill = "coffee_production_2017",
               title = "Coffee production (2017)") +
   tm_layout(legend.outside = TRUE)
 
