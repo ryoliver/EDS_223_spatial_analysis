@@ -33,12 +33,12 @@ Welcome!
 **Instructor:** Ruth Oliver (rutholiver\@bren.ucsb.edu)
 
 -   **Office:** Bren Hall 4512
--   **Student hours:** Wednesday 11-12pm PT (NCEAS Sequoia Room 105)
+-   **Student hours:** Friday 1-2pm PT
 -   **The best way to contact me is:** email
 
-**Teaching assistant:** Albert Garcia (agarcia\@bren.ucsb.edu)
+**Teaching assistant:** Allie Caughman (acaughman\@bren.ucsb.edu)
 
--   **Student hours:** Tuesday 2:30-3:30pm PT (Bren Manzanita Room)
+-   **Student hours:** Tuesday 12:30-1:30pm PT (location TBD)
 -   **The best way to contact me is:** email
 
 ## Important links
@@ -46,14 +46,15 @@ Welcome!
 -   [Course syllabus](syllabus.pdf)
 
 -   [Code of Conduct](https://www.sa.ucsb.edu/regulations/student-conduct-code/student-conduct-code)
--   [Alert us to any absences here](https://forms.gle/TtFZZWT9sSsPS5Ep6)
+-   [Alert us to any absences here](https://forms.gle/vkEHMsRn486WuATH8)
 
 -   [Geocomputation with R](https://geocompr.robinlovelace.net/index.html)
 
 
 ## Weekly course schedule
 
--   Monday/Wednesday 9:30am - 10:45am (NCEAS)
+-   Tuesday 9:30-12:15 PT (Bren Hall 1424)
+-   **Discussion section** - Thursday 11:30-12:20 or 12:30-1:20 PT (Bren 3526)
 
 
 ## Course requirements
@@ -69,15 +70,15 @@ Welcome!
 
 ## Tentative topics
 
-| Week | Lecture topics | Lab topics |
-|------|----------------|------------|
-| **1** (9/26) | Course overview & intro to spatial data models| coordinate reference systems, map making basics|
-| **2** (10/3) | Spatial data models & intro to vector data| 'sf', attribute data operations|
-| **3** (10/10) | Vector operations | vector spatial & geometry operations|
-| **4** (10/17) | Spatial data science expert panel| review|
-| **5** (10/24) | Intro to raster data| 'terra', raster spatial operations|
-| **6** (10/31) | Intro to RS & EM radiation| no class|
-| **7** (11/7)  | RS data collection | displaying multi-band data |
-| **8** (11/14) | RS expert panel| raster geometry operations, raster-vector interactions|
-| **9** (11/21) | Multispectral RS analysis| band math, PCA     |
-| **10** (11/28) | Active RS & advanced analysis| spatial stats basic     |
+| Week | Topics         |
+|------|----------------| 
+| **1** (10/2) | Course overview & intro to spatial data models| 
+| **2** (10/9) | Intro to vector data|
+| **3** (10/16) | Vector operations | 
+| **4** (10/23) | Intro to raster data & operations|
+| **5** (10/30) | Guest speakers|
+| **6** (11/6) | Intro to RS & EM radiation| 
+| **7** (11/13)  | RS data collection |
+| **8** (11/20) | RS of vegetation|
+| **9** (11/27) | Multispectral RS analysis|
+| **10** (12/4) | Active RS |
