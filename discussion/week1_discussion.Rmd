@@ -1,0 +1,157 @@
+---
+title: 'EDS 223: Discussion Week 1 - Making Maps'
+author: 'Name'
+date: "2023-08-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## introduction
+
+The following exercises are modified from [Chapter 9 of Geocomputation with R by Rovin Lovelace](https://geocompr.robinlovelace.net/adv-map.html).
+
+## prerequisites
+
+```{r load, include=TRUE, message=FALSE, warning=FALSE}
+library(sf)
+library(raster)
+library(spData)
+library(spDataLarge)
+library(tidyverse)
+library(ggspatial)
+library(patchwork)
+```
+
+## Exercise 1
+
+These exercises rely on a new data object based on the **world** and **worldbank_df** datasets from the **spData* package.
+
+```{r include=TRUE}
+africa = world |> 
+  filter(continent == "Africa", !is.na(iso_a2)) |> 
+  left_join(worldbank_df, by = "iso_a2") |> 
+  dplyr::select(name, subregion, gdpPercap, HDI, pop_growth) |> 
+  st_transform("+proj=aea +lat_1=20 +lat_2=-23 +lat_0=0 +lon_0=25")
+```
+
+## Map 1
+
+Create a map showing the geographic distribution of the Human Development Index (HDI) across Africa.  
+
+```{r include=TRUE}
+?geom_sf
+
+m1 = ggplot(africa) +
+  # geom_sf(aes(color) = HDI)) +
+  geom_sf(aes(fill = HDI)) +
+  theme_bw() 
+m1
+
+```
+
+## Map 2
+
+Update the map created for question 1 so the legend has three bins: "high" (HDI above 0.7), "medium" (HDI between 0.55 and 0.7), and "low" (HDI below 0.55).   
+-   change the legend title 
+-   change the class labels   
+-   change the color palette   
+
+```{r include=TRUE}
+m2 = m1 + 
+  scale_fill_binned(breaks = c(.55, 0.7))
+m2
+```
+
+## Map 3
+
+Represent Africa's subregions on the map.  
+-   change the color palette 
+-   change the legend title 
+
+```{r include=TRUE}
+m3 = ggplot(africa) +
+  geom_sf(aes(fill = subregion)) +
+  theme_bw() +
+  scale_fill_viridis_d() +
+  labs(fill = "Subregion")
+m3
+```
+
+-   combine this map with the map from question 2 into a single plot   
+
+```{r}
+m2 + m3
+```
+
+
+## Exercise 2
+
+Here, we will use the **zion** and **nlcd** datasets from the **spDataLarge** package.
+
+```{r include=TRUE}
+zion = st_read((system.file("vector/zion.gpkg", package = "spDataLarge")))
+data(nlcd, package = "spDataLarge")
+force(nlcd)
+```
+
+First, we need to convert the raster into a dataframe
+
+```{r}
+nlcd_df = as.data.frame(nlcd, xy=TRUE)
+```
+
+## Map 4
+
+Create a land cover map of Zion National Park    
+-   change the default colors to match your perception of land cover categories   
+-   move the map legend outside of the map to improve readability 
+-   add a scale bar and north arrow and change the position of both to improve the maps aesthetics 
+-   add the park boundaries on top of the land cover map    
+
+```{r include=TRUE}
+?geom_raster
+?annotation_scale
+?annotation_north_arrow
+
+m4 = ggplot() +
+  geom_raster(data = nlcd_df, aes(x=x, y=y, fill = layer_levels)) +
+  geom_sf(data = zion, aes(fill = NA), alpha = 0.2, linewidth = 1, color = "black") +
+  labs(fill = "Land Cover Type") +
+  theme_bw() +
+  scale_fill_manual(values = c("tan", "lightgreen", "darkgrey", "darkgreen", "green", "purple", "blue", "brown")) +
+  annotation_scale(plot_unit = "km") +
+  annotation_north_arrow(location = "br",
+                         pad_x = unit(0.2, "in"),
+                         pad_y = unit(0.2, "in"),
+                         style = ggspatial::north_arrow_nautical(fill = c("grey40", "white"),
+                                                                 line_col = "grey20"))
+m4
+```
+
+## Map 5
+
+-   add an inset of Zion's location in the context of the state of Utah  
+    -   hint: an object representing Utah can be subset from the **us_states** dataset) 
+
+```{r}
+states = us_states %>% 
+  janitor::clean_names() %>% 
+  filter(name == "Utah")
+```
+
+```{r}
+m5 = ggplot() +
+  geom_sf(data = states) + 
+  geom_sf(data = zion) +
+  theme_bw() +
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank())
+m5
+```
+
+```{r}
+m4 + inset_element(m5, 0.7, 0.7, 1, 1) + plot_annotation(tag_levels = "A")
+```
