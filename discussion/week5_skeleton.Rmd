@@ -1,0 +1,83 @@
+---
+title: 'EDS 223: Discussion Week 1 - Making Maps'
+author: 'Name'
+date: "2023-08-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## introduction
+
+The following exercises are modified from [Chapter 6 of Geocomputation with R by Rovin Lovelace](https://r.geocompx.org/raster-vector).
+
+## prerequisites
+
+```{r load, include=TRUE, message=FALSE, warning=FALSE}
+library(sf)
+library(terra)
+library(spData)
+library(spDataLarge)
+library(tidyverse)
+```
+
+```{r}
+zion_points = read_sf(system.file("vector/zion_points.gpkg", package = "spDataLarge"))
+srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+
+ch = st_combine(zion_points) |>
+  st_convex_hull() |> 
+  st_as_sf()
+
+grain = rast(system.file("raster/grain.tif", package = "spData"))
+```
+
+```{r}
+plot(srtm)
+plot(st_geometry(zion_points), add = TRUE)
+plot(ch, add = TRUE)
+```
+
+## Exercises
+
+1. Crop the srtm raster using (1) the zion_points dataset and (2) the ch dataset. Are there any differences in the output maps? Next, mask srtm using these two datasets. Can you see any difference now?
+
+```{r}
+
+```
+
+2. Subset points higher than 3100 meters in New Zealand (the nz_height object) and create a template raster with a resolution of 3 km for the extent of the new point dataset. Using these two new objects:
+
+```{r}
+nz_height3100 = nz_height %>% 
+  filter()
+```
+
+2a. Count numbers of the highest points in each grid cell.
+
+```{r}
+nz_raster = rasterize(nz_height3100, nz_template, 
+                       field = "elevation", fun = "length")
+
+```
+
+2b. Find the maximum elevation in each grid cell.
+
+```{r}
+
+```
+
+3. Aggregate the raster counting high points in New Zealand (created in the previous exercise), reduce its geographic resolution by half (so cells are 6 by 6 km) and plot the result. Resample the lower resolution raster back to the original resolution of 3 km. 
+
+```{r}
+
+```
+
+4. Polygonize the grain dataset and filter all squares representing clay.
+
+```{r}
+
+```
+
