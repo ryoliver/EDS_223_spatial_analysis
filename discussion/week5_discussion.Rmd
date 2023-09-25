@@ -1,5 +1,5 @@
 ---
-title: 'EDS 223: Discussion Week 1 - Making Maps'
+title: 'EDS 223: Discussion Week 5 - Vector Raster Interactions'
 author: 'Name'
 date: "2023-08-28"
 output: html_document
