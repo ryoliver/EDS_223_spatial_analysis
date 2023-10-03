@@ -366,21 +366,22 @@ Geocomputation with R by Rovin Lovelace</a></p>
 </div>
 <div id="prerequisites" class="section level2">
 <h2>prerequisites</h2>
-<p>Let’s install all the necessary packages to reproduce code from
-Geocomp with R.</p>
-<pre class="r"><code>#install.packages(&quot;spDataLarge&quot;, repos = &quot;https://geocompr.r-universe.dev&quot;)
-#install.packages(&quot;remotes&quot;)
-#remotes::install_github(&quot;geocompx/geocompkg&quot;)</code></pre>
+</div>
+<div id="prerequisites-1" class="section level2">
+<h2>prerequisites</h2>
 <p>Let’s load all necessary packages.</p>
-<pre class="r"><code>library(sf)
+<pre class="r"><code>#install.packages(&quot;sf&quot;)
+#install.packages(&quot;terra&quot;)
+#install.packages(&quot;spData&quot;)
+#install.packages(&quot;spDataLarge&quot;, repos = &quot;https://geocompr.r-universe.dev&quot;)
+#remotes::install_github(&quot;r-tmap/tmap@v4&quot;)
+
+library(sf)
 library(terra)
 library(dplyr)
 library(spData)
 library(spDataLarge)
-remotes::install_github(&quot;r-tmap/tmap@v4&quot;)
-library(tmap)    # for static and interactive maps
-library(leaflet) # for interactive maps
-library(ggplot2) # tidyverse data visualization package</code></pre>
+library(tmap)    # for static and interactive maps</code></pre>
 <p>Let’s also read in some data from the <strong>spDataLarge</strong>
 package to work with later.</p>
 <pre class="r"><code>nz_elev = rast(system.file(&quot;raster/nz_elev.tif&quot;, package = &quot;spDataLarge&quot;))</code></pre>
