@@ -1,0 +1,242 @@
+---
+title: "EDS 223: week 1 lab"
+author: "Ruth Oliver"
+output: html_document
+date: "2022-10-03"
+---
+## introduction
+In this lab, we'll explore the basics of map-making in R using the **tmap** package.
+The following materials are modified from [Chapter 9 of Geocomputation with R by Rovin Lovelace](https://geocompr.robinlovelace.net/adv-map.html)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## prerequisites
+Let's install all the necessary packages to reproduce code from Geocomp with R.
+```{r}
+#install.packages("spDataLarge", repos = "https://geocompr.r-universe.dev")
+#install.packages("remotes")
+#remotes::install_github("geocompx/geocompkg")
+```
+Let's load all necessary packages.
+```{r load, include=TRUE, message=FALSE, warning=FALSE}
+library(sf)
+library(terra)
+library(dplyr)
+library(spData)
+library(spDataLarge)
+remotes::install_github("r-tmap/tmap@v4")
+library(tmap)    # for static and interactive maps
+library(leaflet) # for interactive maps
+library(ggplot2) # tidyverse data visualization package
+
+```
+
+Let's also read in some data from the **spDataLarge** package to work with later.
+```{r include=TRUE}
+nz_elev = rast(system.file("raster/nz_elev.tif", package = "spDataLarge"))
+```
+
+## map-making basics
+
+Let's start with a pre-loaded spatial object representing the states of New Zealand
+
+```{r include=TRUE}
+nz
+```
+
+-   we're going to start by using the **tmap** package to make some basic maps
+-   **tmap** can work with spatial objects of a variety of clasess, meaning it's highly versatile
+-   this approach relies on a series of functions that typically start with "tm\_"
+
+the first element is always "tm_shape"
+
+```{r include=TRUE}
+
+```
+
+now let's plot just the boundaries
+
+```{r include=TRUE}
+
+```
+
+and the shapes and boundaries together
+
+```{r include=TRUE}
+
+```
+
+## map objects
+
+-   **tmap** can store maps as *objects*
+-   this means that we store a base map and add additional layers later
+
+```{r include = TRUE}
+
+```
+
+-   we can add new shapes on top of the base map
+-   when we add a new shape, all subsequent aesthetic functions refer to it, until we add a new shape
+
+In this case, we're adding a layer with information on elevation and this layer to have 70% transparency.
+
+```{r include = TRUE}
+
+```
+
+we can add points designating high points in the country
+
+```{r include = TRUE}
+
+```
+
+## aesthetic basics
+
+-   up until now, we've been working with the default aesthetics
+-   there are 2 types of aesthetics: fixed and those that change with the value of a variable
+-   **tmap** works differently than **ggplot2** and doesn't use the "aes()" function
+
+Let's start by changing some fixed aesthetics...First, let's change the color used to fill the NZ shapes.
+
+```{r include=TRUE}
+
+```
+
+now change the color of the boundaries
+
+```{r include=TRUE}
+
+```
+
+and the width of the boundary lines
+
+```{r include=TRUE}
+
+```
+
+and the line type of the boundary lines
+
+```{r include=TRUE}
+
+```
+
+all together now!
+
+```{r include=TRUE}
+
+```
+
+Now let's change the colors based on a value. We noticed that the New Zealand dataset has a column with each state's land area
+
+```{r include=TRUE}
+nz
+```
+
+Let's try to plot the Land_area column. We might think that the following works, but it doesn't!
+
+```{r include=TRUE}
+
+```
+
+Instead, **tmap** is expecting a character string naming the attribute associated with the geometry
+
+```{r include = TRUE}
+
+```
+
+We can also add an argument that updates the title of the legend
+
+```{r include=TRUE}
+
+```
+
+We can even make it more precise using the "expression" function
+
+```{r include=TRUE}
+
+```
+
+## color settings
+
+-   how we set and define colors can radically change the interpretation of our maps
+-   the style argument has several options for breaking data into bins
+    -   **style = "pretty"** (default) rounds breaks into evenly spaced whole numbers, where possible
+    -   **style = "equal"** divides input values into bins with equal range (best for uniform distributions)
+    -   **style = "quantile"** puts the same number of observations into each bin
+    -   **style = "jenks"** identifies groups of similar values and maximizes differences between bins
+
+Notice how the following maps display the same data, but look quite different    
+```{r include=TRUE}
+
+```
+
+```{r include=TRUE}
+
+```
+
+```{r include=TRUE}
+
+```
+
+```{r include=TRUE}
+
+```
+
+We can also define custom bins
+```{r include=TRUE}
+
+```
+
+-   in some cases we might not want to use bins
+    -   **style = "cont"** displays colors as a continuous spectrum
+    -   **style = "cat"** uses a unique vale for each categorical value
+```{r include=TRUE}
+
+```
+
+```{r include=TRUE}
+
+```   
+  
+## map layout
+-   now that we have the basics, we can turn to all the other elements that make a cohesive map
+-   **tmap** has lots of options, but we will explore just a few
+
+To clearly give readers the context of our map, we can include a compass and scale bar
+```{r include=TRUE}
+
+```
+
+Instead of using a compass and scale bar, we could add latitude/longitudes graticules
+```{r include=TRUE}
+
+```
+
+We can also update the background color
+```{r include=TRUE}
+
+```
+
+## faceted and animated maps
+-   we might have data that varies over time and we want to look at the how it changes
+-   one approach is by using faceted plots, a series of plots
+
+```{r include=TRUE}
+
+```
+
+
+## interactive maps
+-   **tmap** is especially powerful because it allows us to make interactive maps using the same syntax
+-   all we need to do is enter the interactive mode
+
+```{r include=TRUE}
+
+```
+
+To go back to regular plotting, we just need enter plotting mode
+```{r include=TRUE}
+
+```
+

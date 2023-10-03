@@ -1,0 +1,100 @@
+---
+title: 'EDS 223: Discussion Week 4 - Raster Operation Basics'
+author: 'Name'
+date: "2023-08-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## introduction
+
+The following exercises are modified from Chapters 3, 4, and 5 of [Geocomputation with R by Rovin Lovelace](https://r.geocompx.org/).
+
+## prerequisites
+
+```{r load, include=TRUE, message=FALSE, warning=FALSE}
+library(sf)
+library(terra)
+library(spData)
+library(spDataLarge)
+library(tidyverse)
+```
+
+```{r}
+dem = rast(system.file("raster/dem.tif", package = "spDataLarge"))
+landsat = rast(system.file("raster/landsat.tif", package = "spDataLarge"))
+spain_dem = geodata::elevation_30s(country = "Spain", path = ".", mask = FALSE)
+srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+```
+
+## Exercise 1: Plot the histogram and the boxplot of the dem.tif file from the spDataLarge package
+
+```{r}
+
+```
+
+## Exercise 2: Manipulate rasters
+
+reclassify the elevation in three classes: low (<300), medium and high (>500). 
+
+```{r}
+plot(dem)
+```
+
+compute the mean elevation for each altitudinal class
+
+```{r}
+```
+
+Calculate the Normalized Difference Water Index (NDWI; (green - nir)/(green + nir)) of a Landsat image.
+
+```{r}
+
+```
+
+calculate a correlation between NDVI and NDWI for this area
+
+```{r}
+ndvi_fun = function(nir, red){
+  (nir - red) / (nir + red)
+}
+
+ndvi_rast = lapp(landsat[[c(4, 3)]], fun = ndvi_fun)
+```
+
+```{r}
+
+```
+
+Use `terra::distance()` to compute distances from all cells of spain to it's nearest coastline. According to the documentation, terra::distance() will calculate distance for all cells that are NA to the nearest cell that are not NA
+
+```{r}
+spain_dem = aggregate(spain_dem, fact = 20)
+plot(spain_dem)
+
+```
+
+Try to modify the approach used in the above exercise by weighting the distance raster with the elevation raster; every 100 altitudinal meters should increase the distance to the coast by 10 km. Next, compute and visualize the difference between the raster created using the Euclidean distance (E7) and the raster weighted by elevation.
+
+```{r}
+
+```
+
+
+## Exercise 3:: Geometry Operations with Rasters
+
+The srtm raster has a resolution of 0.00083 by 0.00083 degrees. Change its resolution to 0.01 by 0.01 degrees using all of the method available in the terra package. Visualize the results. 
+
+```{r}
+plot(srtm)
+
+```
+
+```{r}
+srtm_resampl_all = c(srtm_resampl1, srtm_resampl2, srtm_resampl3,
+                     srtm_resampl4, srtm_resampl5)
+plot(srtm_resampl_all)
+```

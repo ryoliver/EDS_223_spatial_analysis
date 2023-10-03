@@ -1,0 +1,224 @@
+---
+title: 'EDS 223: week 3 lab'
+author: "Ruth Oliver"
+date: "2022-10-17"
+output: html_document
+---
+
+
+## introduction
+In this lab, we'll explore the basics of spatial and geometry operations on vector data in R using the **sf** package.
+The following materials are modified from [Chapter 4](https://geocompr.robinlovelace.net/spatial-operations.html) and [Chapter 5](https://geocompr.robinlovelace.net/geometry-operations.html)of Geocomputation with R by Rovin Lovelace.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## prerequisites
+
+```{r install, include=TRUE}
+rm(list = ls())
+library(sf)
+library(spData)
+library(tmap)
+library(tidyverse)
+library(rmapshaper)
+library(smoothr)
+```
+
+## spatial subsetting
+Spatial subsetting is the process of converting a spatial object into a new object containing only the features that *relate* in space to another object. This is analogous the attribute subsetting that we covered last week. There are many ways to spatially subset in R, so we will explore a few.
+
+Let's start by going back to the New Zealand datasets and find all the high points in the state of Canterbury.  
+
+The command
+
+```{r include=TRUE}
+
+
+```
+
+The default is to subset to features that intersect, but we can use other operations, including finding features that do not intersect.
+
+```{r include=TRUE}
+
+```
+
+We can perform the same operations using topological operators. These operators return matrices testing the relationship between features. 
+
+```{r include=TRUE}
+
+```
+
+We can also use the **st_filter** function in *sf*
+
+```{r include=TRUE}
+
+
+```
+
+We can change the predicate option to test subset to features that don't intersect
+
+```{r include=TRUE}
+
+```
+
+## spatial joining
+Where attribute joining depends on both data sets sharing a 'key' variable, spatial joining uses the same concept but depends on spatial relationships between data sets. 
+
+Let's test this out by creating 50 points randomly distributed across the world and finding out what countries they call in.
+
+```{r include=TRUE}
+
+```
+
+Let's first use spatial subsetting to find just the countries that contain random points.
+
+```{r include=TRUE}
+
+```
+
+Now let's perform a spatial join to add the info from each country that a point falls into onto the point dataset.
+
+```{r include=TRUE}
+
+```
+
+By default, **st_join** performs a left join. We change this and instead perform an inner join.
+
+```{r include=TRUE}
+
+```
+
+## non-overlapping joins
+Sometimes we might want join geographic datasets that are strongly related, but do not have overlapping geometries. To demonstrate this, let's look at data on cycle hire points in London.
+
+```{r include=TRUE}
+
+```
+
+We can check if any of these points overlap.
+```{r include=TRUE}
+
+```
+
+Let's say we need to join the 'capacity' variable in 'cycle_hire_osm' onto the official 'target' data in 'cycle_hire'. The simplest method is using the topological operator **st_is_within_distance()**.
+
+```{r include=TRUE}
+
+```
+
+Now, we'd like to add the values from 'cycle_hire_osm' onto the 'cycle_hire' points.
+```{r include=TRUE}
+
+```
+Note: the number of rows of the join is larger than the number of rows in the original dataset. Why? Because some points in 'cycle_hire' were within 20 meters of multiple points in 'cycle_hire_osm'. If we wanted to aggregate so we have just one value per original point, we can use the aggregation methods from last week.
+
+```{r include=TRUE}
+
+```
+
+## spatial aggregation
+Similar to attribute data aggregation, spatial data aggregation condenses data (we end up with fewer rows than we started with).
+
+Let's say we wanted to find the average height of high point in each region of New Zealand. We could use the **aggregate** function in base R.
+```{r include=TRUE}
+
+```
+The result of this is an object with the same geometries as the aggregating feature data set (in this case 'nz').
+
+```{r include=TRUE}
+
+```
+
+We could also use a **sf**/**dplyr** approach.
+```{r include=TRUE}
+
+```
+
+## joining incongruent layers
+We might want to aggregate data to geometries that are not congruent (i.e. their boundaries don't line up). This causes issues when we think about how to summarize associated values.
+```{r include=TRUE}
+
+```
+
+The simplest method for dealing with this is using area weighted spatial interpolation which transfers values from the 'incongruent' object to a new column in 'aggregating_zones' in proportion with the area of overlap. 
+
+```{r include=TRUE}
+
+```
+
+## distance relationships
+While topological relationships are binary (features either intersect or don't), distance relationships are continuous. 
+
+We can use the following to find the distance between the highest point in NZ and the centroid of the Canterbury region.
+
+```{r include=TRUE}
+
+
+```
+Note: this function returns distances with units (yay!) and as a matrix, meaning we could find the distance between many locations at once.
+
+## simplification
+Simplification generalizes vector data (polygons and lines) to assist with plotting and reducing the amount of memory, disk space, and network bandwidth to handle a dataset.
+
+Let's try simplifying the US states using the Douglas-Peucker algorithm. GEOS assumes a projected CRS, so we first need to project the data, in this case into the US National Atlas Equal Area (epsg = 2163)
+
+```{r include=TRUE}
+
+```
+
+To preserve the states' topology let's use a simplify function from **rmapshaper** which uses Visalingam's algorithm.
+
+```{r include=TRUE}
+
+```
+
+Instead of simplifying, we could try smoothing using Gaussian kernel regression.
+
+```{r include=TRUE}
+
+```
+
+## centroids
+Centroids identify the center of a spatial feature. Similar to taking an average, there are many ways to compute a centroid. The most common is the *geographic* centroid.
+```{r include=TRUE}
+
+```
+
+Sometimes centroids fall outside of the boundaries of the objects they were created from. In the case where we need them to fall inside of the feature, we can use *point on surface* methods.
+
+
+```{r include=TRUE}
+
+```
+
+## buffers
+
+Buffers create polygons representing a set distance from a feature.
+
+```{r include=TRUE}
+
+```
+
+## unions
+As we saw in the last lab, we can spatially aggregate without explicitly asking R to do so.
+
+```{r include=TRUE}
+
+```
+
+What is going on here? Behind the scenes, **summarize()** is using **st_union()** to dissolve the boundaries.
+
+```{r include=TRUE}
+
+
+```
+
+**st_union()** can also take 2 geometries and unite them.
+
+```{r include=TRUE}
+
+```
+
+
