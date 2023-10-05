@@ -1,6 +1,6 @@
 ---
 title: 'EDS 223: Discussion Week 1 - Making Maps'
-author: 'Name'
+author: 'Allie Caughman'
 date: "2023-08-28"
 output: html_document
 ---
@@ -44,8 +44,9 @@ Create a map showing the geographic distribution of the Human Development Index 
 ```{r include=TRUE}
 ?geom_sf
 
-m1 = ggplot(data = africa) +
-  geom_sf(aes(fill = HDI))
+m1 = ggplot(africa) +
+  geom_sf(aes(fill = HDI)) +
+  theme_bw()
 ```
 
 ## Map 2
@@ -53,7 +54,7 @@ m1 = ggplot(data = africa) +
 Update the map created for question 1 so the legend has three bins: "high" (HDI above 0.7), "medium" (HDI between 0.55 and 0.7), and "low" (HDI below 0.55).   
 
 ```{r include=TRUE}
-m2 = m1 + 
+m1 = m1 + 
   scale_fill_binned(breaks = c(0.55, 0.7))
 ```
 
@@ -67,14 +68,14 @@ Represent Africa's subregions on the map.
 m3 = ggplot(africa) +
   geom_sf(aes(fill = subregion)) +
   theme_bw() +
-  scale_fill_viridis_d() +
-  labs(fill = "Sub Region")
+  labs(fill = "Sub Region") +
+  scale_fill_viridis_d()
 ```
 
 -   combine this map with the map from question 2 into a single plot   
 
 ```{r}
-m2 + m3
+m1 / m3 + plot_annotation(tag_levels = "A")
 ```
 
 
@@ -92,7 +93,6 @@ First, we need to convert the raster into a dataframe
 
 ```{r}
 nlcd_df = as.data.frame(nlcd, xy=TRUE)
-head(nlcd_df)
 ```
 
 ## Map 4
@@ -107,12 +107,15 @@ Create a land cover map of Zion National Park
 ?geom_raster
 
 ggplot() +
-  geom_raster(data = nlcd_df, aes(x=x, y=y, fill = layer_levels)) + 
+  geom_raster(data = nlcd_df, aes(x=x, y=y, fill = layer_levels)) +
+  geom_sf(data = zion, aes(fill = NA), alpha = 0.2, linewidth = 1, color = "black") +
+  theme_bw() +
+  scale_fill_manual(values = c("tan", "lightgreen", "darkgrey", "darkgreen", "green", "purple", "blue", "brown")) +
   annotation_scale() +
-  annotation_north_arrow(location = "br", 
-                         style = ggspatial::north_arrow_nautical(),
-                         pad_x = unit(0.2, "in"), 
-                         pad_y = unit(0.2, "in")) + geom_sf(data = zion, aes(fill = NA), alpha = 0.2, linewidth = 1, color = "black")
+  annotation_north_arrow(location = "tr",
+                         pad_x = unit(0.2, "in"),
+                         pad_y = unit(0.2, "in"),
+                         style = ggspatial::north_arrow_nautical(fill = c("green", "orange")))
 ```
 
 ## Map 5

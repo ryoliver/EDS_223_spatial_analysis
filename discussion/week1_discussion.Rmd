@@ -55,9 +55,6 @@ m1
 ## Map 2
 
 Update the map created for question 1 so the legend has three bins: "high" (HDI above 0.7), "medium" (HDI between 0.55 and 0.7), and "low" (HDI below 0.55).   
--   change the legend title 
--   change the class labels   
--   change the color palette   
 
 ```{r include=TRUE}
 m2 = m1 + 
