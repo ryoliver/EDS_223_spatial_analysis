@@ -19,6 +19,7 @@ The following exercises are modified from Chapters 3, 4, and 5 of [Geocomputatio
 library(sf)
 library(terra)
 library(spData)
+library(geodata)
 library(spDataLarge)
 library(tidyverse)
 ```

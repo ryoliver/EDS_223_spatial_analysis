@@ -1,6 +1,6 @@
 ---
 title: 'EDS 223: Discussion Week 1 - Making Maps'
-author: 'Name'
+author: 'Allie Caughmam'
 date: "2023-08-28"
 output: html_document
 ---
@@ -18,6 +18,7 @@ The following exercises are modified from [Chapter 9 of Geocomputation with R by
 ```{r load, include=TRUE, message=FALSE, warning=FALSE}
 library(sf)
 library(raster)
+library(terra)
 library(spData)
 library(spDataLarge)
 library(tidyverse)
@@ -42,14 +43,11 @@ africa = world |>
 Create a map showing the geographic distribution of the Human Development Index (HDI) across Africa.  
 
 ```{r include=TRUE}
-?geom_sf
-
 m1 = ggplot(africa) +
   # geom_sf(aes(color) = HDI)) +
   geom_sf(aes(fill = HDI)) +
   theme_bw() 
 m1
-
 ```
 
 ## Map 2
@@ -90,8 +88,13 @@ Here, we will use the **zion** and **nlcd** datasets from the **spDataLarge** pa
 
 ```{r include=TRUE}
 zion = st_read((system.file("vector/zion.gpkg", package = "spDataLarge")))
-data(nlcd, package = "spDataLarge")
-force(nlcd)
+
+# For spDataLarge version 2.0.X
+# data(nlcd, package = "spDataLarge")
+# force(nlcd)
+
+# For spDataLarge version 2.1.1
+nlcd = rast(system.file("raster/nlcd.tif", package = "spDataLarge"))
 ```
 
 First, we need to convert the raster into a dataframe
@@ -109,12 +112,8 @@ Create a land cover map of Zion National Park
 -   add the park boundaries on top of the land cover map    
 
 ```{r include=TRUE}
-?geom_raster
-?annotation_scale
-?annotation_north_arrow
-
 m4 = ggplot() +
-  geom_raster(data = nlcd_df, aes(x=x, y=y, fill = layer_levels)) +
+  geom_raster(data = nlcd_df, aes(x=x, y=y, fill = levels)) + #layer_levels is using spDataLarge 2.0.9
   geom_sf(data = zion, aes(fill = NA), alpha = 0.2, linewidth = 1, color = "black") +
   labs(fill = "Land Cover Type") +
   theme_bw() +

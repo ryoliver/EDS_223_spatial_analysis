@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Access completed lab html](labs/week1.html)
 -   [Access discussion template Rmd](discussion/week1_skeleton.Rmd)
 -   [Access completed discussion Rmd](discussion/week1_discussion.Rmd)
+-   [Access completed discussion html](discussion/week1_discussion.html)
 <!-- -   [Access lab html](labs/week1.html) -->
 
 ### Background reading

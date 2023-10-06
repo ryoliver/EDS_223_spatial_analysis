@@ -18,6 +18,7 @@ The following exercises are modified from [Chapter 9 of Geocomputation with R by
 ```{r load, include=TRUE, message=FALSE, warning=FALSE}
 library(sf)
 library(raster)
+library(terra)
 library(spData)
 library(spDataLarge)
 library(tidyverse)
