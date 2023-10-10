@@ -42,6 +42,12 @@ lnd_sf = st_sf(lnd_attrib, geometry = lnd_geom)
 lnd_sf
 class(lnd_sf)
 ```
+We can also check out what the CRS looks like.
+```{r include=TRUE}
+st_crs(lnd_sf)
+st_crs(lnd_sf)$IsGeographic
+st_crs(lnd_sf)$proj4string
+```
 
 Now let's look at an existing **sf** object representing countries of the world
 

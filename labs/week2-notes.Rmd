@@ -43,6 +43,13 @@ lnd_sf
 class(lnd_sf)
 ```
 
+We can also check out what the CRS looks like.
+```{r include=TRUE, eval=FALSE}
+sf::st_crs(lnd_sf)
+sf::st_crs(lnd_sf)$IsGeographic
+sf::st_crs(lnd_sf)$proj4string
+```
+
 Now let's look at an existing **sf** object representing countries of the world
 
 ```{r include=TRUE, eval=FALSE}
