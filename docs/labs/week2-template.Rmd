@@ -31,6 +31,11 @@ Let's start by looking at how we can construct a **sf** object
 ```{r include=TRUE}
 
 ```
+We can also check out what the CRS looks like.
+```{r include=TRUE}
+
+```
+
 
 Now let's look at an existing **sf** object representing countries of the world
 

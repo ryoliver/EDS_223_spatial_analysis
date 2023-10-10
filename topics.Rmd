@@ -5,6 +5,23 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 2: Intro to vector data
+## Materials
+-   [Access lecture slides](lectures/week2.pdf) 
+-   [Access lab template Rmd](labs/week2-template.Rmd)
+
+### Background reading
+-   [GIS Fundamentals, chapter 2 part 2](readings/Bolstad-chapter2-part2.pdf)
+-   [Geocomputation with R, chapter 2](https://geocompr.robinlovelace.net/spatial-class.html)
+-   [Geocomputation with R, chapter 3](https://geocompr.robinlovelace.net/attr.html) 
+-   [Geocomputation with R, chapter 7](https://r.geocompx.org/reproj-geo-data)
+
+### Additional resources -->
+-   [**sf** overview](https://r-spatial.github.io/sf/index.html) 
+
+## Assignments -->
+-   Assignment 1 posted on 10-03, due by midnight 10-014
+
 # Week 1: Intro to spatial data
 ## Materials
 -   [Access lecture slides](lectures/week1.pdf)
@@ -193,30 +210,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <!-- ## Assignments -->
 <!-- -   Assignment 2 posted on 10-12, due by midnight 10-22 -->
 
-<!-- # Week 2: Intro to vector data -->
-<!-- ## Lecture -->
-<!-- ### Class materials -->
-<!-- -   [Access lecture slides](lectures/week2.pdf) -->
 
-<!-- ### Background reading -->
-<!-- -   [GIS Fundamentals, chapter 2 part 2](readings/Bolstad-chapter2-part2.pdf) -->
-<!-- -   [Geocomputation with R, chapter 2](https://geocompr.robinlovelace.net/spatial-class.html) -->
-
-
-<!-- ## Lab -->
-<!-- ### Class materials -->
-<!-- -   [CHECK IN](https://forms.gle/qj3MaCb97DZddhnk8) -->
-<!-- -   [Access lab Rmd](labs/week2.Rmd) -->
-<!-- -   [Access lab html](labs/week2.html) -->
-
-<!-- ### Background reading -->
-<!-- -   [Geocomputation with R, chapter 3](https://geocompr.robinlovelace.net/attr.html) -->
-
-<!-- ### Additional resources -->
-<!-- -   [**sf** overview](https://r-spatial.github.io/sf/index.html) -->
-
-<!-- ## Assignments -->
-<!-- -   Assignment 1 posted on 9-28, due by midnight 10-08 -->
 
 
 
