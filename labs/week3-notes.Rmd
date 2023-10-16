@@ -113,6 +113,52 @@ tm_shape(nz) +
   tm_dots(fill = "red")
 ```
 
+## buffers
+
+Buffers create polygons representing a set distance from a feature.
+
+```{r include=TRUE, eval=FALSE}
+seine_buffer <- st_buffer(seine, dist = 5000)
+
+tm_shape(seine_buffer) +
+  tm_polygons()
+```
+
+## unions
+As we saw in the last lab, we can spatially aggregate without explicitly asking R to do so.
+
+```{r include=TRUE, eval=FALSE}
+world %>%
+  group_by(continent) %>%
+  summarize(population = sum(pop, na.rm = TRUE))
+
+```
+
+What is going on here? Behind the scenes, **summarize()** is using **st_union()** to dissolve the boundaries.
+
+```{r include=TRUE, eval=FALSE}
+us_west <- us_states %>%
+  filter(REGION == "West")
+
+us_west_union <- st_union(us_west)
+
+tm_shape(us_west_union) +
+  tm_polygons()
+
+```
+
+**st_union()** can also take 2 geometries and unite them.
+
+```{r include=TRUE, eval=FALSE}
+texas <-  us_states %>%
+  filter(NAME == "Texas")
+
+texas_union = st_union(us_west_union, texas)
+
+tm_shape(texas_union) +
+  tm_polygons()
+```
+
 ## spatial joining
 Where attribute joining depends on both data sets sharing a 'key' variable, spatial joining uses the same concept but depends on spatial relationships between data sets. 
 
@@ -325,52 +371,6 @@ tm_shape(nz) +
   tm_dots() +
   tm_shape(nz_pos) +
   tm_dots(fill = "red")
-```
-
-## buffers
-
-Buffers create polygons representing a set distance from a feature.
-
-```{r include=TRUE, eval=FALSE}
-seine_buffer <- st_buffer(seine, dist = 5000)
-
-tm_shape(seine_buffer) +
-  tm_polygons()
-```
-
-## unions
-As we saw in the last lab, we can spatially aggregate without explicitly asking R to do so.
-
-```{r include=TRUE, eval=FALSE}
-world %>%
-  group_by(continent) %>%
-  summarize(population = sum(pop, na.rm = TRUE))
-
-```
-
-What is going on here? Behind the scenes, **summarize()** is using **st_union()** to dissolve the boundaries.
-
-```{r include=TRUE, eval=FALSE}
-us_west <- us_states %>%
-  filter(REGION == "West")
-
-us_west_union <- st_union(us_west)
-
-tm_shape(us_west_union) +
-  tm_polygons()
-
-```
-
-**st_union()** can also take 2 geometries and unite them.
-
-```{r include=TRUE, eval=FALSE}
-texas <-  us_states %>%
-  filter(NAME == "Texas")
-
-texas_union = st_union(us_west_union, texas)
-
-tm_shape(texas_union) +
-  tm_polygons()
 ```
 
 
