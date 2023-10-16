@@ -295,6 +295,32 @@ tm_shape(agg_aw) +
   tm_fill(fill = "value")
 ```
 
+
+## centroids
+Centroids identify the center of a spatial feature. Similar to taking an average, there are many ways to compute a centroid. The most common is the *geographic* centroid.
+```{r include=TRUE, eval=FALSE}
+nz_centroid <- st_centroid(nz)
+
+tm_shape(nz) +
+  tm_fill() +
+  tm_shape(nz_centroid) +
+  tm_dots()
+```
+
+Sometimes centroids fall outside of the boundaries of the objects they were created from. In the case where we need them to fall inside of the feature, we can use *point on surface* methods.
+
+
+```{r include=TRUE, eval=FALSE}
+nz_pos <- st_point_on_surface(nz)
+
+tm_shape(nz) +
+  tm_fill() +
+  tm_shape(nz_centroid) +
+  tm_dots() +
+  tm_shape(nz_pos) +
+  tm_dots(fill = "red")
+```
+
 ## distance relationships
 While topological relationships are binary (features either intersect or don't), distance relationships are continuous. 
 
@@ -348,29 +374,5 @@ tm_shape(us_states_simp3) +
   tm_polygons()
 ```
 
-## centroids
-Centroids identify the center of a spatial feature. Similar to taking an average, there are many ways to compute a centroid. The most common is the *geographic* centroid.
-```{r include=TRUE, eval=FALSE}
-nz_centroid <- st_centroid(nz)
-
-tm_shape(nz) +
-  tm_fill() +
-  tm_shape(nz_centroid) +
-  tm_dots()
-```
-
-Sometimes centroids fall outside of the boundaries of the objects they were created from. In the case where we need them to fall inside of the feature, we can use *point on surface* methods.
-
-
-```{r include=TRUE, eval=FALSE}
-nz_pos <- st_point_on_surface(nz)
-
-tm_shape(nz) +
-  tm_fill() +
-  tm_shape(nz_centroid) +
-  tm_dots() +
-  tm_shape(nz_pos) +
-  tm_dots(fill = "red")
-```
 
 
