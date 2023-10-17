@@ -5,6 +5,26 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
+# Week 3: Vector operations
+## Materials
+-   [Access lecture slides](lectures/week3.pdf) 
+-   [Access lab template Rmd](labs/week3-template.Rmd)
+<!-- -   [Access completed lab Rmd](labs/week2.Rmd) -->
+<!-- -   [Access completed lab html](labs/week2.html) -->
+
+### Background reading
+-   [GIS Fundamentals, chapter 9 part 1](readings/Bolstad-chapter9-part1.pdf)
+-   [Geocomputation with R, chapter 4](https://geocompr.robinlovelace.net/spatial-operations.html)
+-   [Geocomputation with R, chapter 5](https://geocompr.robinlovelace.net/geometry-operations.html) 
+
+### Additional resources 
+-   [**sf** overview](https://r-spatial.github.io/sf/index.html) 
+
+## Assignments
+-   Assignment 2 posted on 10-17, due by midnight 10-28
+
 # Week 2: Intro to vector data
 ## Materials
 -   [Access lecture slides](lectures/week2.pdf) 
