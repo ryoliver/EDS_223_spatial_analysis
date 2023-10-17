@@ -82,3 +82,10 @@ Welcome!
 | **8** (11/20) | RS of vegetation|
 | **9** (11/27) | Multispectral RS analysis|
 | **10** (12/4) | Active RS |
+
+```{r, out.width = "100%", fig.cap = ""}
+
+# UPDATE IMAGE HERE 
+# or copy/paste this code elsewhere, updating the file path, to add other images to your site!
+knitr::include_graphics("img/unstuck.png")
+```
