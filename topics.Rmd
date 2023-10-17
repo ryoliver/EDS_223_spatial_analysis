@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Access lab template Rmd](labs/week3-template.Rmd)
 <!-- -   [Access completed lab Rmd](labs/week2.Rmd) -->
 <!-- -   [Access completed lab html](labs/week2.html) -->
+-   [Access self-paced discussion module](discussion/week3.swc)
 
 ### Background reading
 -   [GIS Fundamentals, chapter 9 part 1](readings/Bolstad-chapter9-part1.pdf)
