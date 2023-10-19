@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Materials
 -   [Access lecture slides](lectures/week3.pdf) 
 -   [Access lab template Rmd](labs/week3-template.Rmd)
--   [Access completed lab Rmd](labs/week2.Rmd)
+-   [Access completed lab Rmd](labs/week3.Rmd)
 -   [Access self-paced discussion module](discussion/week3.swc)
 
 ### Background reading
