@@ -99,3 +99,5 @@ srtm_resampl_all = c(srtm_resampl1, srtm_resampl2, srtm_resampl3,
                      srtm_resampl4, srtm_resampl5)
 plot(srtm_resampl_all)
 ```
+
+Please take this [survey](https://forms.gle/P6EneoEW7GY56LP16) to give me feedback on last week and this week!
