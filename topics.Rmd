@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Access lab template Rmd](labs/week4-template.Rmd)
 -   [Access completed lab Rmd](labs/week4.Rmd)
 -   [Check in quiz due by midnight 10-25-2023](https://forms.gle/WrVEYtckwERWCnfz8)
+-   [Access discussion template Rmd](discussion/week4_skeleton.Rmd.Rmd)
 
 ### Background reading
 -   [Geocomputation with R, chapter 3](https://geocompr.robinlovelace.net/attr.html)
