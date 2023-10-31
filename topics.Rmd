@@ -5,6 +5,12 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Week 5
+## Materials
+-   [Access discussion template Rmd](discussion/week5_skeleton.Rmd)
+
+
 # Week 4: Raster operations
 ## Materials
 -   [Access lecture slides](lectures/week4.pdf) 

@@ -35,9 +35,7 @@ grain = rast(system.file("raster/grain.tif", package = "spData"))
 ```
 
 ```{r}
-plot(srtm)
-plot(st_geometry(zion_points), add = TRUE)
-plot(ch, add = TRUE)
+
 ```
 
 ## Exercises
@@ -51,15 +49,12 @@ plot(ch, add = TRUE)
 2. Subset points higher than 3100 meters in New Zealand (the nz_height object) and create a template raster with a resolution of 3 km for the extent of the new point dataset. Using these two new objects:
 
 ```{r}
-nz_height3100 = nz_height %>% 
-  filter()
+
 ```
 
 2a. Count numbers of the highest points in each grid cell.
 
 ```{r}
-nz_raster = rasterize(nz_height3100, nz_template, 
-                       field = "elevation", fun = "length")
 
 ```
 
