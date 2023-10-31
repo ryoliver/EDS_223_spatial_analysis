@@ -1,7 +1,7 @@
 ---
-title: 'EDS 223: Discussion Week 6 - Mapping Human Modification onto California Protected Areas'
+title: 'EDS 223: Discussion Week 5 - Vector Raster Interactions'
 author: 'Name'
-date: "2023-10-18"
+date: "2023-08-28"
 output: html_document
 ---
 
@@ -9,126 +9,102 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Introduction
+## introduction
 
-## Prerequsites 
+The following exercises are modified from [Chapter 6 of Geocomputation with R by Rovin Lovelace](https://r.geocompx.org/raster-vector).
 
-```{r}
-start = Sys.time()
-library(tidyverse)
-library(patchwork)
+## prerequisites
+
+```{r load, include=TRUE, message=FALSE, warning=FALSE}
 library(sf)
 library(terra)
+library(spData)
+library(spDataLarge)
+library(tidyverse)
 ```
-
-Load in the CPAD_2023a_SuperUnits.shp and the ghm.tif files. ghm.tif will take 5-8 minutes. Transform both to EPSG:4326.
 
 ```{r}
-cpad_super <- st_read(here::here("discussion", "data", "CPAD_2023a_SuperUnits.shp")) %>%
-  sf::st_transform("EPSG:4326") %>%
-  janitor::clean_names() %>%
-  mutate(ID = row_number())
+zion_points = read_sf(system.file("vector/zion_points.gpkg", package = "spDataLarge"))
+srtm = rast(system.file("raster/srtm.tif", package = "spDataLarge"))
 
-ghm <- rast(here::here("discussion", "data", "gHM.tif")) %>%
-  project("EPSG:4326")
+ch = st_combine(zion_points) |>
+  st_convex_hull() |> 
+  st_as_sf()
+
+grain = rast(system.file("raster/grain.tif", package = "spData"))
 ```
 
-While this loads - think about what you learned about raster/vector interactions last week. Discussion in your groups how you think you would combine these two datasets. 
+```{r}
+plot(srtm)
+plot(st_geometry(zion_points), add = TRUE)
+plot(ch, add = TRUE)
+```
 
 ## Exercises
 
-1. Plot California protected areas by access level and by layer
+1. Crop the srtm raster using (1) the zion_points dataset and (2) the ch dataset. Are there any differences in the output maps? Next, mask srtm using these two datasets. Can you see any difference now?
 
 ```{r}
-ggplot(data = cpad_super) +
-  geom_sf(aes(color = access_typ, fill = access_typ)) +
-  theme_bw()
+srtm_crop1 = crop(srtm, zion_points)
+srtm_crop2 = crop(srtm, ch)
+plot(srtm_crop1)
+plot(srtm_crop2)
+
+srtm_mask1 = mask(srtm, zion_points)
+srtm_mask2 = mask(srtm, ch)
+plot(srtm_mask1)
+plot(srtm_mask2)
 ```
+
+2. Subset points higher than 3100 meters in New Zealand (the nz_height object) and create a template raster with a resolution of 3 km for the extent of the new point dataset. Using these two new objects:
 
 ```{r}
-ggplot(data = cpad_super) +
-  geom_sf(aes(color = layer, fill = layer)) +
-  theme_bw()
+nz_height3100 = nz_height %>% 
+  filter(elevation > 3100)
+
+nz_template = rast(ext(nz_height3100), resolution = 3000, crs = crs(nz_height3100))
 ```
 
-2. Plot the Global human modification layer. *Hint: just use plot for ease*
+2a. Count numbers of the highest points in each grid cell.
 
 ```{r}
-plot(ghm)
+nz_raster = rasterize(nz_height3100, nz_template, 
+                       field = "elevation", fun = "length")
+plot(nz_raster)
+plot(st_geometry(nz_height3100), add = TRUE)
 ```
 
-3. Crop and mask the raster to fit the area of the shapefile. Plot each step. *Hint: just use plot for ease*
+2b. Find the maximum elevation in each grid cell.
 
 ```{r}
-ghm_cropped = crop(ghm, cpad_super)
-
-plot(ghm_cropped)
-
-ghm_masked = mask(ghm_cropped, cpad_super)
-
-plot(ghm_masked)
+nz_raster2 = rasterize(nz_height3100, nz_template, 
+                       field = "elevation", fun = max)
+plot(nz_raster2)
+plot(st_geometry(nz_height3100), add = TRUE)
 ```
 
-4. Extract the global human modification values at each California protected area.
+3. Aggregate the raster counting high points in New Zealand (created in the previous exercise), reduce its geographic resolution by half (so cells are 6 by 6 km) and plot the result. Resample the lower resolution raster back to the original resolution of 3 km. 
 
 ```{r}
-cpad_ghm_values <- terra::extract(x = ghm_masked, y = cpad_super)
+nz_raster_low = raster::aggregate(nz_raster, fact = 2, fun = sum, na.rm = TRUE)
+
+nz_resample = resample(nz_raster_low, nz_raster)
+plot(nz_raster_low)
+plot(nz_resample) # the results are spread over a greater area and there are border issues
+plot(nz_raster)
 ```
 
-5. Summarize the mean of human modification within each protected area
+4. Polygonize the grain dataset and filter all squares representing clay.
 
 ```{r}
-cpad_ghm_summary <- cpad_ghm_values %>%
-  group_by(ID) %>%
-  summarize(gHM_mean = mean(gHM))
+grain_poly = as.polygons(grain) %>% 
+  st_as_sf()
+
+plot(grain)
+plot(grain_poly)
+
+clay = grain_poly %>% 
+  filter(grain == "clay")
+plot(clay)
 ```
 
-6.  Join this summary with the protected area database. Plot these values.
-
-```{r}
-cpad_ghm <- full_join(cpad_super, cpad_ghm_summary)
-```
-
-```{r}
-ggplot() +
-  geom_sf(data = cpad_ghm, aes(color = gHM_mean, fill = gHM_mean)) +
-  theme_bw()
-```
-
-7. Join the entire human modification layer to the protected area database. Remove geometry and any missing values.
-
-```{r}
-cpad_values <- full_join(cpad_ghm_values, cpad_super) %>%
-  select(-ID) %>%
-  st_drop_geometry() %>% 
-  drop_na()
-```
-
-8. Create two boxplots of human modification values, 1 across access_typ and 1 across layer. View these side by side.
-
-```{r}
-p7 <- ggplot(data = cpad_values) +
-  geom_boxplot(aes(x = access_typ, y = gHM)) +
-  theme_bw() +
-  coord_flip() +
-  labs(
-    y = "Human Modification Index",
-    x = "Access Level"
-  )
-
-p8 <- ggplot(data = cpad_values) +
-  geom_boxplot(aes(x = layer, y = gHM), outlier.shape = NA) +
-  theme_bw() +
-  coord_flip() +
-  labs(
-    y = "Human Modification Index",
-    x = "Agency Type"
-  )
-
-p7 + p8
-```
-
-```{r}
-end = Sys.time()
-start - end
-```
