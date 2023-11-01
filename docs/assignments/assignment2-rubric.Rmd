@@ -338,6 +338,23 @@ if(nrow(redlining_cbgs7) == nrow(redlining_cbgs4)){
 }
 ```
 
+> There was some confusion in interpreting the question, and some folks thought it was asking for a summary of the number of CBGs within each HOLC grade. These answers will receive full credit, but we'll walk through it to show what's different.
+
+#### Approach 8
+```{r ej-red8}
+# spatially join
+redlining_cbgs8 <- st_join(LA_ejscreen, LA_redlining, join = st_intersects, left = FALSE)
+
+# this number is again higher because CBGs may intersect multiple areas with HOLC grades
+nrow(redlining_cbgs8)
+
+# summarize the number of CBGS within each HOLC grade
+# note: this will double count some CBGs within HOLC grades
+redlining_cbgs8 %>% 
+  group_by(holc_grade) %>% 
+  count()
+```
+
 Summarize current conditions based on EJScreen data within historical redlining categories using the mean of the following variables:  
 -% low income.  
 - percentile for particulate Matter 2.5.  

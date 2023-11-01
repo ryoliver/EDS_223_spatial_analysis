@@ -170,21 +170,12 @@ plot(LA_redlining["holc_grade"])
 # try finding the CBGs intersecting redlining data by spatial subsetting
 # the bracket operator automatically looks for "intersects"
 
-redlining_cbgs1 <- LA_ejscreen[LA_redlining,]
 
-# the number of census block groups
-print(paste("approach 1:", nrow(redlining_cbgs1)))
 ```
 #### Approach 2
 ```{r ej-red2}
 # try using the st_intersects functions
 
-sel_sgbp <- st_intersects(x = LA_ejscreen, y = LA_redlining) # returns binary predicate list
-sel_logical = lengths(sel_sgbp) > 0 # create logical of which items do intersect
-redlining_cbgs2 <- LA_ejscreen[sel_logical, ] # filter census block groups based on logicals
-
-# the number of census block groups
-print(paste("approach 2:", nrow(redlining_cbgs2)))
 
 ```
 #### Approach 3
@@ -193,81 +184,47 @@ print(paste("approach 2:", nrow(redlining_cbgs2)))
 # in this case we need to define which topological relationship we want to use
 # in this case we'll try "intersects"
 
-redlining_cbgs3 <- LA_ejscreen %>%
-  st_filter(y = LA_redlining, .predicate = st_intersects)
 
-# the number of census block groups
-print(paste("approach 3:", nrow(redlining_cbgs3)))
 ```
 #### Approach 4
 ```{r ej-red4}
 # approach 4
 # try using st_filter with st_within
 
-redlining_cbgs4 <- LA_ejscreen %>%
-  st_filter(y = LA_redlining, .predicate = st_within)
 
-# the number of census block groups
-print(paste("approach 4:", nrow(redlining_cbgs4)))
 ```
 #### Compare approaches 3 & 4
 ```{r ej-red34-compare}
 # test whether approaches 3 & 4 give the same result
 # if the results don't match, compare answers
 
-if(nrow(redlining_cbgs3) == nrow(redlining_cbgs4)){
-  print("approaches 3 & 4 give the same result")
-}else{
-  print("approaches 3 & 4 don't give the same result")
-  if(nrow(redlining_cbgs3) > nrow(redlining_cbgs4)){
-      print("approach 3 returns more CBGS")
-  }else{
-    print("approach 4 returns more CBGS")
-  }
-}
+
 ```
 
 ```{r ej-red34-map}
 # plot results from approaches 3 & 4 to investigate the difference
-plot(redlining_cbgs3["ID"])
-plot(redlining_cbgs4["ID"])
+
 ```
 
 #### Approach 5
 ```{r ej-red5}
 # try using st_join with st_intersects
 # setting left = FALSE returns an inner join
-redlining_cbgs5 <- st_join(x = LA_ejscreen, y = LA_redlining, join = st_intersects, left = FALSE) 
 
 # we would expect the answers from this approach to match approach 3
-if(nrow(redlining_cbgs3) == nrow(redlining_cbgs5)){
-  print("approaches 3 & 5 give the same result")
-}else{
-  print("approaches 3 & 5 don't give the same result")
-  if(nrow(redlining_cbgs3) > nrow(redlining_cbgs5)){
-      print("approach 3 returns more CBGS")
-  }else{
-    print("approach 5 returns more CBGS")
-  }
-}
+
 ```
 
 ```{r ej-red-debug5}
 # let's try to figure out why 5 & 4 don't match
 
 # make a map of approach 5
-plot(redlining_cbgs5["ID"])
 # the map looks normal... so what's going on?
 
 # let's check the number of unique CBGs
-length(unique(redlining_cbgs5$ID))
 
 # does this match the answer from approach 4?
-if(nrow(redlining_cbgs3) == length(unique(redlining_cbgs5$ID))){
-  print("match!")
-}else{
-  print("doesn't match")
-}
+
 ```
 
 #### Approach 6
@@ -275,67 +232,38 @@ if(nrow(redlining_cbgs3) == length(unique(redlining_cbgs5$ID))){
 # try using st_join with st_intersects
 # this time, let's set left = TRUE which returns a left join
 
-redlining_cbgs6 <- st_join(x = LA_ejscreen, y = LA_redlining, join = st_intersects, left = TRUE) 
 
-nrow(redlining_cbgs6)
 
 # do the number of rows match the answer from approach 3?
-if(nrow(redlining_cbgs3) == nrow(redlining_cbgs6)){
-  print("match!")
-}else{
-  print("doesn't match")
-}
+
 
 # from approach 5, we figured out that maybe it's an issue with duplicate rows
-length(unique(redlining_cbgs6$ID))
 
 # does this match the answer from approach 5?
-if(length(unique(redlining_cbgs6$ID)) == length(unique(redlining_cbgs5$ID))){
-  print("match!")
-}else{
-  print("doesn't match")
-}
+
 
 # hmmm... what's going on?
 # remember that left joins keep all rows in the "x" dataset
 # we know that not all CBGs are in redlining zones, so maybe it's an issue with NAs
 # let's filter out all rows without HOLC grades
-redlining_cbgs6_filter <- redlining_cbgs6 %>%
-  filter(!is.na(holc_grade))
 
-nrow(redlining_cbgs6_filter)
 
 # do the number of rows match the answer from approach 3?
-if(nrow(redlining_cbgs3) == nrow(redlining_cbgs6_filter)){
-  print("match!")
-}else{
-  print("doesn't match")
-}
+
 
 # but remember, the issue with the duplicates...
-length(unique(redlining_cbgs6_filter$ID))
 
 # do the number of unique IDs match the answer from approach 3?
-if(nrow(redlining_cbgs3) == length(unique(redlining_cbgs6_filter$ID))){
-  print("match!")
-}else{
-  print("doesn't match")
-}
+
 ```
 
 #### Approach 7
 ```{r ej-red7}
 # try using st_join with st_within
-redlining_cbgs7 <- st_join(x = LA_ejscreen, y = LA_redlining, join = st_within, left = FALSE)
 
-nrow(redlining_cbgs7)
 
 # we would expect this to match the answer from approach 4
-if(nrow(redlining_cbgs7) == nrow(redlining_cbgs4)){
-  print("match!")
-}else{
-  print("doesn't match")
-}
+
 ```
 
 > There was some confusion in interpreting the question, and some folks thought it was asking for a summary of the number of CBGs within each HOLC grade. These answers will receive full credit, but we'll walk through it to show what's different.
@@ -343,16 +271,12 @@ if(nrow(redlining_cbgs7) == nrow(redlining_cbgs4)){
 #### Approach 8
 ```{r ej-red8}
 # spatially join
-redlining_cbgs8 <- st_join(LA_ejscreen, LA_redlining, join = st_intersects, left = FALSE)
 
 # this number is again higher because CBGs may intersect multiple areas with HOLC grades
-nrow(redlining_cbgs8)
 
 # summarize the number of CBGS within each HOLC grade
 # note: this will double count some CBGs within HOLC grades
-redlining_cbgs8 %>% 
-  group_by(holc_grade) %>% 
-  count()
+
 ```
 
 Summarize current conditions based on EJScreen data within historical redlining categories using the mean of the following variables:  
@@ -396,44 +320,21 @@ gbif <- st_transform(gbif, crs = st_crs(LA_redlining))
 # let's see if the same happens in this case
 
 # try st_join with st_intersects
-gbif1 <- st_join(x = gbif, y = LA_redlining, join = st_intersects, left = FALSE)
 
-gbif_summary1 <- gbif1 %>% 
-  st_set_geometry(NULL) %>%
-  group_by(holc_grade) %>%                  
-  summarise(count = n()) %>%      
-  mutate(percentage = (count / sum(count))*100 )
-
-ggplot(data = gbif_summary1) +
-  geom_bar(aes(x = holc_grade, y = percentage), stat = "identity") +
-  labs(x = "HOLC grade", y = "Percentage of observations")
 ```
 
 #### Approach 2
 ```{r gbif-red2}
 # approach 2
 # try st_join with st_within
-gbif2 <- st_join(x = gbif, y = LA_redlining, join = st_within, left = FALSE)
 
-gbif_summary2 <- gbif2 %>% 
-  st_set_geometry(NULL) %>%
-  group_by(holc_grade) %>%                  
-  summarise(count = n()) %>%      
-  mutate(percentage = (count / sum(count))*100 )
-
-ggplot(data = gbif_summary2) +
-  geom_bar(aes(x = holc_grade, y = percentage), stat = "identity") +
-  labs(x = "HOLC grade", y = "Percentage of observations")
 ```
 
 #### Compare approaches 1 & 2
 ```{r gbif-red12-compare}
 # the plots look similar, but let's test to see if the answers are the same
 
-test_gbif <- left_join(gbif_summary1, gbif_summary2, by = "holc_grade") %>%
-  mutate(difference = count.x - count.y)
 
-sum(test_gbif$difference)
 
 if(sum(test_gbif$difference) == 0){
   print("match!")
@@ -446,39 +347,20 @@ if(sum(test_gbif$difference) == 0){
 #### Approach 3
 ```{r gbif-red3}
 # find GBIF points that intersect with redlining zones
-gbif_redlining <- gbif[LA_redlining,] 
 
 # find GBIF points that intersect with each grade
-gbif_a <- gbif_redlining[LA_redlining$holc_grade == "A",]
-gbif_b <- gbif_redlining[LA_redlining$holc_grade == "B",]
-gbif_c <- gbif_redlining[LA_redlining$holc_grade == "C",]
-gbif_d <- gbif_redlining[LA_redlining$holc_grade == "D",]
 
 # store results in data frame
-gbif_summary3 <- data.frame("holc_grade" = c("A", "B", "C", "D"),
-                            "count" = c(nrow(gbif_a),
-                                        nrow(gbif_b),
-                                        nrow(gbif_c),
-                                        nrow(gbif_d)),
-                           "percentage" = c(nrow(gbif_a)/nrow(gbif_redlining)*100,
-                                            nrow(gbif_b)/nrow(gbif_redlining)*100,
-                                            nrow(gbif_c)/nrow(gbif_redlining)*100,
-                                            nrow(gbif_d)/nrow(gbif_redlining)*100))
 
-ggplot(data = gbif_summary3) +
-  geom_bar(aes(x = holc_grade, y = percentage), stat = "identity") +
-  labs(x = "HOLC grade", y = "Percentage of observations")
+
 
 # the plot looks different, but let's test 
-test_gbif2 <- left_join(gbif_summary3, gbif_summary2, by = "holc_grade") %>%
-  mutate(difference = count.x - count.y)
+
 
 # interestingly the sum of the difference in the counts sums to zero
 # (i.e. the total count of points is the same, they're just assigned to different grades)
-sum(test_gbif2$difference)
 
 # but the answers are different
-min(test_gbif2$difference)
 
 if(min(test_gbif2$difference) == 0){
   print("match!")

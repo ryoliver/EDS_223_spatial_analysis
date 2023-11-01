@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Week 5
 ## Materials
 -   [Access lecture slides](lectures/week4.pdf) 
-<!-- -   [Access discussion template Rmd](discussion/week5_skeleton.Rmd) -->
+-   [Access discussion template Rmd](assignmeassignment2-rubric-template.Rmd.Rmd)
 
 
 # Week 4: Raster operations

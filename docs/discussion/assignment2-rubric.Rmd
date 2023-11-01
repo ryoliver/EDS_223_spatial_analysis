@@ -7,7 +7,7 @@ date: "2023-10-31"
 
 ```{r setup, include=FALSE}
 # set up code options for Rmd 
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, eval = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 ## Overview
@@ -155,6 +155,7 @@ hint: make sure the CRS match
 > Below I show a few different approaches. Different topological relationships will give different answers -- they are not necessarily incorrect, they simply have different interpretations.  
 > - "intersects" returns all census block groups that overlap redlining areas (3951 CBGs).  
 > - "within" returns only census block groups that fall inside of redlining areas (887 CBGs)
+
 ```{r ej-red-transform}
 
 # first transform data to same CRS
@@ -162,6 +163,7 @@ LA_ejscreen <- st_transform(LA_ejscreen, crs= st_crs(LA_redlining))
 
 # map both datasets to get a sense of their spatial pattern
 plot(LA_ejscreen["ID"])
+
 plot(LA_redlining["holc_grade"])
 ```
 
@@ -336,23 +338,6 @@ if(nrow(redlining_cbgs7) == nrow(redlining_cbgs4)){
 }else{
   print("doesn't match")
 }
-```
-
-> There was some confusion in interpreting the question, and some folks thought it was asking for a summary of the number of CBGs within each HOLC grade. These answers will receive full credit, but we'll walk through it to show what's different.
-
-#### Approach 8
-```{r ej-red8}
-# spatially join
-redlining_cbgs8 <- st_join(LA_ejscreen, LA_redlining, join = st_intersects, left = FALSE)
-
-# this number is again higher because CBGs may intersect multiple areas with HOLC grades
-nrow(redlining_cbgs8)
-
-# summarize the number of CBGS within each HOLC grade
-# note: this will double count some CBGs within HOLC grades
-redlining_cbgs8 %>% 
-  group_by(holc_grade) %>% 
-  count()
 ```
 
 Summarize current conditions based on EJScreen data within historical redlining categories using the mean of the following variables:  
