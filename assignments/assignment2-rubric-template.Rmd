@@ -68,83 +68,11 @@ LA_ejscreen <- ejscreen %>%
   filter(CNTY_NAME %in% c("Los Angeles County"))
 ```
 
-
-Make a map of wastewater discharge by census block groups. Indicate which census block groups are above the 95th percentile of wastewater discharge by adding a centroid.
-(10 points)
-```{r plot-wastewater}
-# create centroids of LA EJScreen data
-# filter to census block groups > 95th wastewater discharge
-LA_ejscreen_centroids <- st_centroid(LA_ejscreen) %>%
-  filter(P_PWDIS > 95)
-
-# make map of wastewater discharge
-map1 <- tm_shape(LA_ejscreen) +
-  tm_fill(fill = "PWDIS", title = "Wastewater discharge") +
-  tm_graticules()
-
-# add centroids to map
-map1 +
-  tm_shape(LA_ejscreen_centroids) +
-  tm_dots()
-
-```
-
-
-Find the percent of census block groups that have:  
-- less than 5% of the population is considered low income
-(5 points)
-```{r filter2}
-LA_ejscreen %>%
-  filter(LOWINCPCT < 0.05) %>%
-  nrow()/nrow(LA_ejscreen)*100
-
-# note: some solutions filtered to census block groups that had data
-# this is not necessarily incorrect, but has a different interpretation
-# (e.g. for census block groups with data, what percent have populations where < 5% are considered low income)
-
-has_data <- LA_ejscreen %>%
-  filter(!is.na(LOWINCPCT))
-
-LA_ejscreen %>%
-  filter(LOWINCPCT < 0.05) %>%
-  nrow()/nrow(has_data)*100
-```
-
-Find the percent of census block groups that are:    
-- above the 80th percentile for Particulate Matter 2.5 AND  
-- above the 80th percentile for Superfund proximity
-(10 points)
-```{r filter1}
-LA_ejscreen %>% 
-  filter(P_PM25 > 80) %>%
-  filter(P_PNPL > 80) %>%
-  nrow()/nrow(LA_ejscreen)*100
-
-# note: some solutions filtered to census block groups that had data
-# this is not necessarily incorrect, but has a different interpretation
-
-has_data <- LA_ejscreen %>%
-  filter(!is.na(P_PM25)) %>%
-  filter(!is.na(P_PNPL))
-
-LA_ejscreen %>% 
-  filter(P_PM25 > 80) %>%
-  filter(P_PNPL > 80) %>%
-  nrow()/nrow(has_data)*100
-```
-
 Import redlining information for Los Angeles.
+
 ```{r import-redlining}
 LA_redlining <- st_read("https://dsl.richmond.edu/panorama/redlining/static/downloads/geojson/CALosAngeles1939.geojson") %>% 
   st_make_valid()
-```
-
-Make a map of historical redlining boundaries, colored by HOLC grade.
-(5 points)
-```{r map-redlining}
-tm_shape(LA_redlining) +
-  tm_fill(fill = "holc_grade", title = "HOLC grade") +
-  tm_graticules()
 ```
 
 Find the number of census block groups that fall within areas with HOLC grades
@@ -155,14 +83,13 @@ hint: make sure the CRS match
 > Below I show a few different approaches. Different topological relationships will give different answers -- they are not necessarily incorrect, they simply have different interpretations.  
 > - "intersects" returns all census block groups that overlap redlining areas (3951 CBGs).  
 > - "within" returns only census block groups that fall inside of redlining areas (887 CBGs)
+
 ```{r ej-red-transform}
 
 # first transform data to same CRS
-LA_ejscreen <- st_transform(LA_ejscreen, crs= st_crs(LA_redlining))
 
 # map both datasets to get a sense of their spatial pattern
-plot(LA_ejscreen["ID"])
-plot(LA_redlining["holc_grade"])
+
 ```
 
 #### Approach 1
@@ -269,6 +196,7 @@ plot(LA_redlining["holc_grade"])
 > There was some confusion in interpreting the question, and some folks thought it was asking for a summary of the number of CBGs within each HOLC grade. These answers will receive full credit, but we'll walk through it to show what's different.
 
 #### Approach 8
+
 ```{r ej-red8}
 # spatially join
 
@@ -277,25 +205,6 @@ plot(LA_redlining["holc_grade"])
 # summarize the number of CBGS within each HOLC grade
 # note: this will double count some CBGs within HOLC grades
 
-```
-
-Summarize current conditions based on EJScreen data within historical redlining categories using the mean of the following variables:  
--% low income.  
-- percentile for particulate Matter 2.5.  
-- percentile for low life expectancy.  
-- percentile for air toxics cancer risk
-(20 points)
-```{r ej-red-summary}
-LA_ejscreen <- st_transform(LA_ejscreen, crs= st_crs(LA_redlining))
-
-LA <- st_intersection(LA_redlining, LA_ejscreen)
-
-LA %>%
-  group_by(holc_grade) %>%
-  summarise(lowincpct = mean(LOWINCPCT, na.rm = TRUE),
-            pm25 = mean(P_PM25, na.rm = TRUE),
-            lifeexppct = mean(P_LIFEEXPPCT, na.rm = TRUE),
-            cancer = mean(P_CANCER, na.rm = TRUE))
 ```
 
 ### Investigate the legacy of redlining in biodiversity observations
