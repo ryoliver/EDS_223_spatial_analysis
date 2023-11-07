@@ -21,6 +21,12 @@ The rubric for each assignment will be provided when it is assigned so you know 
 
 Each assignment will provide specific details of the point breakdowns per question. However, we will follow the general rubric below for all assignments.
 
+#### Show your work
+* There are often multiple ways to solve a problem
+* Building in self-checks not only helps you build coding best practices, it helps understand what you were trying for
+* And it helps us give you credit for it!
+* [Check out this guide to building in self-checks](assignments/self-check-template.html)
+
 #### Code must run
 * A 50% deduction will be taken if code does not run
 * Full credit will be given to sub-questions that were completed correctly
@@ -32,6 +38,11 @@ Each assignment will provide specific details of the point breakdowns per questi
 #### Answer for yourself
 * Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions
 * All members of your group will lose full credit for non-code based questions that are copy/pasted among group members.
+
+#### Submit assignments through GitHub Classrooms
+* All assignments should be submitted through GitHub Classrooms
+* Any assignment not submitted through GitHub Classrooms will receive a 5% deduction
+* All students are granted one "free pass"
 
 ### Rubrics
 -   [Access assignment 2 rubric Rmd](assignments/assignment2-rubric.Rmd)\

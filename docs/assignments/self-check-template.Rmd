@@ -1,0 +1,189 @@
+---
+title: "Building self-checks into your code"
+author: "Ruth Oliver"
+date: "2023-11-06"
+output: html_document
+---
+### Overview
+Less obvious, but even scarier than buggy code, is code that runs but doesn't do what you think it does. Building in self-checks is great way to make sure that your code actually does what you think it's doing. It's also a great way to force yourself to think critically while you're coding, which is the true path to becoming a data science whiz!\
+
+In this template, I walk through a demo exercise to give some examples of how to build in self-checks.\
+
+A few notes:  
+
+*   there is no universal self-check    
+    +   the best one depends on the code (this is where the critical thinking comes in!)    
+*   visualizing your data is often the best self-check  
+    +   but reviewing plots is hard to automate... 
+    +   it's best to include both data viz and tests  
+*   make the output of tests easy to interpret 
+    +   this means the answers should be consistent (i.e. always expect TRUEs)  
+    +   it also means printing out enough information that you know what's not working  
+  
+**Important:** This guide is also meant to help you develop answers to homework assignments. Think of this as "showing your work" -- if you demonstrate critical thinking of the problem, it's easier to give points, even if the "answer" is wrong!
+
+### Demo
+
+In this demo, we're going to make a map the number of records of animal observations across the USA. Records are stored as geographic points, so to summarize them, we'll count up the number of records in grid cells.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load-packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(sf)
+library(spData)
+library(units)
+rm(list = ls())
+```
+### Create animal records 
+First, we need to create some data to work with. We want to create a dataset of animal records across the USA.
+```{r create-data}
+# focusing just on the USA, so extract USA from the world dataset
+us <- world %>%
+  filter(name_long == "United States")
+
+# want to count the number of records in equal area grid cells
+# transform USA to equal area projection
+us <- st_transform(us, crs = "EPSG:6933") 
+
+# find bounding box of USA to set limits for creating records at random
+us_bbox <- st_bbox(us)
+
+# create a data frame of randomly placed records 
+# use the limits of the bounding box of the USA
+d <- data.frame(lon = runif(n = 50000, min = us_bbox[1], max = us_bbox[3]),
+                lat = runif(n = 50000, min = us_bbox[2], max = us_bbox[4])) %>%
+  rowid_to_column('id') # add ID to keep track of records
+
+# turn into sf object
+# use the same CRS as the USA because points were created based on it
+d_sf <- st_as_sf(d, coords = c("lon", "lat"), crs = st_crs(us))
+
+# plot to see what the points look like
+plot(d_sf)
+```
+
+We're only interested in records that fall inside the USA, so we filter our records accordingly.
+```{r filter-usa}
+# filter to the points in the USA
+d_sf <- d_sf[us,]
+
+# plot to make sure all points fall within the USA
+ggplot() +
+  geom_sf(data = us) +
+  geom_sf(data = d_sf)
+```
+
+### Create hexagon grid
+Hexagons are not only visually appealing, they are the preferred shape for grids because the distance from the center to the edge is more uniform than squares.
+```{r make-grid}
+# create grid of hexagons
+hex <- st_make_grid(d_sf, n = c(100,100),
+                    what = 'polygons',
+                    square = FALSE,
+                    flat_topped = TRUE) %>%
+  st_sf() %>%
+  rowid_to_column('hex_id') # add ID to keep track of hexagons
+
+# plot to see what grid looks like
+plot(hex)
+```
+
+Double check that the hexagons are indeed the same size.
+```{r check-area}
+# check that the hexagons all have the same area
+# find area of each hexagon
+hex$area <- st_area(hex)
+
+# plot the area for each hexagon
+ggplot(data = hex) +
+  geom_point(aes(x = hex_id, y = area))
+
+# the range in values looks small, but let's find it
+max(hex$area) - min(hex$area)
+# this is small enough to be permissible
+```
+
+### Summarize records in hexagon grid
+We want to end up with the number of records that fall inside of each hexagon in the grid. First, we need to find which hexagon each record falls inside of.
+```{r records-hex1}
+# find which hexagon each point falls inside of
+
+# using a spatial join to find which hexagon each record falls inside
+d_sf_hex_join <- st_join(d_sf, hex, join=st_within) 
+
+# check if records are being assigned to multiple hexagons
+# the number of rows in the join should match the number of rows from the original data
+print("no records double-counted:")
+nrow(d_sf) == nrow(d_sf_hex_join)
+
+# checking if any records were lost
+# the record IDs in the join should match those listed in the original data
+print("no records lost:")
+length(setdiff(d_sf$id, d_sf_hex_join$id)) == 0
+```
+
+Now that we know which hexagon each record falls in, we can count the number of records in each hexagon.
+```{r records-hex2}
+
+# using group_by and summarize to count the number of records in each hexagon
+d_sf_hex_count <- d_sf_hex_join %>%
+  st_set_geometry(NULL) %>%
+  group_by(hex_id) %>%
+  summarise(events = n())
+
+# why is this not a good check?
+# rows in the join correspond to individual records
+# rows in the count correspond to individual hexagons
+# there may be multiple records in each hexagon, so the number of rows won't necessarily match
+print("this test should fail:")
+nrow(d_sf_hex_count) == nrow(d_sf_hex_join)
+
+# check if all records are accounted for and none are double counted
+print("number of counts looks good:")
+sum(d_sf_hex_count$events) == nrow(d_sf)
+```
+
+Now that we know how many records are in each hexagon, we join that info onto the hex grid.
+```{r records-hex3}
+# join counts to hex grid
+hex <- hex %>%
+  left_join(d_sf_hex_count, by = 'hex_id') %>%
+  replace(is.na(.), 0) %>% # assign any hexagon with missing values to zero (no records)
+  filter(events > 0) # filter to hexagons with records
+
+# check again if all records are accounted for and none are double counted
+print("number of counts still looks good:")
+sum(hex$events) == nrow(d_sf)
+```
+
+### Mapping
+We have the data in the structure we need, let's map!
+```{r map}
+# create bounding box for USA using the projection we want to plot in
+bbox <- st_bbox(st_transform(us, crs = "EPSG:5070"))
+
+ggplot() +
+  geom_sf(data = us, fill = "grey75", color = "grey75") + # basemap of USA
+  geom_sf(data = hex, aes(fill = events), color = "transparent") + # hex grid with counts
+  coord_sf(
+    xlim = c(bbox[1], bbox[3]), 
+    ylim = c(bbox[2], bbox[4]), 
+    datum = NA, crs = st_crs("EPSG:5070")) + # set limits and CRS
+  scale_fill_viridis_c(option = "magma") + # change color map for counts
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_blank()) +
+  theme(legend.position = "bottom", 
+        legend.key.width = unit(1.5,"cm"),
+        legend.key.height = unit(0.5,"cm"),
+        legend.title=element_text(size=10),
+        legend.text = element_text(size=8),
+        legend.margin=margin(0,0,0,0),
+        axis.title = element_blank()) +
+  guides(fill = guide_colorbar(title.position = "top")) +
+  labs(fill = "Animal locations (n)") 
+```
+
+

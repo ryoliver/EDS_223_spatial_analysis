@@ -6,6 +6,18 @@ title: "Topics"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Week 6: Intro to remote sensing
+## Materials
+-   [Access lecture slides](lectures/week6.pdf) 
+-   [Access lab template Rmd](labs/week4-template.Rmd)
+-   [Access completed lab Rmd](labs/week4.Rmd)
+
+### Background reading
+-   [Remote Sensing of the Environment, chapters 1 & 2](readings/Jensen-chapter2.pdf)
+
+## Assignments
+-   Assignment 3 posted on 10-31, due by midnight 11-18
+
 # Week 5
 ## Materials
 -   [Access lecture slides](lectures/week4.pdf) 
@@ -42,6 +54,8 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [GIS Fundamentals, chapter 9 part 1](readings/Bolstad-chapter9-part1.pdf)
 -   [Geocomputation with R, chapter 4](https://geocompr.robinlovelace.net/spatial-operations.html)
 -   [Geocomputation with R, chapter 5](https://geocompr.robinlovelace.net/geometry-operations.html) 
+-   [Douglas-Peucker Algorithm (Cartography Playground)](https://cartography-playground.gitlab.io/playgrounds/douglas-peucker-algorithm/)
+-   [Visvalingam's Algorithm (Mike Bostok)](https://bost.ocks.org/mike/simplify/)
 
 ### Additional resources 
 -   [**sf** overview](https://r-spatial.github.io/sf/index.html) 
