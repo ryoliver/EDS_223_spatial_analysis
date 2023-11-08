@@ -826,21 +826,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     display: none !important;
   }
 
-  hr.section-separator {
-    border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin: 0px;
-  }
-
-
-  d-byline {
-    border-top: none;
-  }
-
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
-    border-top: none;
   }
 
   d-appendix {
@@ -935,11 +923,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
-  }
-
-  /* tweak for Pandoc numbered line within distill */
-  d-article pre.numberSource code > span {
-      left: -2em;
   }
 
   d-article pre {
@@ -1701,12 +1684,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
-    // separator
-    var separator = '<hr class="section-separator" style="clear: both"/>';
-    // prepend separator above appendix
-    $('.d-byline').before(separator);
-    $('.d-article').before(separator);
-
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1784,9 +1761,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme, except when numbering line
-    // in code chunk
-    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1812,13 +1788,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
-        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
+          img.attr('alt', 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -2505,7 +2480,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2553,7 +2528,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-title">
 <h1>Assignments</h1>
-
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2567,8 +2541,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="#assignment-schedule" id="toc-assignment-schedule">Assignment schedule</a></li>
 <li><a href="#assignment-expectations-and-grading" id="toc-assignment-expectations-and-grading">Assignment expectations and grading</a></li>
-<li><a href="#grading-rubric" id="toc-grading-rubric">Grading rubric</a></li>
-<li><a href="#rubrics" id="toc-rubrics">Rubrics</a></li>
+<li><a href="#core-grading-principles" id="toc-core-grading-principles">Core grading principles</a></li>
+<li><a href="#assignment-rubric" id="toc-assignment-rubric">Assignment rubric</a></li>
+<li><a href="#answer-keys" id="toc-answer-keys">Answer keys</a></li>
 </ul>
 </nav>
 </div>
@@ -2607,41 +2582,93 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </table>
 <h3 id="assignment-expectations-and-grading">Assignment expectations and grading</h3>
 <p>The rubric for each assignment will be provided when it is assigned so you know what to prioritize. You make work with up to 2 classmates, but must list your collaborators’ names on your assignment. You are encouraged to collaborate on code, but must respond to conceptual questions individually. All assignment dates will be posted in advance. Late assignments will receive 10% deduction per day, up to a maximum of 3 days. You may request a 48-hour extension if extenuating circumstances arise.</p>
-<h3 id="grading-rubric">Grading rubric</h3>
-<p>Each assignment will provide specific details of the point breakdowns per question. However, we will follow the general rubric below for all assignments.</p>
-<h4 id="show-your-work">Show your work</h4>
-<ul>
-<li>There are often multiple ways to solve a problem</li>
-<li>Building in self-checks not only helps you build coding best practices, it helps understand what you were trying for</li>
-<li>And it helps us give you credit for it!</li>
-<li><a href="assignments/self-check-template.html">Check out this guide to building in self-checks</a></li>
-</ul>
+<p>Information on grading can be found <a href="assignment-rubric.pdf">here</a> or outlined below.</p>
+<h3 id="core-grading-principles">Core grading principles</h3>
+<p>Each assignment will provide specific details of the point breakdowns per question. However, we will follow the general principles below for all assignments.</p>
 <h4 id="code-must-run">Code must run</h4>
 <ul>
-<li>A 50% deduction will be taken if code does not run</li>
-<li>Full credit will be given to sub-questions that were completed correctly</li>
+<li>50% deduction on each section that doesn’t run</li>
+<li>20% deduction from entire assignment for code that does not knit</li>
 </ul>
-<h4 id="follow-the-spirit-not-the-letter-of-the-question">Follow the spirit (not the letter) of the question</h4>
+<h4 id="show-your-answer-and-thought-process">Show your answer and thought process</h4>
 <ul>
-<li>For questions that ask for aesthetic updates (i.e. changing legend titles), simply providing ANY modification is not sufficient</li>
-<li>A 50% deduction will be taken for answers that do not improve legibility</li>
+<li>Logical steps and checks are needed for full credit.</li>
+<li>Mysterious or disorganized code without checks will not receive full credit.</li>
 </ul>
 <h4 id="answer-for-yourself">Answer for yourself</h4>
 <ul>
-<li>Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions</li>
+<li>Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions.</li>
 <li>All members of your group will lose full credit for non-code based questions that are copy/pasted among group members.</li>
 </ul>
 <h4 id="submit-assignments-through-github-classrooms">Submit assignments through GitHub Classrooms</h4>
 <ul>
 <li>All assignments should be submitted through GitHub Classrooms</li>
-<li>Any assignment not submitted through GitHub Classrooms will receive a 5% deduction</li>
-<li>All students are granted one “free pass”</li>
+<li>5% deduction for assignments not submitted through GitHub Classrooms</li>
+<li>All students are granted one free pass</li>
 </ul>
-<h3 id="rubrics">Rubrics</h3>
+<h3 id="assignment-rubric">Assignment rubric</h3>
+<p>In addition to the core principles outlined above, each assignment will be scored for its adherence to the following coding best practices. The maximum deduction for assignments which meet all the core principles but do not follow best practices (“worst case” below) will be 20 points for the assignment. Partial deductions will be given for assignments in between the “best case” and “worst case”.</p>
+<h4 id="best-case-no-deductions">Best case [no deductions]</h4>
 <ul>
-<li><a href="assignments/assignment2-rubric.Rmd">Access assignment 2 rubric Rmd</a><br />
+<li>Code is concise and easy to read
+<ul>
+<li>No stray variables (e.g. variables that are defined and never used)</li>
+<li>Variable names make sense</li>
+<li>Generally follows the <a href="https://style.tidyverse.org/index.html">tidyverse style guide</a></li>
+</ul></li>
+<li>Code is commented thoroughly and clearly
+<ul>
+<li>Every section has an overall explanation</li>
+<li>Every operation has an abbreviated explanation</li>
+<li>Any key steps or options are flagged in-line</li>
+</ul></li>
+<li>Code includes <a href="assignments/self-check-template.html">self-checks</a>
+<ul>
+<li>Each piece of analysis includes tests to inspect results</li>
+<li>Includes comments to explain each test</li>
+<li>Output is intuitive and well-explained</li>
+</ul></li>
+<li>Outputs are easy to understand
+<ul>
+<li>Plots have appropriate axis and legend labels (e.g. don’t use variable names)</li>
+<li>Maps have scale bars and compasses</li>
+<li>Tables are output using formatting utilities (e.g. kable)</li>
+<li>Includes print statements clarifying output</li>
+<li>Does not output irrelevant information or full datasets</li>
+</ul></li>
+</ul>
+<h4 id="worst-case-maximum-20-point-deduction">Worst case [maximum 20 point deduction]</h4>
+<ul>
+<li>Code is challenging to understand
+<ul>
+<li>Lots of stray variables</li>
+<li>Unintuitive variable names</li>
+<li>Does not adhere to tidyverse style guide</li>
+</ul></li>
+<li>Code is minimally or poorly commented
+<ul>
+<li>Only some steps are commented</li>
+<li>Comments are uninformative (e.g. are redundant with code)</li>
+</ul></li>
+<li>Code includes few, if any, self-checks or are poorly formed
+<ul>
+<li>Checks don’t perform desired test</li>
+<li>Checks don’t demonstrate critical thinking of the analysis at hand</li>
+<li>Outputs are difficult to interpret</li>
+</ul></li>
+<li>Outputs are difficult to understand
+<ul>
+<li>Plots use automatic options (e.g. variable names as axis titles)</li>
+<li>Tables are output by default</li>
+<li>Outputs without print statement explanations</li>
+<li>Lots of extra outputs not relevant to the question</li>
+</ul></li>
+</ul>
+<h3 id="answer-keys">Answer keys</h3>
+<ul>
+<li><a href="assignments/assignment2-rubric.Rmd">Access assignment 2 answer key Rmd</a><br />
 </li>
-<li><a href="assignments/assignment2-rubric.html">Access assignment 2 rubric html</a><br />
+<li><a href="assignments/assignment2-rubric.html">Access assignment 2 answer key html</a><br />
 </li>
 </ul>
 <!-- -   [Access assignment 3 rubric Rmd](assignments/assignment3-rubric.Rmd)\ -->

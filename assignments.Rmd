@@ -17,36 +17,75 @@ All assignments will be posted, submitted, and graded through GitHub Classrooms.
 
 The rubric for each assignment will be provided when it is assigned so you know what to prioritize. You make work with up to 2 classmates, but must list your collaborators’ names on your assignment. You are encouraged to collaborate on code, but must respond to conceptual questions individually. All assignment dates will be posted in advance. Late assignments will receive 10% deduction per day, up to a maximum of 3 days. You may request a 48-hour extension if extenuating circumstances arise. 
 
-### Grading rubric
+Information on grading can be found [here](assignment-rubric.pdf) or outlined below.
 
-Each assignment will provide specific details of the point breakdowns per question. However, we will follow the general rubric below for all assignments.
+### Core grading principles
 
-#### Show your work
-* There are often multiple ways to solve a problem
-* Building in self-checks not only helps you build coding best practices, it helps understand what you were trying for
-* And it helps us give you credit for it!
-* [Check out this guide to building in self-checks](assignments/self-check-template.html)
+Each assignment will provide specific details of the point breakdowns per question. However, we will follow the general principles below for all assignments.
 
 #### Code must run
-* A 50% deduction will be taken if code does not run
-* Full credit will be given to sub-questions that were completed correctly
+* 50% deduction on each section that doesn’t run
+* 20% deduction from entire assignment for code that does not knit
 
-#### Follow the spirit (not the letter) of the question
-* For questions that ask for aesthetic updates (i.e. changing legend titles), simply providing ANY modification is not sufficient
-* A 50% deduction will be taken for answers that do not improve legibility
+#### Show your answer and thought process
+* Logical steps and checks are needed for full credit. 
+* Mysterious or disorganized code without checks will not receive full credit.
 
 #### Answer for yourself
-* Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions
+* Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions.
 * All members of your group will lose full credit for non-code based questions that are copy/pasted among group members.
 
 #### Submit assignments through GitHub Classrooms
 * All assignments should be submitted through GitHub Classrooms
-* Any assignment not submitted through GitHub Classrooms will receive a 5% deduction
-* All students are granted one "free pass"
+* 5% deduction for assignments not submitted through GitHub Classrooms
+* All students are granted one free pass
 
-### Rubrics
--   [Access assignment 2 rubric Rmd](assignments/assignment2-rubric.Rmd)\
--   [Access assignment 2 rubric html](assignments/assignment2-rubric.html)\
+### Assignment rubric
+In addition to the core principles outlined above, each assignment will be scored for its adherence to the following coding best practices. The maximum deduction for assignments which meet all the core principles but do not follow best practices (“worst case” below) will be 20 points for the assignment. Partial deductions will be given for assignments in between the “best case” and “worst case”.
+
+#### Best case [no deductions]
+* Code is concise and easy to read
+  * No stray variables (e.g. variables that are defined and never used)
+  * Variable names make sense
+  * Generally follows the [tidyverse style guide](https://style.tidyverse.org/index.html)
+* Code is commented thoroughly and clearly
+  * Every section has an overall explanation
+  * Every operation has an abbreviated explanation
+  * Any key steps or options are flagged in-line
+* Code includes [self-checks](assignments/self-check-template.html)
+  * Each piece of analysis includes tests to inspect results
+  * Includes comments to explain each test
+  * Output is intuitive and well-explained
+* Outputs are easy to understand
+  * Plots have appropriate axis and legend labels (e.g. don’t use variable names) 
+  * Maps have scale bars and compasses
+  * Tables are output using formatting utilities (e.g. kable)
+  * Includes print statements clarifying output
+  * Does not output irrelevant information or full datasets
+  
+#### Worst case [maximum 20 point deduction]
+* Code is challenging to understand
+  * Lots of stray variables
+  * Unintuitive variable names
+  * Does not adhere to tidyverse style guide
+* Code is minimally or poorly commented
+  * Only some steps are commented
+  * Comments are uninformative (e.g. are redundant with code)
+* Code includes few, if any, self-checks or are poorly formed
+  * Checks don’t perform desired test
+  * Checks don’t demonstrate critical thinking of the analysis at hand
+  * Outputs are difficult to interpret
+* Outputs are difficult to understand 
+  * Plots use automatic options (e.g. variable names as axis titles)
+  * Tables are output by default
+  * Outputs without print statement explanations
+  * Lots of extra outputs not relevant to the question
+
+
+
+### Answer keys
+-   [Access assignment 2 answer key Rmd](assignments/assignment2-rubric.Rmd)\
+-   [Access assignment 2 answer key html](assignments/assignment2-rubric.html)\
 
 <!-- -   [Access assignment 3 rubric Rmd](assignments/assignment3-rubric.Rmd)\ -->
 <!-- -   [Access assignment 3 rubric html](assignments/assignment3-rubric.html)\ -->
