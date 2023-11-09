@@ -2567,8 +2567,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="#assignment-schedule" id="toc-assignment-schedule">Assignment schedule</a></li>
 <li><a href="#assignment-expectations-and-grading" id="toc-assignment-expectations-and-grading">Assignment expectations and grading</a></li>
-<li><a href="#grading-rubric" id="toc-grading-rubric">Grading rubric</a></li>
-<li><a href="#rubrics" id="toc-rubrics">Rubrics</a></li>
+<li><a href="#core-grading-principles" id="toc-core-grading-principles">Core grading principles</a></li>
+<li><a href="#assignment-rubric" id="toc-assignment-rubric">Assignment rubric</a></li>
+<li><a href="#answer-keys" id="toc-answer-keys">Answer keys</a></li>
 </ul>
 </nav>
 </div>
@@ -2607,41 +2608,93 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </table>
 <h3 id="assignment-expectations-and-grading">Assignment expectations and grading</h3>
 <p>The rubric for each assignment will be provided when it is assigned so you know what to prioritize. You make work with up to 2 classmates, but must list your collaborators’ names on your assignment. You are encouraged to collaborate on code, but must respond to conceptual questions individually. All assignment dates will be posted in advance. Late assignments will receive 10% deduction per day, up to a maximum of 3 days. You may request a 48-hour extension if extenuating circumstances arise.</p>
-<h3 id="grading-rubric">Grading rubric</h3>
-<p>Each assignment will provide specific details of the point breakdowns per question. However, we will follow the general rubric below for all assignments.</p>
-<h4 id="show-your-work">Show your work</h4>
-<ul>
-<li>There are often multiple ways to solve a problem</li>
-<li>Building in self-checks not only helps you build coding best practices, it helps understand what you were trying for</li>
-<li>And it helps us give you credit for it!</li>
-<li><a href="assignments/self-check-template.html">Check out this guide to building in self-checks</a></li>
-</ul>
+<p>Information on grading can be found <a href="assignment-rubric.pdf">here</a> or outlined below.</p>
+<h3 id="core-grading-principles">Core grading principles</h3>
+<p>Each assignment will provide specific details of the point breakdowns per question. However, we will follow the general principles below for all assignments.</p>
 <h4 id="code-must-run">Code must run</h4>
 <ul>
-<li>A 50% deduction will be taken if code does not run</li>
-<li>Full credit will be given to sub-questions that were completed correctly</li>
+<li>50% deduction on each section that doesn’t run</li>
+<li>20% deduction from entire assignment for code that does not knit</li>
 </ul>
-<h4 id="follow-the-spirit-not-the-letter-of-the-question">Follow the spirit (not the letter) of the question</h4>
+<h4 id="show-your-answer-and-thought-process">Show your answer and thought process</h4>
 <ul>
-<li>For questions that ask for aesthetic updates (i.e. changing legend titles), simply providing ANY modification is not sufficient</li>
-<li>A 50% deduction will be taken for answers that do not improve legibility</li>
+<li>Logical steps and checks are needed for full credit.</li>
+<li>Mysterious or disorganized code without checks will not receive full credit.</li>
 </ul>
 <h4 id="answer-for-yourself">Answer for yourself</h4>
 <ul>
-<li>Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions</li>
+<li>Although you are encouraged to collaborate with up to 2 classmates, you must provide your own answer to any non-code based questions.</li>
 <li>All members of your group will lose full credit for non-code based questions that are copy/pasted among group members.</li>
 </ul>
 <h4 id="submit-assignments-through-github-classrooms">Submit assignments through GitHub Classrooms</h4>
 <ul>
 <li>All assignments should be submitted through GitHub Classrooms</li>
-<li>Any assignment not submitted through GitHub Classrooms will receive a 5% deduction</li>
-<li>All students are granted one “free pass”</li>
+<li>5% deduction for assignments not submitted through GitHub Classrooms</li>
+<li>All students are granted one free pass</li>
 </ul>
-<h3 id="rubrics">Rubrics</h3>
+<h3 id="assignment-rubric">Assignment rubric</h3>
+<p>In addition to the core principles outlined above, each assignment will be scored for its adherence to the following coding best practices. The maximum deduction for assignments which meet all the core principles but do not follow best practices (“worst case” below) will be 20 points for the assignment. Partial deductions will be given for assignments in between the “best case” and “worst case”.</p>
+<h4 id="best-case-no-deductions">Best case [no deductions]</h4>
 <ul>
-<li><a href="assignments/assignment2-rubric.Rmd">Access assignment 2 rubric Rmd</a><br />
+<li>Code is concise and easy to read
+<ul>
+<li>No stray variables (e.g. variables that are defined and never used)</li>
+<li>Variable names make sense</li>
+<li>Generally follows the <a href="https://style.tidyverse.org/index.html">tidyverse style guide</a></li>
+</ul></li>
+<li>Code is commented thoroughly and clearly
+<ul>
+<li>Every section has an overall explanation</li>
+<li>Every operation has an abbreviated explanation</li>
+<li>Any key steps or options are flagged in-line</li>
+</ul></li>
+<li>Code includes <a href="assignments/self-check-template.html">self-checks</a>
+<ul>
+<li>Each piece of analysis includes tests to inspect results</li>
+<li>Includes comments to explain each test</li>
+<li>Output is intuitive and well-explained</li>
+</ul></li>
+<li>Outputs are easy to understand
+<ul>
+<li>Plots have appropriate axis and legend labels (e.g. don’t use variable names)</li>
+<li>Maps have scale bars and compasses</li>
+<li>Tables are output using formatting utilities (e.g. kable)</li>
+<li>Includes print statements clarifying output</li>
+<li>Does not output irrelevant information or full datasets</li>
+</ul></li>
+</ul>
+<h4 id="worst-case-maximum-20-point-deduction">Worst case [maximum 20 point deduction]</h4>
+<ul>
+<li>Code is challenging to understand
+<ul>
+<li>Lots of stray variables</li>
+<li>Unintuitive variable names</li>
+<li>Does not adhere to tidyverse style guide</li>
+</ul></li>
+<li>Code is minimally or poorly commented
+<ul>
+<li>Only some steps are commented</li>
+<li>Comments are uninformative (e.g. are redundant with code)</li>
+</ul></li>
+<li>Code includes few, if any, self-checks or are poorly formed
+<ul>
+<li>Checks don’t perform desired test</li>
+<li>Checks don’t demonstrate critical thinking of the analysis at hand</li>
+<li>Outputs are difficult to interpret</li>
+</ul></li>
+<li>Outputs are difficult to understand
+<ul>
+<li>Plots use automatic options (e.g. variable names as axis titles)</li>
+<li>Tables are output by default</li>
+<li>Outputs without print statement explanations</li>
+<li>Lots of extra outputs not relevant to the question</li>
+</ul></li>
+</ul>
+<h3 id="answer-keys">Answer keys</h3>
+<ul>
+<li><a href="assignments/assignment2-rubric.Rmd">Access assignment 2 answer key Rmd</a><br />
 </li>
-<li><a href="assignments/assignment2-rubric.html">Access assignment 2 rubric html</a><br />
+<li><a href="assignments/assignment2-rubric.html">Access assignment 2 answer key html</a><br />
 </li>
 </ul>
 <!-- -   [Access assignment 3 rubric Rmd](assignments/assignment3-rubric.Rmd)\ -->
