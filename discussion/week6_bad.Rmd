@@ -1,0 +1,44 @@
+---
+title: "Week 6"
+author: "Allie Caughman"
+date: "2023-11-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(sf)
+library(raster)
+library(terra)
+library(spData)
+library(spDataLarge)
+library(tidyverse)
+library(ggspatial)
+library(patchwork)
+```
+
+```{r}
+data1 = st_read((system.file("vector/zion.gpkg", package = "spDataLarge")))
+data2 = us_states %>% janitor::clean_names() %>% filter(name == "Utah")
+data = data1
+```
+
+```{r}
+data1
+```
+
+```{r}
+data2
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = data2) + geom_sf(data = data1) +
+  theme(axis.text = element_blank()) +
+  theme(axis.ticks = element_blank())
+```
+
+

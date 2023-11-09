@@ -1,0 +1,49 @@
+---
+title: "Week 6"
+author: "Allie Caughman"
+date: "2023-11-09"
+output: html_document
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+### load required packages
+library(sf)
+library(raster)
+library(terra)
+library(spData)
+library(spDataLarge)
+library(tidyverse)
+library(ggspatial)
+library(patchwork)
+```
+
+```{r}
+### load two datasets
+zion <- st_read((system.file("vector/zion.gpkg", package = "spDataLarge")), quiet = TRUE) # shape file of zion national park
+states <- us_states %>% # information about the united states
+  janitor::clean_names() %>%
+  filter(name == "Utah") # filter data for just Utah
+```
+
+```{r}
+### create plot of zion national park location within the united states
+ggplot() +
+  geom_sf(data = states, fill = "purple", alpha = 0.5) + # plot Utah
+  geom_sf(data = zion, fill = "black", linewidth = 0.5) + # plot zion national park
+  theme_bw() +
+  labs(title = "Zion National Park Location") +
+  annotation_scale(plot_unit = "km") + # add scale bar
+  annotation_north_arrow( # add north arrorw
+    location = "tr",
+    pad_x = unit(0.2, "in"),
+    pad_y = unit(0.2, "in"),
+    style = ggspatial::north_arrow_nautical( # customize north arrow
+      fill = c("grey40", "white"),
+      line_col = "grey20"
+    )
+  )
+```
