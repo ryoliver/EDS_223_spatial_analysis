@@ -15,9 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Access completed discussion Rmd](discussion/week6_discussion.Rmd)
 -   [Access completed discussion html](discussion/week6_discussion.html)
 -   [Access example of "good" Rmd](discussion/week6_good.Rmd)
--   [Access example of "good" Rmd](discussion/week6_good.html)
+-   [Access example of "good" html](discussion/week6_good.html)
 -   [Access example of "bad" Rmd](discussion/week6_bad.Rmd)
--   [Access example of "bad" Rmd](discussion/week6_bad.html)
+-   [Access example of "bad" hmtl](discussion/week6_bad.html)
 
 ### Background reading
 -   [Remote Sensing of the Environment, chapters 1 & 2](readings/Jensen-chapter2.pdf)
