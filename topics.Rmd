@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [EOSDIS Worldview](https://worldview.earthdata.nasa.gov/?l=Reference_Labels_15m(hidden),Reference_Features_15m(hidden),Coastlines_15m,MODIS_Terra_SurfaceReflectance_Bands121,MODIS_Terra_CorrectedReflectance_Bands721,MODIS_Terra_CorrectedReflectance_Bands367&lg=true&l1=Reference_Labels_15m(hidden),Reference_Features_15m(hidden),Coastlines_15m,MODIS_Terra_CorrectedReflectance_TrueColor&lg1=true&ca=true&cv=39&t=2022-11-01-T22%3A42%3A21Z&t1=2022-11-01-T22%3A42%3A21Z)
 -   [Check in quiz due by midnight 11-14-2023](https://forms.gle/ktXcVswidWv8Zxvc8)
 -   [Access discussion template Rmd](discussion/week7_skeleton.Rmd)
+-   [Access completed discussion Rmd](discussion/week7_discussion.Rmd)
+-   [Access completed discussion html](discussion/week7_discussion.html)
 
 ### Background reading
 -   [Why is that forest red and cloud blue? (NASA Earth Observatory)](https://earthobservatory.nasa.gov/features/FalseColor)

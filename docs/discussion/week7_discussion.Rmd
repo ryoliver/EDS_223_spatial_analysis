@@ -61,12 +61,17 @@ ggplot() +
   geom_sf(data = counties, fill = "black", color = "transparent")
 
 # create a new geometry that is the difference between the unioned version of NC and the counties
+
 nc_difference <- st_difference(nc_union, counties)
+nc_disjoint <- st_disjoint(nc_union, counties)
+nc_intersection <- st_intersection(nc_union, counties)
 
 # plot the difference on top of the unioned version of NC
 # counties should be missing!
-ggplot() +
-  geom_sf(data = nc_union, fill = "grey", color = "transparent") +
-  geom_sf(data = nc_difference, fill = "black", color = "transparent")
+ggplot() + 
+  geom_sf(data = nc_difference, fill = "grey", color = "transparent")
+ggplot() + 
+  geom_sf(data = nc_intersection, fill = "grey", color = "transparent")
+```
 
 ```

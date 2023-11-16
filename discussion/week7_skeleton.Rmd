@@ -22,7 +22,6 @@ library(terra)
 ```{r}
 # practice filtering a raster
 
-
 ```
 
 ```{r}
@@ -34,7 +33,6 @@ library(terra)
 # let's practice combining (or unioning) geometries
 # read in shapefile of the counties of North Carolina
 
-
 ```
 
 ```{r}
@@ -44,11 +42,13 @@ library(terra)
 
 ```{r}
 # finds the union of all geometries
+
 ```
 
 ```{r}
 # let's exploring removing geometries
 # pick a few counties to remove
+
 ```
 
 ```{r}
@@ -58,6 +58,7 @@ library(terra)
 
 ```{r}
 # create a new geometry that is the difference between the unioned version of NC and the counties
+
 ```
 
 ```{r}
