@@ -10,6 +10,37 @@ library(tmap)
 rm(list = ls())
 here::i_am("labs/week8.Rmd")
 
+ndvi_fun = function(nir, red){
+  (nir - red) / (nir + red)
+}
+
+files <- list.files("labs/data/week8", pattern = "*.tif", full.names = TRUE)
+
+create_ndvi_layer <- function(i){
+  landsat <- rast(files[i])
+  names(landsat) <- c("blue", "green", "red", "NIR", "SWIR1", "SWIR2")
+  ndvi <- lapp(landsat[[c(4, 3)]], fun = ndvi_fun)
+}
+
+all_ndvi <- c(create_ndvi_layer(1),
+              create_ndvi_layer(2),
+              create_ndvi_layer(3),
+              create_ndvi_layer(4),
+              create_ndvi_layer(5),
+              create_ndvi_layer(6),
+              create_ndvi_layer(7),
+              create_ndvi_layer(8))
+
+names(all_ndvi) <- c("2018-06-12",
+                     "2018-08-15",
+                     "2018-10-18",
+                     "2018-11-03",
+                     "2019-01-22",
+                     "2019-02-23",
+                     "2019-04-12",
+                     "2019-07-01")
+
+
 landsat_20180612 <-rast(here("labs", "data", "week8", "landsat_20180612.tif"))
 landsat_20180815 <- rast(here("labs", "data", "week8", "landsat_20180815.tif"))
 landsat_20181018 <- rast(here("labs", "data", "week8", "landsat_20181018.tif"))
