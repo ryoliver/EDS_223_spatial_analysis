@@ -1,5 +1,5 @@
 ---
-title: 'EDS 223: Discussion Week 6 - Mapping Human Modification onto California Protected Areas'
+title: 'EDS 223: Discussion Week 9 - Workflows and Maps'
 author: 'Name'
 date: "2023-10-18"
 output: html_document
@@ -8,6 +8,9 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+making your workflow more general by writing it as a function (this comes up in assignment 4)
+pretty map making with ggplot - you could pick an example from the protected area stuff and walk them through how to make a nice map.
 
 ## Introduction
 
