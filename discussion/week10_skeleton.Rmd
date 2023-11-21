@@ -1,0 +1,87 @@
+---
+title: 'EDS 223: Discussion Week 9 - Workflows and Maps'
+author: 'Name'
+date: "2023-10-18"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+making your workflow more general by writing it as a function (this comes up in assignment 4)
+
+pretty map making with ggplot - you could pick an example from the protected area stuff and walk them through how to make a nice map.
+
+## Introduction
+
+## Prerequsites 
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(sf)
+library(terra)
+library(stars)
+library(ggspatial)
+```
+
+Load in the CPAD_2023a_SuperUnits.shp and the ghm.tif files. ghm.tif Transform both to EPSG:4326.
+
+```{r}
+cpad_super <- st_read(here::here("discussion", "data", "CPAD_2023a_SuperUnits.shp"), quiet = TRUE) %>%
+  sf::st_transform("EPSG:4326") %>%
+  janitor::clean_names() %>%
+  mutate(ID = row_number())
+
+ghm <- rast(here::here("discussion", "data", "gHM_masked.tif")) %>%
+  project("EPSG:4326")
+```
+
+## Exercises
+
+1. Let's make nice plots of the California Protected areas by access level 
+
+```{r}
+
+```
+
+2. Let's try plotting the ghm layers nicely too!
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+3. Create a function to take 2 data sets (1 polygon and 1 raster) and create a boxplot of the values based on a specific layer
+
+```{r}
+summary_boxplot = function(polygon, raster, my_layer, my_label) {
+  
+  #extract raster values 
+
+  
+  #join this with the polygon dataset - this takes a few minutes
+
+  
+  #create boxplot based on your layer
+
+}
+```
+
+4. Let's select some layers and use our new function!
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
