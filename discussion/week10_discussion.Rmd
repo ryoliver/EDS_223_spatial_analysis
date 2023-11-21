@@ -1,5 +1,5 @@
 ---
-title: 'EDS 223: Discussion Discussion Week 9 - Functions for HW4'
+title: 'EDS 223: Discussion Week 9 - Workflows and Maps'
 author: 'Name'
 date: "2023-10-18"
 output: html_document
@@ -9,10 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-rasterizing polygon data - how to do it and why you might want to do it. you could also walk through why you vectorized raster data in assignment 3
-masking based on multiple and more complex conditions
-zonal statistics
-I'm wondering if there's a way to incorporate the CA PA work that you already turned into discussion material for week 6
+making your workflow more general by writing it as a function (this comes up in assignment 4)
+pretty map making with ggplot - you could pick an example from the protected area stuff and walk them through how to make a nice map.
 
 ## Introduction
 
