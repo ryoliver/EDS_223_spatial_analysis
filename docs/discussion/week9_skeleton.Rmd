@@ -1,0 +1,112 @@
+---
+title: 'EDS 223: Discussion Discussion Week 9 - Functions for HW4'
+author: 'Name'
+date: "2023-10-18"
+output: html_document
+---
+
+```{r setup, include=FALSE,error=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = TRUE,error=FALSE,message=FALSE)
+```
+
+## Introduction
+
+## Prerequsites 
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(sf)
+library(terra)
+library(kableExtra)
+```
+
+Load in the CPAD_2023a_SuperUnits.shp and the gHM_masked.tif files.
+
+```{r}
+cpad_super <- st_read(here::here("discussion", "data", "CPAD_2023a_SuperUnits.shp"), quiet=TRUE) %>%
+  sf::st_transform("EPSG:4326") %>%
+  janitor::clean_names() %>%
+  mutate(ID = row_number())
+
+ghm <- rast(here::here("discussion", "data", "gHM_masked.tif")) %>%
+  project("EPSG:4326")
+```
+
+```{r}
+
+```
+
+## Exercises
+
+1. Let's rasterize the cpad dataset a few times! This is necessary to do zonal statistics!
+
+```{r}
+
+```
+
+2. Let's say you're interested in finding protected areas with intermediate levels of human modification. How could you do this?
+
+a) masking and zonal statistics
+
+```{r}
+
+```
+
+Say you want to make this more complicated, and you want two groups?
+
+```{r}
+
+```
+
+Or you just want to group them generally! 
+
+```{r}
+
+```
+
+Now let's use zonal statistics to get a mean
+
+```{r}
+
+```
+
+b) combining and filtering 
+
+```{r}
+
+```
+
+Summarize the mean of human modification within each protected area
+
+```{r}
+
+```
+
+Join this summary with the protected area database. Plot these values
+
+```{r}
+
+```
+
+Now we can filter! 
+
+```{r}
+
+```
+
+3. These do give slightly different results however... can you identify the difference? 
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+4. Let's use zonal statistics to summarize human modification by access type!
+
+```{r}
+
+```

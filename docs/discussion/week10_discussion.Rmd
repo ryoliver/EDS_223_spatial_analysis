@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 making your workflow more general by writing it as a function (this comes up in assignment 4)
+
 pretty map making with ggplot - you could pick an example from the protected area stuff and walk them through how to make a nice map.
 
 ## Introduction
@@ -17,26 +18,23 @@ pretty map making with ggplot - you could pick an example from the protected are
 ## Prerequsites 
 
 ```{r}
-start = Sys.time()
 library(tidyverse)
 library(patchwork)
 library(sf)
 library(terra)
 ```
 
-Load in the CPAD_2023a_SuperUnits.shp and the ghm.tif files. ghm.tif will take 5-8 minutes. Transform both to EPSG:4326.
+Load in the CPAD_2023a_SuperUnits.shp and the ghm.tif files. ghm.tif Transform both to EPSG:4326.
 
 ```{r}
-cpad_super <- st_read(here::here("discussion", "data", "CPAD_2023a_SuperUnits.shp")) %>%
+cpad_super <- st_read(here::here("discussion", "data", "CPAD_2023a_SuperUnits.shp"), quiet = TRUE) %>%
   sf::st_transform("EPSG:4326") %>%
   janitor::clean_names() %>%
   mutate(ID = row_number())
 
-ghm <- rast(here::here("discussion", "data", "gHM.tif")) %>%
+ghm <- rast(here::here("discussion", "data", "gHM_masked.tif")) %>%
   project("EPSG:4326")
 ```
-
-While this loads - think about what you learned about raster/vector interactions last week. Discussion in your groups how you think you would combine these two datasets. 
 
 ## Exercises
 
@@ -52,24 +50,6 @@ ggplot(data = cpad_super) +
 ggplot(data = cpad_super) +
   geom_sf(aes(color = layer, fill = layer)) +
   theme_bw()
-```
-
-2. Plot the Global human modification layer. *Hint: just use plot for ease*
-
-```{r}
-plot(ghm)
-```
-
-3. Crop and mask the raster to fit the area of the shapefile. Plot each step. *Hint: just use plot for ease*
-
-```{r}
-ghm_cropped = crop(ghm, cpad_super)
-
-plot(ghm_cropped)
-
-ghm_masked = mask(ghm_cropped, cpad_super)
-
-plot(ghm_masked)
 ```
 
 4. Extract the global human modification values at each California protected area.
