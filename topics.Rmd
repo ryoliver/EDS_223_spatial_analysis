@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Access lab template Rmd](labs/week8-template.Rmd)
 <!-- -   [Access completed lab Rmd](labs/week8.Rmd) -->
 <!-- -   [Access completed lab html](labs/week8.html)\ -->
+-   [Check in quiz due by midnight 11-22-2023](https://forms.gle/oW9fHFXdzu3BqteJ9)
 
 ## Background reading
 -   [Remote Sensing of the Environment, chapter 10](readings/Jensen-chapter10.pdf)
