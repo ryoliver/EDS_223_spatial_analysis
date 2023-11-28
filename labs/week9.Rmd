@@ -197,15 +197,6 @@ levels(SB_training_data$type)
 Now we can plot the results and check out our land cover map!
 ```{r}
 # plot results
-tm_shape(SB_classification) +
-  tm_raster(style = "cat",
-            fill.palette = c("#8DB580", "#F2DDA4", "#7E8987", "#6A8EAE"),
-            labels = c("green vegetation", # update labels to match clasess
-                           "soil/dead grass",
-                           "urban",
-                           "water"),
-            title = "land cover") +
-  tm_layout(legend.position = c("left", "bottom"))
 
 tm_shape(SB_classification) +
   tm_raster(col.scale = tm_scale_categorical(values = c("#8DB580", "#F2DDA4", "#7E8987", "#6A8EAE")),
