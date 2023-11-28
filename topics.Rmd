@@ -5,6 +5,21 @@ title: "Topics"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# Week 9: Landcover classification
+### Materials
+-   [Access lecture slides](lectures/week9.pdf)
+-   [Download data](https://drive.google.com/drive/folders/1ON8FbDqcTjg2PKHmNGgyN7odTqpOnXla?usp=sharing)
+-   [Access lab template Rmd](labs/week9-template.Rmd)
+-   [Check in quiz due by midnight 11-28-2023](https://forms.gle/mLyY6mhDufxbziNw8)
+
+
+<!-- -   [Access lab Rmd](labs/week9.Rmd)\ -->
+<!-- -   [Access lab html](labs/week9.html) -->
+
+## Assignments
+-   Assignment 4 posted on 11-21, due by midnight 12-09
+-   Portfolio due by midnight 12-15
+
 # Week 8: Remote sensing of vegetation
 ## Materials
 -   [Access lecture slides](lectures/week8.pdf)

@@ -77,7 +77,13 @@ setwd(here())
 Let's create a raster stack based on the 6 bands we will be working with. Each file name ends with the band number (e.g. `B1.tif`). Notice that we are missing a file for band 6. Band 6 corresponds to thermal data, which we will not be working with for this lab. To create a raster stack, we will create a list of the files that we would like to work with and read them all in at once using the `rast` function. We'll then update the names of the layers to match the spectral bands and plot a true color image to see what we're working with.
 
 ```{r include=TRUE}
+# list files for each band, including the full file path
 
+# read in and store as a raster stack
+
+# update layer names to match band
+
+# plot true color image
 ```
 
 #### Load study area
@@ -85,12 +91,20 @@ We want to contstrain our analysis to the southern portion of the county where w
 
 ```{r include=TRUE}
 
+# read in shapefile for southern portion of SB county
+
+# project to match the Landsat data
 ```
 
 #### Crop and mask Landsat data to study area
 Now, we can crop and mask the Landsat data to our study area. This reduces the amount of data we'll be working with and therefore saves computational time. We can also remove any objects we're no longer working with to save space. 
 ```{r include=TRUE}
 
+# crop Landsat scene to the extent of the SB county shapefile
+
+# mask the raster to southern portion of SB county
+
+# remove unnecessary object from environment
 ```
 
 #### Convert Landsat values to reflectance
@@ -99,7 +113,14 @@ Now we need to convert the values in our raster stack to correspond to reflectan
 In this case, we are working with [Landsat Collection 2](https://www.usgs.gov/landsat-missions/landsat-collection-2). The valid range of pixel values for this collection 7,273-43,636, with a multiplicative scale factor of 0.0000275 and an additive scale factor of -0.2. So we reclassify any erroneous values as `NA` and update the values for each pixel based on the scaling factors. Now the pixel values should range from 0-100%.
 
 ```{r include=TRUE}
+# reclassify erroneous values as NA
 
+
+# adjust values based on scaling factor
+
+# plot true color image to check results
+
+# check values are 0 - 100
 ```
 
 
@@ -109,6 +130,15 @@ In this case, we are working with [Landsat Collection 2](https://www.usgs.gov/la
 We will load the shapefile identifying different locations within our study area as containing one of our 4 land cover types. We can then extract the spectral values at each site to create a data frame that relates land cover types to their spectral reflectance.
 
 ```{r include=TRUE}
+# read in and transform training data
+
+
+# extract reflectance values at training sites
+
+# convert training data to data frame
+
+
+# join training data attributes and extracted reflectance values
 
 ```
 
@@ -118,20 +148,28 @@ To train our decision tree, we first need to establish our model formula (i.e. w
 To understand how our decision tree will classify pixels, we can plot the results. The decision tree is comprised of a hierarchy of binary decisions. Each decision rule has 2 outcomes based on a conditional statement pertaining to values in each spectral band.   
 
 ```{r include=TRUE}
+# establish model formula
 
+# train decision tree
+
+
+# plot decision tree
 ```
 
 #### Apply decision tree
 Now that we have created our decision tree, we can apply it to our entire image. The `terra` package includes a `predict()` function that allows us to apply a model to our data. In order for this to work properly, the names of the layers need to match the column names of the predictors we used to train our decision tree. The `predict()` function will return a raster layer with integer values. These integer values correspond to the *factor levels* in the training data. To figure out what category each integer corresponds to, we can inspect the levels of our training data. 
 
 ```{r include=TRUE}
+# classify image based on decision tree
 
+# inspect level to understand the order of classes in prediction
 
 ```
 
 #### Plot results
 Now we can plot the results and check out our land cover map!
 ```{r}
+# plot results
 
 
 ```
