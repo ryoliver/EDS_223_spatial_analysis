@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Access lab completed Rmd](labs/week9.Rmd)
 -   [Access lab completed html](labs/week9.html)
 -   [Check in quiz due by midnight 11-28-2023](https://forms.gle/mLyY6mhDufxbziNw8)
+-   [Access discussion template Rmd](discussion/week9_skeleton.Rmd)
+-   [Download discussion data](https://drive.google.com/file/d/1S80sEE_vCPkRQF03Nj1KfakoF364_S4k/view?usp=sharing)
 
 ## Assignments
 -   Assignment 4 posted on 11-21, due by midnight 12-09
