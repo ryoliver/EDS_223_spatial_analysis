@@ -90,8 +90,7 @@ In addition to the core principles outlined above, each assignment will be score
 ### Answer keys
 -   [Access assignment 2 answer key Rmd](assignments/assignment2-rubric.Rmd)\
 -   [Access assignment 2 answer key html](assignments/assignment2-rubric.html)\
-
-<!-- -   [Access assignment 3 rubric Rmd](assignments/assignment3-rubric.Rmd)\ -->
-<!-- -   [Access assignment 3 rubric html](assignments/assignment3-rubric.html)\ -->
+-   [Access assignment 3 answer key Rmd](assignments/assignment3-rubric.Rmd)\ 
+-   [Access assignment 3 answer key html](assignments/assignment3-rubric.html)\ 
 <!-- -   [Access assignment 4 rubric Rmd](assignments/assignment4-rubric.Rmd)\ -->
 <!-- -   [Access assignment 4 rubric html](assignments/assignment4-rubric.html) -->
