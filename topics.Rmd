@@ -15,6 +15,8 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Check in quiz due by midnight 11-28-2023](https://forms.gle/mLyY6mhDufxbziNw8)
 -   [Access discussion template Rmd](discussion/week9_skeleton.Rmd)
 -   [Download discussion data](https://drive.google.com/file/d/1S80sEE_vCPkRQF03Nj1KfakoF364_S4k/view?usp=sharing)
+-   [Access completed discussion Rmd](discussion/week9_discussion.Rmd)
+-   [Access completed discussion html](discussion/week9_discussion.html)
 
 ## Assignments
 -   Assignment 4 posted on 11-21, due by midnight 12-09
