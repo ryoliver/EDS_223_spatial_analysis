@@ -1,17 +1,14 @@
 ---
-title: 'EDS 223: Discussion Week 9 - Workflows and Maps'
+title: 'EDS 223: Discussion Week 10 - Workflows and Maps'
 author: 'Name'
-date: "2023-10-18"
+date: "2023-11-30"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include=FALSE,error=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = TRUE,error=FALSE,message=FALSE)
 ```
 
-making your workflow more general by writing it as a function (this comes up in assignment 4)
-
-pretty map making with ggplot - you could pick an example from the protected area stuff and walk them through how to make a nice map.
 
 ## Introduction
 
@@ -40,7 +37,11 @@ ghm <- rast(here::here("discussion", "data", "gHM_masked.tif")) %>%
 
 ## Exercises
 
-1. Let's make nice plots of the California Protected areas by access level 
+1. Let’s make nice plots of the California Protected areas by access level
+
+```{r}
+
+```
 
 ```{r}
 
@@ -52,19 +53,17 @@ ghm <- rast(here::here("discussion", "data", "gHM_masked.tif")) %>%
 
 ```
 
-```{r}
-
-```
-
 3. Create a function to take 2 data sets (1 polygon and 1 raster) and create a boxplot of the values based on a specific layer
 
 ```{r}
 summary_boxplot = function(polygon, raster, my_layer, my_label) {
   
-  #extract raster values 
+  # rasterize polygon by layer
 
   
-  #join this with the polygon dataset - this takes a few minutes
+  #do mean zonal statistics
+
+  #join with polygon database
 
   
   #create boxplot based on your layer
