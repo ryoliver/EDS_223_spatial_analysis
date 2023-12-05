@@ -11,6 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Access lecture slides](lectures/week10.pdf)
 -   [Download data](https://drive.google.com/file/d/1Nbxc1K9rYuU0qvFvsBfR8-Uw-xyvUlTR/view?usp=sharing)
 -   [Access lab template Rmd](labs/week10-template.Rmd)
+-   [Access completed lab Rmd](labs/week10.Rmd)
+-   [Access completed lab html](labs/week10.Rmd)
+
 
 ## Background reading
 -   [Remote Sensing of the Environment, chapter 9](readings/Jensen-chapter9.pdf)\
