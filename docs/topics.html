@@ -826,21 +826,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     display: none !important;
   }
 
-  hr.section-separator {
-    border: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin: 0px;
-  }
-
-
-  d-byline {
-    border-top: none;
-  }
-
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
-    border-top: none;
   }
 
   d-appendix {
@@ -935,11 +923,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
-  }
-
-  /* tweak for Pandoc numbered line within distill */
-  d-article pre.numberSource code > span {
-      left: -2em;
   }
 
   d-article pre {
@@ -1701,12 +1684,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
-    // separator
-    var separator = '<hr class="section-separator" style="clear: both"/>';
-    // prepend separator above appendix
-    $('.d-byline').before(separator);
-    $('.d-article').before(separator);
-
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1784,9 +1761,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme, except when numbering line
-    // in code chunk
-    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1812,13 +1788,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
-        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
+          img.attr('alt', 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -2505,7 +2480,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2553,7 +2528,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <div class="d-title">
 <h1>Topics</h1>
-
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
@@ -2565,71 +2539,100 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <nav class="l-text toc figcaption" id="TOC">
 <h3>Contents</h3>
 <ul>
-<li><a href="#week-9-landcover-classification" id="toc-week-9-landcover-classification">Week 9: Landcover classification</a>
+<li><a href="#week-10-active-remote-sensing" id="toc-week-10-active-remote-sensing">Week 10: Active remote sensing</a>
 <ul>
 <li><a href="#materials" id="toc-materials">Materials</a></li>
+<li><a href="#background-reading" id="toc-background-reading">Background reading</a></li>
 <li><a href="#assignments" id="toc-assignments">Assignments</a></li>
 </ul></li>
-<li><a href="#week-8-remote-sensing-of-vegetation" id="toc-week-8-remote-sensing-of-vegetation">Week 8: Remote sensing of vegetation</a>
+<li><a href="#week-9-landcover-classification" id="toc-week-9-landcover-classification">Week 9: Landcover classification</a>
 <ul>
 <li><a href="#materials-1" id="toc-materials-1">Materials</a></li>
-<li><a href="#background-reading" id="toc-background-reading">Background reading</a></li>
 <li><a href="#assignments-1" id="toc-assignments-1">Assignments</a></li>
 </ul></li>
-<li><a href="#week-7-rs-data-collection" id="toc-week-7-rs-data-collection">Week 7: RS data collection</a>
+<li><a href="#week-8-remote-sensing-of-vegetation" id="toc-week-8-remote-sensing-of-vegetation">Week 8: Remote sensing of vegetation</a>
 <ul>
 <li><a href="#materials-2" id="toc-materials-2">Materials</a></li>
 <li><a href="#background-reading-1" id="toc-background-reading-1">Background reading</a></li>
 <li><a href="#assignments-2" id="toc-assignments-2">Assignments</a></li>
 </ul></li>
-<li><a href="#week-6-intro-to-remote-sensing" id="toc-week-6-intro-to-remote-sensing">Week 6: Intro to remote sensing</a>
+<li><a href="#week-7-rs-data-collection" id="toc-week-7-rs-data-collection">Week 7: RS data collection</a>
 <ul>
 <li><a href="#materials-3" id="toc-materials-3">Materials</a></li>
 <li><a href="#background-reading-2" id="toc-background-reading-2">Background reading</a></li>
 <li><a href="#assignments-3" id="toc-assignments-3">Assignments</a></li>
 </ul></li>
-<li><a href="#week-5" id="toc-week-5">Week 5</a>
+<li><a href="#week-6-intro-to-remote-sensing" id="toc-week-6-intro-to-remote-sensing">Week 6: Intro to remote sensing</a>
 <ul>
 <li><a href="#materials-4" id="toc-materials-4">Materials</a></li>
-</ul></li>
-<li><a href="#week-4-raster-operations" id="toc-week-4-raster-operations">Week 4: Raster operations</a>
-<ul>
-<li><a href="#materials-5" id="toc-materials-5">Materials</a></li>
 <li><a href="#background-reading-3" id="toc-background-reading-3">Background reading</a></li>
 <li><a href="#assignments-4" id="toc-assignments-4">Assignments</a></li>
 </ul></li>
-<li><a href="#week-3-vector-operations" id="toc-week-3-vector-operations">Week 3: Vector operations</a>
+<li><a href="#week-5" id="toc-week-5">Week 5</a>
+<ul>
+<li><a href="#materials-5" id="toc-materials-5">Materials</a></li>
+</ul></li>
+<li><a href="#week-4-raster-operations" id="toc-week-4-raster-operations">Week 4: Raster operations</a>
 <ul>
 <li><a href="#materials-6" id="toc-materials-6">Materials</a></li>
-<li><a href="#background-reading-4" id="toc-background-reading-4">Background reading</a>
-<ul>
-<li><a href="#additional-resources" id="toc-additional-resources">Additional resources</a></li>
-</ul></li>
+<li><a href="#background-reading-4" id="toc-background-reading-4">Background reading</a></li>
 <li><a href="#assignments-5" id="toc-assignments-5">Assignments</a></li>
 </ul></li>
-<li><a href="#week-2-intro-to-vector-data" id="toc-week-2-intro-to-vector-data">Week 2: Intro to vector data</a>
+<li><a href="#week-3-vector-operations" id="toc-week-3-vector-operations">Week 3: Vector operations</a>
 <ul>
 <li><a href="#materials-7" id="toc-materials-7">Materials</a></li>
 <li><a href="#background-reading-5" id="toc-background-reading-5">Background reading</a>
 <ul>
-<li><a href="#additional-resources-1" id="toc-additional-resources-1">Additional resources</a></li>
+<li><a href="#additional-resources" id="toc-additional-resources">Additional resources</a></li>
 </ul></li>
 <li><a href="#assignments-6" id="toc-assignments-6">Assignments</a></li>
 </ul></li>
-<li><a href="#week-1-intro-to-spatial-data" id="toc-week-1-intro-to-spatial-data">Week 1: Intro to spatial data</a>
+<li><a href="#week-2-intro-to-vector-data" id="toc-week-2-intro-to-vector-data">Week 2: Intro to vector data</a>
 <ul>
 <li><a href="#materials-8" id="toc-materials-8">Materials</a></li>
 <li><a href="#background-reading-6" id="toc-background-reading-6">Background reading</a>
 <ul>
-<li><a href="#additional-resources-2" id="toc-additional-resources-2">Additional resources</a></li>
+<li><a href="#additional-resources-1" id="toc-additional-resources-1">Additional resources</a></li>
 </ul></li>
 <li><a href="#assignments-7" id="toc-assignments-7">Assignments</a></li>
+</ul></li>
+<li><a href="#week-1-intro-to-spatial-data" id="toc-week-1-intro-to-spatial-data">Week 1: Intro to spatial data</a>
+<ul>
+<li><a href="#materials-9" id="toc-materials-9">Materials</a></li>
+<li><a href="#background-reading-7" id="toc-background-reading-7">Background reading</a>
+<ul>
+<li><a href="#additional-resources-2" id="toc-additional-resources-2">Additional resources</a></li>
+</ul></li>
+<li><a href="#assignments-8" id="toc-assignments-8">Assignments</a></li>
 </ul></li>
 </ul>
 </nav>
 </div>
+<h1 id="week-10-active-remote-sensing">Week 10: Active remote sensing</h1>
+<h2 id="materials">Materials</h2>
+<ul>
+<li><a href="lectures/week10.pdf">Access lecture slides</a></li>
+<li><a href="https://drive.google.com/file/d/1Nbxc1K9rYuU0qvFvsBfR8-Uw-xyvUlTR/view?usp=sharing">Download data</a></li>
+<li><a href="labs/week10-template.Rmd">Access lab template Rmd</a></li>
+</ul>
+<h2 id="background-reading">Background reading</h2>
+<ul>
+<li><a href="readings/Jensen-chapter9.pdf">Remote Sensing of the Environment, chapter 9</a><br />
+</li>
+<li><a href="https://www.earthdatascience.org/courses/use-data-open-source-python/data-stories/what-is-lidar-data/">Introduction to Lidar Remote Sensing Data (EarthLab)</a><br />
+</li>
+<li><a href="https://www.earthdatascience.org/courses/use-data-open-source-python/data-stories/what-is-lidar-data/explore-lidar-point-clouds-plasio/">Optional LiDAR lab from EarthLab</a></li>
+<li><a href="https://www.earthdata.nasa.gov/learn/backgrounders/what-is-sar">What is Synthetic Aperture Radar? (NASA)</a></li>
+<li><a href="https://nisar.jpl.nasa.gov/mission/get-to-know-sar/polarimetry/">Polarimetry (NASA)</a></li>
+<li><a href="readings/MicroImages-RADAR-tutorial.pdf">Introduction to Interpreting Digital RADAR Images (MicroImages Inc.)</a></li>
+</ul>
+<h2 id="assignments">Assignments</h2>
+<ul>
+<li>Assignment 4 posted on 11-21, due by midnight 12-09</li>
+<li>Portfolio due by midnight 12-15</li>
+</ul>
 <h1 id="week-9-landcover-classification">Week 9: Landcover classification</h1>
-<h3 id="materials">Materials</h3>
+<h2 id="materials-1">Materials</h2>
 <ul>
 <li><a href="lectures/week9.pdf">Access lecture slides</a></li>
 <li><a href="https://drive.google.com/drive/folders/1ON8FbDqcTjg2PKHmNGgyN7odTqpOnXla?usp=sharing">Download data</a></li>
@@ -2642,13 +2645,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="discussion/week9_discussion.Rmd">Access completed discussion Rmd</a></li>
 <li><a href="discussion/week9_discussion.html">Access completed discussion html</a></li>
 </ul>
-<h2 id="assignments">Assignments</h2>
+<h2 id="assignments-1">Assignments</h2>
 <ul>
 <li>Assignment 4 posted on 11-21, due by midnight 12-09</li>
 <li>Portfolio due by midnight 12-15</li>
 </ul>
 <h1 id="week-8-remote-sensing-of-vegetation">Week 8: Remote sensing of vegetation</h1>
-<h2 id="materials-1">Materials</h2>
+<h2 id="materials-2">Materials</h2>
 <ul>
 <li><a href="lectures/week8.pdf">Access lecture slides</a></li>
 <li><a href="https://drive.google.com/file/d/1e9ZwWoC6kmqy5r7WtDOkabYa02jMx_sd/view?usp=sharing">Download data</a></li>
@@ -2657,17 +2660,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="labs/week8.html">Access completed lab html</a></li>
 <li><a href="https://forms.gle/oW9fHFXdzu3BqteJ9">Check in quiz due by midnight 11-22-2023</a></li>
 </ul>
-<h2 id="background-reading">Background reading</h2>
+<h2 id="background-reading-1">Background reading</h2>
 <ul>
 <li><a href="readings/Jensen-chapter10.pdf">Remote Sensing of the Environment, chapter 10</a></li>
 </ul>
-<h2 id="assignments-1">Assignments</h2>
+<h2 id="assignments-2">Assignments</h2>
 <ul>
 <li>Assignment 4 posted on 11-21, due by midnight 12-09</li>
 <li>Portfolio due by midnight 12-15</li>
 </ul>
 <h1 id="week-7-rs-data-collection">Week 7: RS data collection</h1>
-<h2 id="materials-2">Materials</h2>
+<h2 id="materials-3">Materials</h2>
 <ul>
 <li><a href="lectures/week7.pdf">Access lecture slides</a></li>
 <li><a href="labs/week4-template.Rmd">Access lab template Rmd</a></li>
@@ -2679,7 +2682,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="discussion/week7_discussion.Rmd">Access completed discussion Rmd</a></li>
 <li><a href="discussion/week7_discussion.html">Access completed discussion html</a></li>
 </ul>
-<h2 id="background-reading-1">Background reading</h2>
+<h2 id="background-reading-2">Background reading</h2>
 <ul>
 <li><a href="https://earthobservatory.nasa.gov/features/FalseColor">Why is that forest red and cloud blue? (NASA Earth Observatory)</a></li>
 <li><a href="readings/Jensen-chapter1.pdf">Remote Sensing of the Environment, chapter 1</a></li>
@@ -2689,12 +2692,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="https://tmieno2.github.io/R-as-GIS-for-Economists/before-you-start-3.html#before-you-start-3">background on <code>terra</code> vs. <code>stars</code></a></li>
 <li><a href="https://github.com/r-spatial/stars/wiki/How-%60raster%60-functions-map-to-%60stars%60-functions"><code>raster</code> to <code>stars</code> functions comparison</a></li>
 </ul>
-<h2 id="assignments-2">Assignments</h2>
+<h2 id="assignments-3">Assignments</h2>
 <ul>
 <li>Assignment 3 posted on 10-26, due by midnight 11-18</li>
 </ul>
 <h1 id="week-6-intro-to-remote-sensing">Week 6: Intro to remote sensing</h1>
-<h2 id="materials-3">Materials</h2>
+<h2 id="materials-4">Materials</h2>
 <ul>
 <li><a href="lectures/week6.pdf">Access lecture slides</a></li>
 <li><a href="labs/week4-template.Rmd">Access lab template Rmd</a></li>
@@ -2708,22 +2711,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="discussion/week6_bad.Rmd">Access example of “bad” Rmd</a></li>
 <li><a href="discussion/week6_bad.html">Access example of “bad” hmtl</a></li>
 </ul>
-<h2 id="background-reading-2">Background reading</h2>
+<h2 id="background-reading-3">Background reading</h2>
 <ul>
 <li><a href="readings/Jensen-chapter2.pdf">Remote Sensing of the Environment, chapters 1 &amp; 2</a></li>
 </ul>
-<h2 id="assignments-3">Assignments</h2>
+<h2 id="assignments-4">Assignments</h2>
 <ul>
 <li>Assignment 3 posted on 10-31, due by midnight 11-18</li>
 </ul>
 <h1 id="week-5">Week 5</h1>
-<h2 id="materials-4">Materials</h2>
+<h2 id="materials-5">Materials</h2>
 <ul>
 <li><a href="lectures/week4.pdf">Access lecture slides</a></li>
 <li><a href="assignments/assignment2-rubric-template.Rmd">Access discussion template Rmd</a></li>
 </ul>
 <h1 id="week-4-raster-operations">Week 4: Raster operations</h1>
-<h2 id="materials-5">Materials</h2>
+<h2 id="materials-6">Materials</h2>
 <ul>
 <li><a href="lectures/week4.pdf">Access lecture slides</a></li>
 <li><a href="labs/week4-template.Rmd">Access lab template Rmd</a></li>
@@ -2734,18 +2737,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="discussion/week4_discussion.Rmd">Access completed discussion Rmd</a></li>
 <li><a href="discussion/week4_discussion.html">Access completed discussion html</a></li>
 </ul>
-<h2 id="background-reading-3">Background reading</h2>
+<h2 id="background-reading-4">Background reading</h2>
 <ul>
 <li><a href="https://geocompr.robinlovelace.net/attr.html">Geocomputation with R, chapter 3</a></li>
 <li><a href="https://geocompr.robinlovelace.net/spatial-operations.html">Geocomputation with R, chapter 4</a></li>
 <li><a href="https://geocompr.robinlovelace.net/geometry-operations.html">Geocomputation with R, chapter 5</a></li>
 </ul>
-<h2 id="assignments-4">Assignments</h2>
+<h2 id="assignments-5">Assignments</h2>
 <ul>
 <li>Assignment 2 posted on 10-17, due by midnight 10-28</li>
 </ul>
 <h1 id="week-3-vector-operations">Week 3: Vector operations</h1>
-<h2 id="materials-6">Materials</h2>
+<h2 id="materials-7">Materials</h2>
 <ul>
 <li><a href="lectures/week3.pdf">Access lecture slides</a></li>
 <li><a href="labs/week3-template.Rmd">Access lab template Rmd</a></li>
@@ -2754,7 +2757,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="discussion/week3.swc">Access self-paced discussion module</a></li>
 <li><a href="discussion/week3_discussion.Rmd">Access completed discussion Rmd</a></li>
 </ul>
-<h2 id="background-reading-4">Background reading</h2>
+<h2 id="background-reading-5">Background reading</h2>
 <ul>
 <li><a href="readings/Bolstad-chapter9-part1.pdf">GIS Fundamentals, chapter 9 part 1</a></li>
 <li><a href="https://geocompr.robinlovelace.net/spatial-operations.html">Geocomputation with R, chapter 4</a></li>
@@ -2766,19 +2769,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="https://r-spatial.github.io/sf/index.html"><strong>sf</strong> overview</a></li>
 </ul>
-<h2 id="assignments-5">Assignments</h2>
+<h2 id="assignments-6">Assignments</h2>
 <ul>
 <li>Assignment 2 posted on 10-17, due by midnight 10-28</li>
 </ul>
 <h1 id="week-2-intro-to-vector-data">Week 2: Intro to vector data</h1>
-<h2 id="materials-7">Materials</h2>
+<h2 id="materials-8">Materials</h2>
 <ul>
 <li><a href="lectures/week2.pdf">Access lecture slides</a></li>
 <li><a href="labs/week2-template.Rmd">Access lab template Rmd</a></li>
 <li><a href="labs/week2.Rmd">Access completed lab Rmd</a></li>
 <li><a href="labs/week2.html">Access completed lab html</a></li>
 </ul>
-<h2 id="background-reading-5">Background reading</h2>
+<h2 id="background-reading-6">Background reading</h2>
 <ul>
 <li><a href="readings/Bolstad-chapter2-part2.pdf">GIS Fundamentals, chapter 2 part 2</a></li>
 <li><a href="https://geocompr.robinlovelace.net/spatial-class.html">Geocomputation with R, chapter 2</a></li>
@@ -2789,12 +2792,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="https://r-spatial.github.io/sf/index.html"><strong>sf</strong> overview</a></li>
 </ul>
-<h2 id="assignments-6">Assignments</h2>
+<h2 id="assignments-7">Assignments</h2>
 <ul>
 <li>Assignment 1 posted on 10-03, due by midnight 10-014</li>
 </ul>
 <h1 id="week-1-intro-to-spatial-data">Week 1: Intro to spatial data</h1>
-<h2 id="materials-8">Materials</h2>
+<h2 id="materials-9">Materials</h2>
 <ul>
 <li><a href="lectures/week1.pdf">Access lecture slides</a></li>
 <li><a href="labs/week1-template.Rmd">Access lab template Rmd</a></li>
@@ -2804,7 +2807,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="discussion/week1_discussion.Rmd">Access completed discussion Rmd</a></li>
 <li><a href="discussion/week1_discussion.html">Access completed discussion html</a></li>
 </ul>
-<h2 id="background-reading-6">Background reading</h2>
+<h2 id="background-reading-7">Background reading</h2>
 <ul>
 <li><a href="https://geocompr.robinlovelace.net/adv-map.html">Geocomputation with R, chapter 9</a></li>
 <li><a href="readings/Bolstad-chapter2-part1.pdf">GIS Fundamentals, chapter 2</a></li>
@@ -2824,33 +2827,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><a href="https://r-tmap.github.io/tmap-book/"><strong>tmap</strong> overview</a></li>
 <li><a href="https://files.taylorandfrancis.com/TJOM-suppmaterial-quick-guide.pdf">Guide to common errors in map production (Journal of maps)</a></li>
 </ul>
-<h2 id="assignments-7">Assignments</h2>
+<h2 id="assignments-8">Assignments</h2>
 <ul>
 <li>Assignment 1 posted on 10-03, due by midnight 10-14</li>
 </ul>
-<!-- # Week 10: Active remote sensing -->
-<!-- ## Lecture -->
-<!-- ### Class materials -->
-<!-- -   [Access lecture slides](lectures/week10.pdf) -->
-<!-- ### Lab -->
-<!-- -   [Optional LiDAR lab from EarthLab](https://www.earthdatascience.org/courses/use-data-open-source-python/data-stories/what-is-lidar-data/explore-lidar-point-clouds-plasio/) -->
-<!-- ### Background reading -->
-<!-- -   [Remote Sensing of the Environment, chapter 9](readings/Jensen-chapter9.pdf)\ -->
-<!-- -   [Introduction to Lidar Remote Sensing Data (EarthLab)](https://www.earthdatascience.org/courses/use-data-open-source-python/data-stories/what-is-lidar-data/)\ -->
-<!-- -  [Introduction to Interpreting Digital RADAR Images (MicroImages Inc.)](readings/MicroImages-RADAR-tutorial.pdf)  -->
-<!-- ## Assignments -->
-<!-- -   Assignment 4 posted on 11-16, due by midnight 12-03 -->
-<!-- # Week 9: Image classification -->
-<!-- ## Lecture -->
-<!-- ### Class materials -->
-<!-- -   [Access lecture slides](lectures/week9.pdf) -->
-<!-- ## Lab -->
-<!-- ### Class materials -->
-<!-- -   [Download data](https://drive.google.com/drive/folders/1ON8FbDqcTjg2PKHmNGgyN7odTqpOnXla?usp=sharing) -->
-<!-- -   [Access lab Rmd](labs/week9.Rmd)\ -->
-<!-- -   [Access lab html](labs/week9.html) -->
-<!-- ## Assignments -->
-<!-- -   Assignment 4 posted on 11-16, due by midnight 12-03 -->
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
