@@ -50,7 +50,7 @@ library(tidyverse)
 library(tmap)
 library(here)
 
-here::i_am("labs/week10-prep.R")
+here::i_am("labs/week10-template.Rmd")
 ```
 
 Load Lidar data. 
