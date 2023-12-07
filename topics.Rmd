@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 -   [Access lab template Rmd](labs/week10-template.Rmd)
 -   [Access completed lab Rmd](labs/week10.Rmd)
 -   [Access completed lab html](labs/week10.Rmd)
+-   [Access discussion template Rmd](discussion/week10_skeleton.Rmd)
+-   [Download discussion data](https://drive.google.com/file/d/1S80sEE_vCPkRQF03Nj1KfakoF364_S4k/view?usp=sharing)
 
 
 ## Background reading
