@@ -65,7 +65,8 @@ p1 = ggplot(data = cpad_super) +
 
 ```{r}
 p1 +
-  facet_wrap(~access_typ)
+  facet_wrap(~access_typ) +
+  theme(strip.background = element_rect(fill = "transparent"))
 ```
 
 2. Let's try plotting the ghm layers nicely too!
@@ -107,7 +108,7 @@ summary_boxplot = function(polygon, raster, my_layer, my_label) {
   
   #join with polygon database
   poly_join <<- full_join(polygon, zonal_layer) %>% 
-    select(suid_nma, gHM, paste(my_layer))
+    select(suid_nma, gHM, my_layer)
   
   #create boxplot based on your layer
   p1 = ggplot(poly_join) +
@@ -127,7 +128,7 @@ names(cpad_super)
 ```
 
 ```{r}
-access = summary_boxplot(cpad_super, ghm, "access_typ", "Acces Type")
+access = summary_boxplot(cpad_super, ghm, "access_typ", "Access Type")
 
 access
 ```
